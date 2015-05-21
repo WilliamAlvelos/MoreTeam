@@ -31,17 +31,6 @@ class TelaPrincipal: SKScene, SKPhysicsContactDelegate{
     }
     
     
-    func fabrica(){
-        
-        let fundoFabrica = SKSpriteNode(imageNamed: "FabricaGame.jpg")
-        fundoFabrica.xScale = 1.0
-        fundoFabrica.yScale = 1.0
-        fundoFabrica.position = CGPointMake(frame.size.width/2 ,frame.size.height/2)
-        
-        
-        self.addChild(fundoFabrica);
-    }
-    
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         /* Called when a touch begins */
         
@@ -52,7 +41,8 @@ class TelaPrincipal: SKScene, SKPhysicsContactDelegate{
             if (node.name == "play") {
                 node.removeFromParent()
                 
-                fabrica()
+                
+                
             }
             
             //            let sprite = SKSpriteNode(imageNamed:"Spaceship")

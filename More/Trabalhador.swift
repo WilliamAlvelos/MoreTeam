@@ -7,6 +7,12 @@
 //
 
 import Foundation
+import CoreData
 
-
+@objc(Trabalhadores)
+class Trabalhadores: NSManagedObject {
     
+    @NSManaged var quantidade: String
+    @NSManaged var felicidade: String
+    
+}
