@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3DE50F891B0E5AFC001E21D1 /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE50F881B0E5AFC001E21D1 /* Play.png */; };
+		3DE50F8B1B0E6212001E21D1 /* FabricaGame.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3DE50F8A1B0E6212001E21D1 /* FabricaGame.jpg */; };
+		3DE50F8D1B0E655A001E21D1 /* TelaPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE50F8C1B0E655A001E21D1 /* TelaPrincipal.swift */; };
+		3DE50F8F1B0E68E3001E21D1 /* TelaPrincipal.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3DE50F8E1B0E68E3001E21D1 /* TelaPrincipal.sks */; };
 		A3CBBC851B0E5337007F67B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CBBC841B0E5337007F67B7 /* AppDelegate.swift */; };
 		A3CBBC871B0E5337007F67B7 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A3CBBC861B0E5337007F67B7 /* GameScene.sks */; };
 		A3CBBC891B0E5337007F67B7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CBBC881B0E5337007F67B7 /* GameScene.swift */; };
@@ -28,6 +32,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3DE50F881B0E5AFC001E21D1 /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
+		3DE50F8A1B0E6212001E21D1 /* FabricaGame.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = FabricaGame.jpg; sourceTree = "<group>"; };
+		3DE50F8C1B0E655A001E21D1 /* TelaPrincipal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelaPrincipal.swift; sourceTree = "<group>"; };
+		3DE50F8E1B0E68E3001E21D1 /* TelaPrincipal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TelaPrincipal.sks; sourceTree = "<group>"; };
 		A3CBBC7F1B0E5337007F67B7 /* More.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = More.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3CBBC831B0E5337007F67B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3CBBC841B0E5337007F67B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +68,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3DE50F871B0E5AEB001E21D1 /* img */ = {
+			isa = PBXGroup;
+			children = (
+				3DE50F881B0E5AFC001E21D1 /* Play.png */,
+				3DE50F8A1B0E6212001E21D1 /* FabricaGame.jpg */,
+			);
+			name = img;
+			sourceTree = "<group>";
+		};
 		A3CBBC761B0E5337007F67B7 = {
 			isa = PBXGroup;
 			children = (
@@ -81,13 +98,16 @@
 		A3CBBC811B0E5337007F67B7 /* More */ = {
 			isa = PBXGroup;
 			children = (
-				A3CBBC841B0E5337007F67B7 /* AppDelegate.swift */,
 				A3CBBC861B0E5337007F67B7 /* GameScene.sks */,
+				A3CBBC841B0E5337007F67B7 /* AppDelegate.swift */,
+				3DE50F8E1B0E68E3001E21D1 /* TelaPrincipal.sks */,
+				3DE50F8C1B0E655A001E21D1 /* TelaPrincipal.swift */,
 				A3CBBC881B0E5337007F67B7 /* GameScene.swift */,
 				A3CBBC8A1B0E5337007F67B7 /* GameViewController.swift */,
 				A3CBBC8C1B0E5337007F67B7 /* Main.storyboard */,
 				A3CBBC8F1B0E5337007F67B7 /* Images.xcassets */,
 				A3CBBC911B0E5337007F67B7 /* LaunchScreen.xib */,
+				3DE50F871B0E5AEB001E21D1 /* img */,
 				A3CBBC821B0E5337007F67B7 /* Supporting Files */,
 			);
 			path = More;
@@ -199,8 +219,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3CBBC931B0E5337007F67B7 /* LaunchScreen.xib in Resources */,
+				3DE50F8F1B0E68E3001E21D1 /* TelaPrincipal.sks in Resources */,
 				A3CBBC901B0E5337007F67B7 /* Images.xcassets in Resources */,
+				3DE50F891B0E5AFC001E21D1 /* Play.png in Resources */,
 				A3CBBC871B0E5337007F67B7 /* GameScene.sks in Resources */,
+				3DE50F8B1B0E6212001E21D1 /* FabricaGame.jpg in Resources */,
 				A3CBBC8E1B0E5337007F67B7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,6 +244,7 @@
 			files = (
 				A3CBBC891B0E5337007F67B7 /* GameScene.swift in Sources */,
 				A3CBBC8B1B0E5337007F67B7 /* GameViewController.swift in Sources */,
+				3DE50F8D1B0E655A001E21D1 /* TelaPrincipal.swift in Sources */,
 				A3CBBC851B0E5337007F67B7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,6 +443,7 @@
 				A3CBBCA41B0E5337007F67B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A3CBBCA51B0E5337007F67B7 /* Build configuration list for PBXNativeTarget "MoreTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +452,7 @@
 				A3CBBCA71B0E5337007F67B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
