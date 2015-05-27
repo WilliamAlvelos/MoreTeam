@@ -8,7 +8,13 @@
 
 import SpriteKit
 
-class Mundo : AbstractScene {
+
+protocol MundoDelegate{
+    func showScene(scene:AbstractScene)
+}
+
+
+class Mundo : AbstractScene, MundoDelegate{
     
     var vtPosicoes:NSMutableArray!
     var vtFabricas:NSMutableArray!
@@ -73,6 +79,11 @@ class Mundo : AbstractScene {
     }
     
     
+    func showScene(scene: AbstractScene) {
+        myDelegate.showScene(scene)
+    }
+    
+    
     private func adicionarPosicaoLivre(position:CGPoint){
         var emptyPlace = EmptyPlace(size: CGSizeMake(nodeTerra.size.width * 0.3, nodeTerra.size.width * 0.3))
         emptyPlace.position = position
@@ -82,20 +93,14 @@ class Mundo : AbstractScene {
     
     
     private func gerarFabrica() -> SKSpriteNode{
-        var fabrica = SKSpriteNode(imageNamed: "fabrica.png")
-        fabrica.size = CGSizeMake(nodeTerra.size.width * 0.3, nodeTerra.size.width * 0.3)
-        fabrica.zPosition = 1
-        fabrica.name = "fabrica"
+        var fabrica = Fabrica(size: CGSizeMake(nodeTerra.size.width * 0.3, nodeTerra.size.width * 0.3))
         
         return fabrica
     }
     
     
     private func gerarLoja() -> SKSpriteNode{
-        var loja = SKSpriteNode(imageNamed: "loja.png")
-        loja.size = CGSizeMake(nodeTerra.size.width * 0.2, nodeTerra.size.width * 0.2)
-        loja.zPosition = 1
-        loja.name = "loja"
+        var loja = Loja(size: CGSizeMake(nodeTerra.size.width * 0.2, nodeTerra.size.width * 0.2))
         
         return loja
     }

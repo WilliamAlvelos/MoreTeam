@@ -9,8 +9,15 @@
 import SpriteKit
 
 
+protocol AbstractSceneDelegate{
+    func backToWorld()
+    func showScene(scene:AbstractScene)
+}
+
 
 class AbstractScene: SKScene, SingletonDelegate {
+    
+    var myDelegate:AbstractSceneDelegate!
     
     //VARIÁVEIS QUE CONTROLAM AS LABELS
     private var producao:Float!
@@ -30,11 +37,9 @@ class AbstractScene: SKScene, SingletonDelegate {
     var nodeSuperior:SKSpriteNode!
     var nodeInferior:SKSpriteNode!
     var nodePrincipal:SKSpriteNode!
-    
     var nodeSupButton:SKSpriteNode!
     var nodeSupLabelValor:SKSpriteNode!
     var nodeSupLabelProducao:SKSpriteNode!
-    
     var nodeLatBotoes:SKSpriteNode!
     
     

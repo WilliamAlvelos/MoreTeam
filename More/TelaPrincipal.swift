@@ -9,7 +9,21 @@
 import Foundation
 import SpriteKit
 
-class TelaPrincipal: SKScene, SKPhysicsContactDelegate{
+class TelaPrincipal: SKScene{
+    
+    var gameController:GameController!
+    
+    
+    init(size: CGSize, view:SKView) {
+        super.init(size: size)
+        gameController = GameController(view: view)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         let myLabel = SKLabelNode(fontNamed:"Heveltica")
@@ -41,7 +55,7 @@ class TelaPrincipal: SKScene, SKPhysicsContactDelegate{
             if (node.name == "play") {
                 node.removeFromParent()
                 
-                
+                gameController.startGame()
                 
             }
             
@@ -49,9 +63,6 @@ class TelaPrincipal: SKScene, SKPhysicsContactDelegate{
     }
     
     
-    func didBeginContact(contact: SKPhysicsContact) {
-        
-    }
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
