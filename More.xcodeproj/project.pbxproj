@@ -30,6 +30,7 @@
 		BDCD85931B1638B800222D2E /* fabrica.png in Resources */ = {isa = PBXBuildFile; fileRef = BDCD85901B1638B800222D2E /* fabrica.png */; };
 		BDCD85941B1638B800222D2E /* loja.png in Resources */ = {isa = PBXBuildFile; fileRef = BDCD85911B1638B800222D2E /* loja.png */; };
 		BDCD85951B1638B800222D2E /* terra.png in Resources */ = {isa = PBXBuildFile; fileRef = BDCD85921B1638B800222D2E /* terra.png */; };
+		BDCD85971B163D0500222D2E /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD85961B163D0500222D2E /* GameController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		BDCD85901B1638B800222D2E /* fabrica.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fabrica.png; path = Imagens/fabrica.png; sourceTree = "<group>"; };
 		BDCD85911B1638B800222D2E /* loja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = loja.png; path = Imagens/loja.png; sourceTree = "<group>"; };
 		BDCD85921B1638B800222D2E /* terra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = terra.png; path = Imagens/terra.png; sourceTree = "<group>"; };
+		BDCD85961B163D0500222D2E /* GameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				3DE50F8C1B0E655A001E21D1 /* TelaPrincipal.swift */,
 				A3CBBC881B0E5337007F67B7 /* GameScene.swift */,
 				A3CBBC8A1B0E5337007F67B7 /* GameViewController.swift */,
+				BDCD85961B163D0500222D2E /* GameController.swift */,
 				A3CBBC8C1B0E5337007F67B7 /* Main.storyboard */,
 				A3CBBC8F1B0E5337007F67B7 /* Images.xcassets */,
 				A3CBBC911B0E5337007F67B7 /* LaunchScreen.xib */,
@@ -306,6 +309,7 @@
 				3DE50F9B1B0E6F4B001E21D1 /* Trabalhadores.swift in Sources */,
 				3DE50F961B0E6C9A001E21D1 /* Fabrica.swift in Sources */,
 				A3CBBC851B0E5337007F67B7 /* AppDelegate.swift in Sources */,
+				BDCD85971B163D0500222D2E /* GameController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
