@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D1A87A01B150547008DDD01 /* produto_preto.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D1A879F1B150547008DDD01 /* produto_preto.jpg */; };
 		3DE50F891B0E5AFC001E21D1 /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE50F881B0E5AFC001E21D1 /* Play.png */; };
 		3DE50F8B1B0E6212001E21D1 /* FabricaGame.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3DE50F8A1B0E6212001E21D1 /* FabricaGame.jpg */; };
 		3DE50F8D1B0E655A001E21D1 /* TelaPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE50F8C1B0E655A001E21D1 /* TelaPrincipal.swift */; };
@@ -14,6 +15,13 @@
 		3DE50F961B0E6C9A001E21D1 /* Fabrica.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE50F951B0E6C9A001E21D1 /* Fabrica.swift */; };
 		3DE50F991B0E6CD2001E21D1 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DE50F971B0E6CD2001E21D1 /* CoreData.xcdatamodeld */; };
 		3DE50F9B1B0E6F4B001E21D1 /* Trabalhadores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE50F9A1B0E6F4B001E21D1 /* Trabalhadores.swift */; };
+		3DEE389F1B138569006F9129 /* produto.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE389E1B138569006F9129 /* produto.jpg */; };
+		3DEE38A11B1387B5006F9129 /* chao.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE38A01B1387B5006F9129 /* chao.png */; };
+		3DEE38A31B1389E3006F9129 /* balcaoNode.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE38A21B1389E3006F9129 /* balcaoNode.png */; };
+		3DEE38A51B13963D006F9129 /* funcionario.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE38A41B13963D006F9129 /* funcionario.png */; };
+		3DEE38A71B1396E3006F9129 /* menos.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE38A61B1396E3006F9129 /* menos.png */; };
+		3DEE38A91B13D2AE006F9129 /* Fabrica.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE38A81B13D2AE006F9129 /* Fabrica.sks */; };
+		3DEE38AB1B14DD3D006F9129 /* demitir.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE38AA1B14DD3D006F9129 /* demitir.png */; };
 		A3CBBC851B0E5337007F67B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CBBC841B0E5337007F67B7 /* AppDelegate.swift */; };
 		A3CBBC871B0E5337007F67B7 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A3CBBC861B0E5337007F67B7 /* GameScene.sks */; };
 		A3CBBC891B0E5337007F67B7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CBBC881B0E5337007F67B7 /* GameScene.swift */; };
@@ -35,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D1A879F1B150547008DDD01 /* produto_preto.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = produto_preto.jpg; sourceTree = "<group>"; };
 		3DE50F881B0E5AFC001E21D1 /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 		3DE50F8A1B0E6212001E21D1 /* FabricaGame.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = FabricaGame.jpg; sourceTree = "<group>"; };
 		3DE50F8C1B0E655A001E21D1 /* TelaPrincipal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelaPrincipal.swift; sourceTree = "<group>"; };
@@ -42,6 +51,13 @@
 		3DE50F951B0E6C9A001E21D1 /* Fabrica.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fabrica.swift; sourceTree = "<group>"; };
 		3DE50F981B0E6CD2001E21D1 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		3DE50F9A1B0E6F4B001E21D1 /* Trabalhadores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trabalhadores.swift; sourceTree = "<group>"; };
+		3DEE389E1B138569006F9129 /* produto.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = produto.jpg; sourceTree = "<group>"; };
+		3DEE38A01B1387B5006F9129 /* chao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chao.png; sourceTree = "<group>"; };
+		3DEE38A21B1389E3006F9129 /* balcaoNode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balcaoNode.png; sourceTree = "<group>"; };
+		3DEE38A41B13963D006F9129 /* funcionario.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = funcionario.png; sourceTree = "<group>"; };
+		3DEE38A61B1396E3006F9129 /* menos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menos.png; sourceTree = "<group>"; };
+		3DEE38A81B13D2AE006F9129 /* Fabrica.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fabrica.sks; sourceTree = "<group>"; };
+		3DEE38AA1B14DD3D006F9129 /* demitir.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demitir.png; sourceTree = "<group>"; };
 		A3CBBC7F1B0E5337007F67B7 /* More.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = More.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3CBBC831B0E5337007F67B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3CBBC841B0E5337007F67B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,8 +93,15 @@
 		3DE50F871B0E5AEB001E21D1 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				3DEE38A61B1396E3006F9129 /* menos.png */,
+				3DEE389E1B138569006F9129 /* produto.jpg */,
+				3DEE38AA1B14DD3D006F9129 /* demitir.png */,
+				3DEE38A01B1387B5006F9129 /* chao.png */,
+				3DEE38A41B13963D006F9129 /* funcionario.png */,
+				3D1A879F1B150547008DDD01 /* produto_preto.jpg */,
 				3DE50F881B0E5AFC001E21D1 /* Play.png */,
 				3DE50F901B0E6A82001E21D1 /* botao.png */,
+				3DEE38A21B1389E3006F9129 /* balcaoNode.png */,
 				3DE50F8A1B0E6212001E21D1 /* FabricaGame.jpg */,
 			);
 			name = img;
@@ -120,6 +143,7 @@
 				3DE50F8C1B0E655A001E21D1 /* TelaPrincipal.swift */,
 				A3CBBC881B0E5337007F67B7 /* GameScene.swift */,
 				A3CBBC8A1B0E5337007F67B7 /* GameViewController.swift */,
+				3DEE38A81B13D2AE006F9129 /* Fabrica.sks */,
 				A3CBBC8C1B0E5337007F67B7 /* Main.storyboard */,
 				A3CBBC8F1B0E5337007F67B7 /* Images.xcassets */,
 				A3CBBC911B0E5337007F67B7 /* LaunchScreen.xib */,
@@ -235,13 +259,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DEE38AB1B14DD3D006F9129 /* demitir.png in Resources */,
 				A3CBBC931B0E5337007F67B7 /* LaunchScreen.xib in Resources */,
 				3DE50F911B0E6A82001E21D1 /* botao.png in Resources */,
 				A3CBBC901B0E5337007F67B7 /* Images.xcassets in Resources */,
+				3DEE38A51B13963D006F9129 /* funcionario.png in Resources */,
+				3DEE389F1B138569006F9129 /* produto.jpg in Resources */,
 				3DE50F891B0E5AFC001E21D1 /* Play.png in Resources */,
+				3DEE38A71B1396E3006F9129 /* menos.png in Resources */,
+				3DEE38A11B1387B5006F9129 /* chao.png in Resources */,
 				A3CBBC871B0E5337007F67B7 /* GameScene.sks in Resources */,
+				3D1A87A01B150547008DDD01 /* produto_preto.jpg in Resources */,
+				3DEE38A31B1389E3006F9129 /* balcaoNode.png in Resources */,
 				3DE50F8B1B0E6212001E21D1 /* FabricaGame.jpg in Resources */,
 				A3CBBC8E1B0E5337007F67B7 /* Main.storyboard in Resources */,
+				3DEE38A91B13D2AE006F9129 /* Fabrica.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
