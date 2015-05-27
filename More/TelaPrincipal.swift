@@ -47,19 +47,21 @@ class TelaPrincipal: SKScene{
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         /* Called when a touch begins */
+
         
-        for touch in (touches as! Set<UITouch>) {
-            let location = touch.locationInNode(self)
-            var node = self.nodeAtPoint(location)
-            
-            if (node.name == "play") {
-                node.removeFromParent()
-                
-                gameController.startGame()
-                
-            }
-            
-        }
+        gameController.startGame()
+//        for touch in (touches as! Set<UITouch>) {
+//            let location = touch.locationInNode(self)
+//            var node = self.nodeAtPoint(location)
+//            
+//            if (node.name == "play") {
+//                node.removeFromParent()
+//                
+//                
+//                
+//            }
+//            
+//        }
     }
     
     

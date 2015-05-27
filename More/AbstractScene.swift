@@ -11,7 +11,8 @@ import SpriteKit
 
 protocol AbstractSceneDelegate{
     func backToWorld()
-    func showScene(scene:AbstractScene)
+    func goToFabrica(fabrica:SKSpriteNode)
+    func goToLoja(loja:SKSpriteNode)
 }
 
 

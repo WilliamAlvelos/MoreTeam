@@ -9,12 +9,7 @@
 import SpriteKit
 
 
-protocol MundoDelegate{
-    func showScene(scene:AbstractScene)
-}
-
-
-class Mundo : AbstractScene, MundoDelegate{
+class Mundo : AbstractScene{
     
     var vtPosicoes:NSMutableArray!
     var vtFabricas:NSMutableArray!
@@ -79,9 +74,7 @@ class Mundo : AbstractScene, MundoDelegate{
     }
     
     
-    func showScene(scene: AbstractScene) {
-        myDelegate.showScene(scene)
-    }
+    
     
     
     private func adicionarPosicaoLivre(position:CGPoint){

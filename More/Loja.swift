@@ -13,8 +13,7 @@ import SpriteKit
 
 class Loja : SKSpriteNode{
     
-    var delegate:MundoDelegate!
-    var lojaScene:AbstractScene!
+    var delegate:AbstractSceneDelegate!
     
     
     init(size:CGSize){
@@ -22,6 +21,8 @@ class Loja : SKSpriteNode{
         
         self.zPosition = 1
         self.name = "loja"
+        
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +31,7 @@ class Loja : SKSpriteNode{
     
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        delegate.showScene(lojaScene)
+        delegate.goToLoja(self)
     }
     
 }

@@ -28,8 +28,12 @@ class GameController:AbstractSceneDelegate{
     }
     
     
-    func showScene(scene: AbstractScene) {
-        gameView.presentScene(scene)
+    func goToFabrica(fabrica:SKSpriteNode){
+    }
+    
+    
+    func goToLoja(loja:SKSpriteNode){
+        
     }
     
     
