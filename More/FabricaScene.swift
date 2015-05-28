@@ -76,12 +76,14 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsCon
         return fetchRequest
     }
     
-    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
         
         showBackButton()
+        
+        var singleton = Singleton.sharedInstance
+        singleton.delegate = self
         
         frc = getFetchedResultsController()
         frc.delegate = self
@@ -301,6 +303,10 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsCon
             NSLog("%d", valorEsteira1)
             
             NSLog("%d", valorEsteira2)
+            
+            if(node.name == "voltar"){
+                myDelegate.backToWorld()
+            }
             
             
             if (node.name == "mais") {

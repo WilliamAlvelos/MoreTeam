@@ -23,13 +23,14 @@ class GameController:AbstractSceneDelegate{
     }
     
     
-    func backToWorld() {
-        
+    func backToWorld(){
+        gameView.presentScene(mundo)
     }
     
     
     func goToFabrica(fabrica:SKSpriteNode){
         let fabrica = FabricaScene(size: gameView.frame.size)
+        fabrica.myDelegate = self
         gameView.presentScene(fabrica)
     }
     
