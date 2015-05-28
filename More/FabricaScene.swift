@@ -81,6 +81,8 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsCon
         /* Setup your scene here */
         
         
+        showBackButton()
+        
         frc = getFetchedResultsController()
         frc.delegate = self
         frc.performFetch(nil)
