@@ -12,7 +12,7 @@ import SpriteKit
 import CoreData
 
 
-class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControllerDelegate{
+class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsControllerDelegate{
     
     var novoEsteira:Int = 0
     var novoEsteira1:Int = 0
@@ -36,23 +36,22 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
     
     var valorEsteira2 = 0
     
-    var valorEsteira3 = 0
-    
     var ultimoFuncionario:[SKNode] = []
     
     var demitirFuncionarios:[SKNode] = []
     
-    var funcionarioDemitidos:[SKNode] = []
+    var funcionariosDemitidos:[SKNode] = []
+    
+    var trabalhadoresEsteira1:UInt32 = 0
+    
+    var trabalhadoresEsteira2:UInt32 = 0
     
     var flagEsteira1 = 1
     
     var flagEsteira2 = 1
     
-    var flagEsteira3 = 1
-    
     
     func retornaDados() ->[Trabalhadores]{
-        
         
         let fetchedLists: [Trabalhadores]? = frc.fetchedObjects as? [Trabalhadores]
         
@@ -91,63 +90,53 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
         let fundoFabrica = SKSpriteNode(imageNamed: "chao")
         fundoFabrica.xScale = 1.5
         fundoFabrica.yScale = 1.5
-        fundoFabrica.position = CGPointMake(frame.size.width/2 ,frame.size.height/2)
+        fundoFabrica.zPosition = -1.0
+        fundoFabrica.position = CGPointMake( 0,0)
         
-        
-        self.addChild(fundoFabrica);
+        nodePrincipal.addChild(fundoFabrica);
         
 
         myLabel.text = NSString(format: "%d", trabalhadores+1) as String
         myLabel.fontSize = 65;
-        myLabel.position = CGPoint(x:50, y: CGRectGetMidY(self.frame));
+        myLabel.position = CGPoint(x:0, y:300);
         
         let play = SKSpriteNode(imageNamed: "Play")
         play.xScale = 0.3
         play.yScale = 0.3
-        play.position = CGPointMake(frame.size.width - 50 ,frame.size.height - 100)
+        play.position = CGPointMake(0,+100)
         play.name = "mais"
         
         let menos = SKSpriteNode(imageNamed: "menos")
         menos.xScale = 0.2
         menos.yScale = 0.2
-        menos.position = CGPointMake(frame.size.width - 50 ,frame.size.height - 200)
+        menos.position = CGPointMake(0 ,0)
         menos.name = "menos"
 
-        
-        let esteira = SKSpriteNode(imageNamed: "balcaoNode")
+        let esteira = SKSpriteNode(imageNamed: "esteiraNode")
         esteira.xScale = 2.0
         esteira.yScale = 2.0
-        esteira.position = CGPointMake(frame.size.width/2 - 300 , 150)
+        esteira.position = CGPointMake(nodePrincipal.size.width/6 - 300 , 150)
         esteira.name = "esteira"
+        esteira.zPosition = 0.5
         
-        
-        let esteira2 = SKSpriteNode(imageNamed: "balcaoNode")
+        let esteira2 = SKSpriteNode(imageNamed: "esteiraNode")
         esteira2.xScale = 2.0
         esteira2.yScale = 2.0
-        esteira2.position = CGPointMake(frame.size.width/2 , 150)
+        esteira2.position = CGPointMake(nodePrincipal.size.width/6 + 75, 150)
         esteira2.name = "esteira2"
+        esteira2.zPosition = 0.5
         
-        
-        let esteira3 = SKSpriteNode(imageNamed: "balcaoNode")
-        esteira3.xScale = 2.0
-        esteira3.yScale = 2.0
-        esteira3.position = CGPointMake(frame.size.width/2 + 300 , 150)
-        esteira3.name = "esteira3"
-        
-        self.addChild(esteira3)
-        self.addChild(esteira2)
-        self.addChild(esteira)
-        self.addChild(play)
-        self.addChild(myLabel)
-        self.addChild(menos)
-        
-        
+        nodePrincipal.addChild(esteira2)
+        nodePrincipal.addChild(esteira)
+        nodeLatBotoes.addChild(play)
+        nodeLateral.addChild(myLabel)
+        nodeLatBotoes.addChild(menos)
     }
     
     
     func caixaProducao(){
         
-        if(trabalhadores < 0){
+        if(valorEsteira1 <= 0){
             let produto = SKSpriteNode(imageNamed: "produto_preto.jpg")
             
             produto.xScale = 0.05
@@ -155,14 +144,15 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
             
             yVar = 0
             
-            produto.position = CGPoint(x:frame.size.width/2 - 300 , y: 0)
+            produto.position = CGPoint(x:nodePrincipal.size.width/6 - 300 , y: -nodePrincipal.size.height/2)
+            produto.zPosition = 3.0
             
-            self.addChild(produto)
+            nodePrincipal.addChild(produto)
             
             valorEsteira1 += novoEsteira
             novoEsteira = 0
             
-            let acaoAndar = SKAction.moveTo(CGPoint(x:frame.size.width/2 - 300, y: self.frame.size.height + 100), duration: NSTimeInterval(3.0))
+            let acaoAndar = SKAction.moveTo(CGPoint(x:nodePrincipal.size.width/6 - 300, y: nodePrincipal.size.height + 100), duration: NSTimeInterval(3.0))
             
             let acaoApagarNode = SKAction.removeFromParent()
             
@@ -170,7 +160,7 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
                 self.yVar = self.yVar + 60
                 
             })
-            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira1)/8)), completion: { () -> Void in
+            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira1)/16)), completion: { () -> Void in
                 self.runAction(SKAction.runBlock(self.caixaProducao))
                 
             })
@@ -186,19 +176,20 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
             
             yVar = 0
             
-            produto.position = CGPoint(x:frame.size.width/2 - 300 , y: 0)
+            produto.position = CGPoint(x:nodePrincipal.size.width/6 - 300 , y:-nodePrincipal.size.height/2)
+            produto.zPosition = 3.0
             
-            self.addChild(produto)
+            nodePrincipal.addChild(produto)
             
             valorEsteira1 += novoEsteira
             novoEsteira = 0
             
-            if(valorEsteira1 > 8){
-                valorEsteira1 = 8
+            if(valorEsteira1 > 16){
+                valorEsteira1 = 16
             }
             
             
-            let acaoAndar = SKAction.moveTo(CGPoint(x:frame.size.width/2 - 300, y: self.frame.size.height + 100), duration: NSTimeInterval(3.0))
+            let acaoAndar = SKAction.moveTo(CGPoint(x:nodePrincipal.size.width/6 - 300, y: nodePrincipal.size.height + 100), duration: NSTimeInterval(3.0))
             
             let acaoApagarNode = SKAction.removeFromParent()
             
@@ -206,7 +197,7 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
                 self.yVar = self.yVar + 60
                 
             })
-            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira1)/8)), completion: { () -> Void in
+            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira1)/16)), completion: { () -> Void in
                 self.runAction(SKAction.runBlock(self.caixaProducao))
                 
             })
@@ -214,14 +205,12 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
             
             produto.removeAllChildren()
         }
-        
-
     
     }
     
     func caixaProducaoEsteira2(){
         
-        if(trabalhadores < 8){
+        if(valorEsteira2 <= 0){
             let produto = SKSpriteNode(imageNamed: "produto_preto.jpg")
             
             produto.xScale = 0.05
@@ -229,16 +218,18 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
             
             yVar = 0
             
-            produto.position = CGPoint(x:frame.size.width/2  , y: 0)
+            produto.position = CGPoint(x:nodePrincipal.size.width/6+75 , y:-nodePrincipal.size.height/2)
+            produto.zPosition = 3.0
             
-            self.addChild(produto)
+            
+            nodePrincipal.addChild(produto)
             
             valorEsteira2 += novoEsteira1
             novoEsteira1 = 0
             
             
             
-            let acaoAndar = SKAction.moveTo(CGPoint(x:frame.size.width/2, y: self.frame.size.height + 100), duration: NSTimeInterval(3.0))
+            let acaoAndar = SKAction.moveTo(CGPoint(x:nodePrincipal.size.width/6+75, y: nodePrincipal.size.height + 100), duration: NSTimeInterval(3.0))
             
             let acaoApagarNode = SKAction.removeFromParent()
             
@@ -246,7 +237,7 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
                 self.yVar = self.yVar + 60
                 
             })
-            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira2)/8)), completion: { () -> Void in
+            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira2)/16)), completion: { () -> Void in
                 self.runAction(SKAction.runBlock(self.caixaProducaoEsteira2))
             })
             
@@ -261,20 +252,21 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
             
             yVar = 0
             
-            produto.position = CGPoint(x:frame.size.width/2  , y: 0)
+            produto.position = CGPoint(x:nodePrincipal.size.width/6+75, y:-nodePrincipal.size.height/2)
+            produto.zPosition = 3.0
             
-            self.addChild(produto)
+            nodePrincipal.addChild(produto)
             
             valorEsteira2 += novoEsteira1
             novoEsteira1 = 0
             
-            if(valorEsteira2 > 8){
-                valorEsteira2 = 8
+            if(valorEsteira2 > 16){
+                valorEsteira2 = 16
             }
             
             
             
-            let acaoAndar = SKAction.moveTo(CGPoint(x:frame.size.width/2, y: self.frame.size.height + 100), duration: NSTimeInterval(3.0))
+            let acaoAndar = SKAction.moveTo(CGPoint(x:nodePrincipal.size.width/6+75, y: self.nodePrincipal.size.height + 100), duration: NSTimeInterval(3.0))
             
             let acaoApagarNode = SKAction.removeFromParent()
             
@@ -282,7 +274,7 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
                 self.yVar = self.yVar + 60
                 
             })
-            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira2)/8)), completion: { () -> Void in
+            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira2)/16)), completion: { () -> Void in
                 self.runAction(SKAction.runBlock(self.caixaProducaoEsteira2))
             })
             
@@ -294,77 +286,6 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
         
     }
     
-    
-    func caixaProducaoEsteira3(){
-        
-        let produto = SKSpriteNode(imageNamed: "produto.jpg")
-        if(trabalhadores < 16){
-            let produto = SKSpriteNode(imageNamed: "produto_preto.jpg")
-            
-            produto.xScale = 0.05
-            produto.yScale = 0.05
-            
-            yVar = 0
-            
-            produto.position = CGPoint(x:frame.size.width/2 + 300 , y: 0)
-            
-            self.addChild(produto)
-            
-            valorEsteira3 += novoEsteira2
-            novoEsteira2 = 0
-            
-            let acaoAndar = SKAction.moveTo(CGPoint(x:frame.size.width/2 + 300, y: self.frame.size.height + 100), duration: NSTimeInterval(3.0))
-            
-            let acaoApagarNode = SKAction.removeFromParent()
-            
-            produto.runAction(SKAction.sequence([acaoAndar]), completion: { () -> Void in
-                self.yVar = self.yVar + 60
-                
-            })
-            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira3)/8)), completion: { () -> Void in
-                self.runAction(SKAction.runBlock(self.caixaProducaoEsteira3))
-            })
-            
-            
-            produto.removeAllChildren()
-            
-        }
-        else{
-            let produto = SKSpriteNode(imageNamed: "produto.jpg")
-            
-            produto.xScale = 0.05
-            produto.yScale = 0.05
-            
-            yVar = 0
-            
-            produto.position = CGPoint(x:frame.size.width/2 + 300 , y: 0)
-            
-            self.addChild(produto)
-            
-            valorEsteira3 += novoEsteira2
-            novoEsteira2 = 0
-            
-            if(valorEsteira3 > 8){
-                valorEsteira3 = 8
-            }
-            
-            let acaoAndar = SKAction.moveTo(CGPoint(x:frame.size.width/2 + 300, y: self.frame.size.height + 100), duration: NSTimeInterval(3.0))
-            
-            let acaoApagarNode = SKAction.removeFromParent()
-            
-            produto.runAction(SKAction.sequence([acaoAndar]), completion: { () -> Void in
-                self.yVar = self.yVar + 60
-                
-            })
-            produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira3)/8)), completion: { () -> Void in
-                self.runAction(SKAction.runBlock(self.caixaProducaoEsteira3))
-            })
-            
-            
-            produto.removeAllChildren()
-        }
-        
-    }
     
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -379,7 +300,6 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
             
             NSLog("%d", valorEsteira2)
             
-            NSLog("%d", valorEsteira3)
             
             if (node.name == "mais") {
                 
@@ -387,81 +307,77 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
                     demitir.removeFromParent()
                 }
                 
-                if(funcionarioDemitidos.count > 0){
+                
+                if(funcionariosDemitidos.count > 0){
+                    let funcionario = funcionariosDemitidos.removeLast()
+                    nodePrincipal.addChild(funcionario)
                     
-                    let funcionario = funcionarioDemitidos.removeLast()
+                    if(funcionario.position.x < nodePrincipal.size.height/2 - 300){
+                        novoEsteira++;
+                    }
+                        
+                    else{
+                        novoEsteira1++;
+                    }
                     
+                }
+
+                else if(trabalhadores < 23){
+                    if(trabalhadores == -1 && flagEsteira1 == 1){
+                        runAction(SKAction.runBlock(caixaProducao))
+                        flagEsteira1 = 0;
+                    }
+                    if(trabalhadores == 11 && flagEsteira2 == 1){
+                        runAction(SKAction.runBlock(caixaProducaoEsteira2))
+                        flagEsteira2 = 0
+                    }
                     
-                    self.addChild(funcionario);
+                    trabalhadores++;
+                    
+                    let funcionario = SKSpriteNode(imageNamed: "funcionario")
+                    funcionario.xScale = 0.1
+                    funcionario.yScale = 0.1
+                    funcionario.name = "funcionario"
+                    
+                    myLabel.text = NSString(format: "%d", trabalhadores+1) as String
+                    
+                    salvarDados();
+                    
+                    if(trabalhadores <= 5){
+                        var aux = trabalhadores;
+                        var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                        funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 400, y-(nodePrincipal.size.width/2))
+                    }
+                    else if(trabalhadores >= 6 && trabalhadores < 12){
+                        var aux = trabalhadores - 6;
+                        var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                        funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 200, y-(nodePrincipal.size.width/2))
+                    }
+                        
+                    else if(trabalhadores >= 12 && trabalhadores < 18){
+                        var aux = trabalhadores - 12;
+                        var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                        funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 25, y-(nodePrincipal.size.width/2))
+                    }
+                    
+                    else{
+                        //var aux = trabalhadores - 18;
+                        var y:CGFloat = (CGFloat(trabalhadores-18)*100)+125.0
+                        funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 175, y-(nodePrincipal.size.width/2))
+                    }
+                    
+                    if(funcionario.position.x < nodePrincipal.size.height/2 - 300){
+                        novoEsteira++;
+                    }
+                        
+                    else{
+                        novoEsteira1++;
+                    }
+
+                    nodePrincipal.addChild(funcionario);
                     
                     ultimoFuncionario.append(funcionario)
                     
-                }
-                
-                else{
-                    if(trabalhadores < 23){
-                        if(trabalhadores == -1 && flagEsteira1 == 1){
-                            runAction(SKAction.runBlock(caixaProducao))
-                            flagEsteira1 = 0;
-                        }
-                        if(trabalhadores == 7 && flagEsteira2 == 1){
-                            runAction(SKAction.runBlock(caixaProducaoEsteira2))
-                            flagEsteira2 = 0
-                        }
-                        if(trabalhadores == 15 && flagEsteira3 == 1){
-                            runAction(SKAction.runBlock(caixaProducaoEsteira3))
-                            flagEsteira3 = 0
-                        }
-                        
-                        
-                        trabalhadores++;
-                        
-                        if(trabalhadores < 8){
-                            novoEsteira++;
-                        }
-                        
-                        else if(trabalhadores < 16){
-                            novoEsteira1++;
-                        }
-                        
-                        else{
-                            novoEsteira2++
-                        }
-                        
-                        myLabel.text = NSString(format: "%d", trabalhadores+1) as String
-                        
-                        salvarDados();
-                        
-                        let funcionario = SKSpriteNode(imageNamed: "funcionario")
-                        funcionario.xScale = 0.1
-                        funcionario.yScale = 0.1
-                        funcionario.name = "funcionario"
-                        
-
-                        
-                        if(trabalhadores <= 7){
-                            var aux = trabalhadores;
-                            var y:CGFloat = (CGFloat(aux)*100.0)+25.0
-                        
-                            funcionario.position = CGPointMake(frame.size.width/2 - 400, y)
-                        }
-                        else if(trabalhadores >= 8 && trabalhadores < 16){
-                            var aux = trabalhadores - 8;
-                            var y:CGFloat = (CGFloat(aux)*100.0)+25.0
-                            funcionario.position = CGPointMake(frame.size.width/2 - 100, y)
-                        }
-                        
-                        else{
-                            //var aux = trabalhadores;
-                            var y:CGFloat = (CGFloat(trabalhadores-16)*100.0)+25.0
-                            funcionario.position = CGPointMake(frame.size.width/2 + 200, y)
-                        }
-
-                        self.addChild(funcionario);
-                        
-                        ultimoFuncionario.append(funcionario)
-                        
-                    }
                 }
             }
             
@@ -469,19 +385,6 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
                 
                 if(trabalhadores >= 0){
                     trabalhadores--
-                    
-                    
-                    if(trabalhadores < 8){
-                        novoEsteira--
-                    }
-                        
-                    else if(trabalhadores < 16){
-                        novoEsteira1--
-                    }
-                        
-                    else{
-                        novoEsteira2--
-                    }
                     
                     myLabel.text = NSString(format: "%d", trabalhadores+1) as String
                     
@@ -503,9 +406,7 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
                 demitir.name = NSString(format: "%d", trabalhadores) as String
                 demitir.position = CGPointMake(node.position.x - 60, node.position.y)
 
-                
-                self.addChild(demitir)
-                
+                nodePrincipal.addChild(demitir)
                 
                 demitirFuncionarios.append(demitir)
                 
@@ -514,26 +415,10 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
             
             if(node.zPosition == 1.0){
                 
-                if(trabalhadores >= 0){
-                
-                    trabalhadores--
-                    
-                    if(trabalhadores < 8){
-                        novoEsteira--;
-                    }
-                        
-                    else if(trabalhadores < 16){
-                        novoEsteira1--;
-                    }
-                        
-                    else{
-                        novoEsteira2--;
-                    }
-                    
-                    myLabel.text = NSString(format: "%d", trabalhadores+1) as String
+                myLabel.text = NSString(format: "%d", trabalhadores+1) as String
         
-                    excluirFuncionario(node as! SKSpriteNode)
-                }
+                upgradeFuncionario(node as! SKSpriteNode)
+            
             }
             
         }
@@ -542,15 +427,64 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
     
     func excluirFuncionario(funcionario:SKSpriteNode) {
         
-        //let myString : String = funcionario.name!
+        if(funcionario.zPosition == 1.0){
+            funcionario.removeFromParent()
+        }
         
-        //let x : Int? = myString.toInt()
+        for demitir in demitirFuncionarios{
+            demitir.removeFromParent()
+        }
         
-        funcionarioDemitidos.append(ultimoFuncionario.last!)
+        funcionariosDemitidos.append(ultimoFuncionario.last!)
+        
+        if(ultimoFuncionario.last!.name == "japones"){
+            
+            if(ultimoFuncionario.last!.position.x < nodePrincipal.size.height/2 - 300){
+                novoEsteira -= 2;
+            }
+                
+            else{
+                novoEsteira1 -= 2;
+            }
+        
+        }
+        else{
+            if(ultimoFuncionario.last!.position.x < nodePrincipal.size.height/2 - 300){
+                novoEsteira--;
+            }
+                
+            else{
+                novoEsteira1--;
+            }
+            
+        }
         
         ultimoFuncionario.removeLast().removeFromParent()
         
-
+    }
+    
+    
+    func upgradeFuncionario(funcionario:SKSpriteNode) {
+        
+        
+        let japones = SKSpriteNode(imageNamed: "japones.jpg")
+        
+        japones.position = ultimoFuncionario.last!.position
+        
+        if(japones.position.x < nodePrincipal.size.height/2 - 300){
+            novoEsteira++;
+        }
+            
+        else{
+            novoEsteira1++;
+        }
+        
+        
+        ultimoFuncionario.removeLast().removeFromParent()
+        
+        japones.xScale = 0.3
+        japones.yScale = 0.3
+        japones.name = "japones"
         
         
         if(funcionario.zPosition == 1.0){
@@ -560,6 +494,12 @@ class FabricaScene: SKScene, SKPhysicsContactDelegate, NSFetchedResultsControlle
         for demitir in demitirFuncionarios{
             demitir.removeFromParent()
         }
+        
+        ultimoFuncionario.append(japones)
+        
+        nodePrincipal.addChild(japones)
+        
+        //funcionario.position = funcionarioDemitidos.last!.position
         
     }
     
