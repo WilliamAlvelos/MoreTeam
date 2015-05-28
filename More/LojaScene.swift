@@ -8,139 +8,61 @@
 
 import SpriteKit
 
-class LojaScene: SKScene, SKPhysicsContactDelegate {
+class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
-    var balcaoNode : SKSpriteNode?
-    var trabalhadorNode : SKSpriteNode?
-    var filaNodeUm : SKShapeNode?
-    var filaNodeDois : SKShapeNode?
-    var clienteNode : SKSpriteNode?
-    var sprites : NSMutableArray = NSMutableArray()
-    var contadorNodes : Int = 0
-    var andarNode : CGFloat = 900
-    var foregroundNode = SKSpriteNode()
-    var quantidadeNodes : Int = 0
-    var contador : Int = 0
-    var flagNodes : Int = 0
-    
-    //Acoes
-    
-    var actionWait = SKAction.waitForDuration(0.8)
-    var actionMoveLeft = SKAction.moveByX(-70, y: 0, duration: 0.5)
+    var actionWait = SKAction.waitForDuration(3)
+    var actionMoveLeft = SKAction.moveByX(-40, y: 0, duration: 0.5)
     var actionMoveDown = SKAction.moveToY(-700, duration: 2)
-    let acaoAndar = SKAction.moveByX(0, y: 900, duration: 9);
-    //let acaoAndar : CGFloat = 900
-
-    
-    let CollisionNodeCliente     : UInt32 = 0x1 << 1
-    let CollisionNodeBalcao : UInt32 = 0x1 << 2
+    var arrayDeFila : NSMutableArray = NSMutableArray()
+    var addFuncionario : SKShapeNode?
+    var removerFuncionario : SKShapeNode?
+    var contadorFila : Int = 0
+    var posicaoFila : CGPoint!
     
     override func didMoveToView(view: SKView) {
         
-        
-        
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
     }
     
-    override init(size: CGSize) {
+    func gerarFila(posicao : CGPoint) -> FilaLoja {
         
+        var fila = FilaLoja(size: CGSizeMake(nodePrincipal.size.width / 4, nodePrincipal.size.height), varMarketing: 0, qtdClientes: 6)
+        fila.position = posicao
+        nodePrincipal.addChild(fila)
+        
+        fila.iniciarFila()
+        return fila
+    }
+    
+    override init(size: CGSize) {
         super.init(size: size)
         
-        addChild(foregroundNode)
-
+        posicaoFila = CGPointMake(-200, 0)
+        
+        arrayDeFila.addObject(gerarFila(posicaoFila))
+        nodePrincipal.color = UIColor.whiteColor()
         
         //Fisica Mundo
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVectorMake(0.0, 0.0);
-    
-        //Add Balcao 1
-        balcaoNode = SKSpriteNode(imageNamed: "balcaoNode")
-        balcaoNode!.position = CGPoint(x: size.width / 3.9, y: size.height / 1.8)
-        var tamanho = CGSize(width: balcaoNode!.size.width, height: balcaoNode!.size.height + 30)
-        balcaoNode!.physicsBody = SKPhysicsBody(rectangleOfSize: tamanho)
-        balcaoNode!.physicsBody!.dynamic = false
-        balcaoNode!.physicsBody!.categoryBitMask = CollisionNodeBalcao
-        balcaoNode!.name = "balcaoNode"
         
-        addChild(balcaoNode!)
+        addFuncionario = SKShapeNode(circleOfRadius: CGFloat(30))
+        addFuncionario!.name = "addFuncionario"
+        addFuncionario?.fillColor = UIColor.blackColor()
+        addFuncionario!.position = CGPoint(x: 0, y: 0)
+        nodeLatBotoes.addChild(addFuncionario!)
         
-        //Add Trabalhador 1
-        trabalhadorNode = SKSpriteNode(imageNamed: "trabalhadorNode")
-        trabalhadorNode!.position = CGPoint(x: size.width / 2.4, y: size.height / 1.8)
-        addChild(trabalhadorNode!)
-        
-        
-        var acaoAndar : CGFloat = 900
-        
-        runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.runBlock(addCliente),
-                SKAction.waitForDuration(1.0)
-                ])
-            ))
-    }
-    
-    func addCliente() {
-        
-        
-//        let acaoEspera = SKAction.waitForDuration(2)
-        
-        //var clienteNode = SKSpriteNode(imageNamed: "clienteNode")
-        var clienteNode = SKShapeNode(rectOfSize: CGSize(width: 20, height: 20))
-//        clienteNode.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(30))
-        clienteNode.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 30, height: 30))
-        clienteNode.position = CGPoint(x: size.width / 4.0, y: size.height / 70)
-        clienteNode.physicsBody?.dynamic = true
-        clienteNode.physicsBody!.categoryBitMask = CollisionNodeCliente
-        clienteNode.physicsBody!.contactTestBitMask =
-        CollisionNodeCliente | CollisionNodeBalcao
-        clienteNode.name = "clienteNode"
-        clienteNode.removeAllActions()
-        //clienteNode.runAction(SKAction.sequence([acaoAndar, acaoEspera]))
-        
-//        andarNode = andarNode - 60
-        
-        if(quantidadeNodes <= 20 && clienteNode.name == "clienteNode") {
-        foregroundNode.addChild(clienteNode)
-        quantidadeNodes++
-        clienteNode.runAction(acaoAndar, withKey: "acaoAndarEntrando")
-        }
-        
-       // clienteNode.runAction(SKAction.moveByX(0, y: acaoAndar, duration: 2), completion: { () -> Void in
+        removerFuncionario = SKShapeNode(circleOfRadius: CGFloat(30))
+        removerFuncionario!.name = "removerFuncionario"
+        removerFuncionario?.fillColor = UIColor.blueColor()
+        removerFuncionario?.position = CGPoint(x: 0, y: -100)
+        nodeLatBotoes.addChild(removerFuncionario!)
         
     }
-    
-    func didEndContact(contact: SKPhysicsContact) {
-        var bodyA = contact.bodyA.node!
-        var bodyB = contact.bodyB.node!
-        
-        
-        if(bodyA.name == "clienteNode" && bodyB.name == "clienteNode"){
-            //bodyB.removeAllActions()
-            
-            
-            bodyB.runAction(SKAction.moveByX(0, y: 15, duration: 1), withKey: "nodeAndando")
-
-            bodyA.runAction(SKAction.moveByX(0, y: 15, duration: 1), withKey: "nodeAndando")
-            //bodyA.runAction(SKAction.moveToY(self.balcaoNode!.position.y + 60, duration: 1))
-            //bodyB.runAction(SKAction.moveToY(self.balcaoNode!.position.y + 60, duration: 1))
-        }
-        else if(bodyA.name == "clienteNodeBalcao" && bodyB.name == "clienteNode")
-        {
-            bodyB.runAction(SKAction.moveToY(self.balcaoNode!.position.y + 15, duration: 3))
-        }
-        else if(bodyA.name == "clienteNode" && bodyB.name == "clienteNodeBalcao")
-        {
-            bodyA.runAction(SKAction.moveToY(self.balcaoNode!.position.y + 15, duration: 3))
-            
-        }
-    }
-
     
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -151,66 +73,93 @@ class LojaScene: SKScene, SKPhysicsContactDelegate {
         
         if(bodyA.name == "balcaoNode" && bodyB.name == "clienteNode"){
             
-            println(contador++)
             bodyB.removeAllActions()
-
+            
             bodyB.name = "clienteNodeBalcao"
             println("encostou no balcão")
-
+            
             bodyB.runAction(SKAction.sequence([actionWait, actionMoveLeft]), completion: { () -> Void in
-
-            bodyB.runAction(self.actionMoveDown, completion: { () -> Void in
-            bodyB.removeAllActions()
-            bodyB.removeFromParent()
-            self.quantidadeNodes--
-
-    
+                
+                bodyB.runAction(self.actionMoveDown, completion: { () -> Void in
+                    bodyB.removeAllActions()
+                    bodyB.removeFromParent()
+                    
+                    
                 })
             })
             
             
         }
-        
+            
         else if(bodyA.name == "clienteNode" && bodyB.name == "clienteNode"){
             
-            if bodyB.actionForKey("nodeAndando") == nil {
             bodyB.removeAllActions()
-            }
-            
-            if bodyA.actionForKey("nodeAndando") == nil {
             bodyA.removeAllActions()
-            }
         }
         else if(bodyA.name == "clienteNodeBalcao" && bodyB.name == "clienteNode") {
             
-           
+            
             bodyB.removeAllActions()
-
+            
         }
         else if(bodyA.name == "clienteNode" && bodyB.name == "clienteNodeBalcao")
         {
             bodyA.removeAllActions()
         }
-    
+        
     }
     
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        /* Called when a touch begins */
-    }
-    
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+        super.touchesBegan(touches, withEvent: event)
         
-        for node in self.foregroundNode.children {
+        for touch: AnyObject in touches {
             
-            let andar = SKAction.moveByX(0, y: 15, duration: 1)
+            let location = touch.locationInNode(self)
+            let touchedNode = nodeAtPoint(location)
+            let nodeName: String? = touchedNode.name
             
-            if !(node .hasActions()) {
-                node.runAction(andar)
+            if nodeName == "addFuncionario" {
+                if contadorFila < 3  {
+                    println("addFuncionario")
+                    posicaoFila.x = posicaoFila.x + 150
+                    arrayDeFila.addObject(gerarFila(posicaoFila))
+                    contadorFila++
+                }
+                
+            }else if nodeName == "removerFuncionario" {
+                if contadorFila > 0  {
+                    println("removerFuncionario")
+                    posicaoFila.x = posicaoFila.x - 150
+                    //                arrayDeFila.lastObject?.removeFromParent()
+                    println(arrayDeFila.count)
+                    arrayDeFila.lastObject?.removeFromParent()
+                    arrayDeFila.removeObjectAtIndex(contadorFila)
+                    contadorFila--
+                }
+                
+                
             }
+            
             
         }
         
     }
+    
+    override func update(currentTime: CFTimeInterval) {
+        
+        for position in arrayDeFila {
+            for node in position.children {
+                
+                if node.name != "trabalhadorNode" && node.name != "balcaoNode" {
+                    if !(node .hasActions())
+                    {
+                        node.runAction(SKAction.moveByX(0, y: 10, duration: 0.5))
+                    }
+                }
+            }
+        }
+    }
+    
 }
+
