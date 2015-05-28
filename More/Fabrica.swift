@@ -21,6 +21,7 @@ class Fabrica : SKSpriteNode{
         
         self.zPosition = 1
         self.name = "fabrica"
+        self.userInteractionEnabled = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -28,6 +29,7 @@ class Fabrica : SKSpriteNode{
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        println("tocou na fabrica")
         delegate.goToFabrica(self)
     }
     

@@ -22,7 +22,7 @@ class Loja : SKSpriteNode{
         self.zPosition = 1
         self.name = "loja"
         
-
+        self.userInteractionEnabled = true
     }
 
     required init?(coder aDecoder: NSCoder) {

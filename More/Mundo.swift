@@ -11,7 +11,7 @@ import SpriteKit
 
 class Mundo : AbstractScene{
     
-    var vtPosicoes:NSMutableArray!
+    var vtPosicoesLivres:NSMutableArray!
     var vtFabricas:NSMutableArray!
     var vtLojas:NSMutableArray!
     
@@ -22,8 +22,7 @@ class Mundo : AbstractScene{
     
     override init(size: CGSize) {
         super.init(size: size)
-        
-        
+
         
         inicializarClasse()
         inicializarTerraComAnimacao()
@@ -62,7 +61,7 @@ class Mundo : AbstractScene{
         //INICIALIZA OS VETORES QUE TERÃO AS FÁBRICAS E LOJAS QUE FOREM ADICIONADAS NA TERRA
         vtFabricas = NSMutableArray()
         vtLojas = NSMutableArray()
-        vtPosicoes = NSMutableArray()
+        vtPosicoesLivres = NSMutableArray()
         
         //INICIALIZA O NODE QUE REPRESENTA A TERRA
         nodeTerra = SKSpriteNode(imageNamed: "terra.png")
@@ -81,20 +80,20 @@ class Mundo : AbstractScene{
         var emptyPlace = EmptyPlace(size: CGSizeMake(nodeTerra.size.width * 0.3, nodeTerra.size.width * 0.3))
         emptyPlace.position = position
         nodeTerra.addChild(emptyPlace)
-        vtPosicoes.addObject(emptyPlace)
+        vtPosicoesLivres.addObject(emptyPlace)
     }
     
     
     private func gerarFabrica() -> SKSpriteNode{
         var fabrica = Fabrica(size: CGSizeMake(nodeTerra.size.width * 0.3, nodeTerra.size.width * 0.3))
-        
+        fabrica.delegate = myDelegate
         return fabrica
     }
     
     
     private func gerarLoja() -> SKSpriteNode{
         var loja = Loja(size: CGSizeMake(nodeTerra.size.width * 0.2, nodeTerra.size.width * 0.2))
-        
+        loja.delegate = myDelegate
         return loja
     }
     
@@ -144,26 +143,23 @@ class Mundo : AbstractScene{
             let touchedNode = nodeAtPoint(location)
             let nodeName: String? = touchedNode.name
             
-            if nodeName == "fabrica" {
-                setMensagem("Você clicou na Fábrica")
-            
-            }else if nodeName == "loja" {
-                setMensagem("Você clicou na Loja")
-                
-            }else if nodeName == "nova fabrica" {
+
+            if nodeName == "nova fabrica" {
                 itemEscolhido = gerarFabrica()
+                vtFabricas.addObject(itemEscolhido)
                 mostrarPosicoesLivres()
                 
             }else if nodeName == "nova loja"{
                 itemEscolhido = gerarLoja()
+                vtLojas.addObject(itemEscolhido)
                 mostrarPosicoesLivres()
                 
             }else if nodeName == "empty place"{
                 touchedNode.addChild(itemEscolhido)
                 itemEscolhido = nil
                 
-                for i in 0 ... vtPosicoes.count - 1{
-                    var node = vtPosicoes[i] as! EmptyPlace
+                for i in 0 ... vtPosicoesLivres.count - 1{
+                    var node = vtPosicoesLivres[i] as! EmptyPlace
                     node.hiddenEmptyPlace()
                 }
                 
@@ -177,9 +173,9 @@ class Mundo : AbstractScene{
     
     
     private func mostrarPosicoesLivres(){
-        for i in 0 ... vtPosicoes.count - 1{
+        for i in 0 ... vtPosicoesLivres.count - 1{
             
-            var node = vtPosicoes[i] as! EmptyPlace
+            var node = vtPosicoesLivres[i] as! EmptyPlace
             node.showEmptyPlace()
         }
     }

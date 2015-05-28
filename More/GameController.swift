@@ -10,8 +10,8 @@ import SpriteKit
 
 
 class GameController:AbstractSceneDelegate{
-    var gameView:SKView!
     
+    var gameView:SKView!
     var mundo:Mundo!
     
     
@@ -29,16 +29,20 @@ class GameController:AbstractSceneDelegate{
     
     
     func goToFabrica(fabrica:SKSpriteNode){
+        let fabrica = FabricaScene(size: gameView.frame.size)
+        gameView.presentScene(fabrica)
     }
     
     
     func goToLoja(loja:SKSpriteNode){
-        
+        let loja = LojaScene(size: gameView.frame.size)
+        gameView.presentScene(loja)
     }
     
     
     func startGame(){
         gameView.presentScene(mundo)
+        mundo.myDelegate = self
     }
     
 }
