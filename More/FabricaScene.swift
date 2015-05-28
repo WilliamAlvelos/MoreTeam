@@ -12,7 +12,7 @@ import SpriteKit
 import CoreData
 
 
-class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsControllerDelegate{
+class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     
     var novoEsteira:Int = 0
     var novoEsteira1:Int = 0
@@ -20,7 +20,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsCon
     
     var frequencia:CGFloat = 0.0;
     
-    let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     let myLabel = SKLabelNode(fontNamed:"Heveltica")
     
@@ -29,8 +28,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsCon
     var trabalhadores = 0;
     
     var yVar : CGFloat!
-    
-    var frc:NSFetchedResultsController = NSFetchedResultsController()
+
     
     var valorEsteira1 = 0
     
@@ -51,43 +49,13 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsCon
     var flagEsteira2 = 1
     
     
-    func retornaDados() ->[Trabalhadores]{
-        
-        let fetchedLists: [Trabalhadores]? = frc.fetchedObjects as? [Trabalhadores]
-        
-        return fetchedLists!
-    }
-    
-    
-    func getFetchedResultsController()-> NSFetchedResultsController{
-        
-        var context: NSManagedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
-        
-        frc = NSFetchedResultsController(fetchRequest: trabalhadoresFetchRequest(), managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        
-        return frc
-    }
-    
-    func trabalhadoresFetchRequest() -> NSFetchRequest{
-        let fetchRequest = NSFetchRequest(entityName: "Trabalhadores")
-        let sortDescriptor = NSSortDescriptor(key: "quantidade", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        return fetchRequest
-    }
-    
+
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        
-        
         showBackButton()
         
         var singleton = Singleton.sharedInstance
         singleton.delegate = self
-        
-        frc = getFetchedResultsController()
-        frc.delegate = self
-        frc.performFetch(nil)
         
         trabalhadores = -1;
         
@@ -349,7 +317,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsCon
                     
                     myLabel.text = NSString(format: "%d", trabalhadores+1) as String
                     
-                    salvarDados();
                     
                     if(trabalhadores <= 5){
                         var aux = trabalhadores;
@@ -512,24 +479,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, NSFetchedResultsCon
     }
     
     
-    func salvarDados(){
-        let ent = NSEntityDescription.entityForName("Trabalhadores", inManagedObjectContext:context!)
-        
-        let trabalhador = Trabalhadores(entity: ent!, insertIntoManagedObjectContext: context)
-        
-        //trabalhador.quantidade = trabalhadores;
-        
-        context?.save(nil)
-    }
-    
-    func editarDados(){
-        
-        
-        trabalhador?.quantidade = NSString(format: "%d", trabalhadores) as String
-        
-        context?.save(nil)
-        
-    }
+
     
 
 }
