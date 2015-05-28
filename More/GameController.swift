@@ -24,7 +24,7 @@ class GameController:AbstractSceneDelegate{
     
     
     func backToWorld() {
-        
+        gameView.presentScene(mundo)
     }
     
     

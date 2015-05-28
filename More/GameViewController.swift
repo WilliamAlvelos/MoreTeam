@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
         
         //let scene = TelaPrincipal(size: self.view.frame.size, view: self.view as! SKView)
         
-        let scene = FabricaScene(size: self.view.frame.size)
+        let scene = TelaPrincipal(size: self.view.frame.size, view: self.view as! SKView)
         // Configure the view.
         let skView = self.view as! SKView
         skView.showsFPS = true
