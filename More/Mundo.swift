@@ -39,6 +39,8 @@ class Mundo : AbstractScene{
         btNovaLoja.name = "nova loja"
         nodeLatBotoes.addChild(btNovaLoja)
         
+        
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -164,7 +166,7 @@ class Mundo : AbstractScene{
                 }
                 
             }else{
-                
+                removerReferencias()
             }
         
         }

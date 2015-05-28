@@ -14,7 +14,7 @@ import SpriteKit
 
 class Fabrica : SKSpriteNode{
     
-    var delegate:AbstractSceneDelegate!
+    var delegate:AbstractSceneDelegate?
     
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "fabrica.png"), color: nil, size: size)
@@ -30,7 +30,7 @@ class Fabrica : SKSpriteNode{
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         println("tocou na fabrica")
-        delegate.goToFabrica(self)
+        delegate?.goToFabrica(self)
     }
     
 }

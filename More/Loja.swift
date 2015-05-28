@@ -13,7 +13,7 @@ import SpriteKit
 
 class Loja : SKSpriteNode{
     
-    var delegate:AbstractSceneDelegate!
+    var delegate:AbstractSceneDelegate?
     
     
     init(size:CGSize){
@@ -31,7 +31,7 @@ class Loja : SKSpriteNode{
     
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        delegate.goToLoja(self)
+        delegate?.goToLoja(self)
     }
     
 }

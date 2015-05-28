@@ -18,7 +18,7 @@ protocol AbstractSceneDelegate{
 
 class AbstractScene: SKScene, SingletonDelegate {
     
-    var myDelegate:AbstractSceneDelegate!
+    var myDelegate:AbstractSceneDelegate?
     
     //VARIÁVEIS QUE CONTROLAM AS LABELS
     private var producao:Float!
@@ -28,7 +28,7 @@ class AbstractScene: SKScene, SingletonDelegate {
     //LABELS
     private var lblValor:SKLabelNode!
     private var lblProducao:SKLabelNode!
-    private var lblMensagem:UILabel!
+    private var lblMensagem:UILabel?
     
     //BOTOES
     var btVoltar:SKSpriteNode!
@@ -160,12 +160,12 @@ class AbstractScene: SKScene, SingletonDelegate {
         newFrame.origin.y = self.view!.frame.size.height - newFrame.size.height;
         
         lblMensagem = UILabel(frame: newFrame)
-        lblMensagem.numberOfLines = 0
-        lblMensagem.textAlignment = NSTextAlignment.Center
-        lblMensagem.textColor = UIColor.whiteColor()
-        lblMensagem.font = UIFont(name: "AvenirNextCondensed-Regular", size: 10 + (nodeInferior.size.width * 0.02))
-        lblMensagem.text = mensagem
-        self.view?.addSubview(lblMensagem)
+        lblMensagem?.numberOfLines = 0
+        lblMensagem?.textAlignment = NSTextAlignment.Center
+        lblMensagem?.textColor = UIColor.whiteColor()
+        lblMensagem?.font = UIFont(name: "AvenirNextCondensed-Regular", size: 10 + (nodeInferior.size.width * 0.02))
+        lblMensagem?.text = mensagem
+        self.view?.addSubview(lblMensagem!)
     }
     
     
@@ -179,6 +179,11 @@ class AbstractScene: SKScene, SingletonDelegate {
         nodeSupButton.addChild(btVoltar)
     }
 
+    
+    
+    func removerReferencias(){
+        myDelegate = nil        
+    }
 
     
     func setMensagem(novaMensagem:String){
@@ -188,7 +193,7 @@ class AbstractScene: SKScene, SingletonDelegate {
         }
         
         
-        lblMensagem.text = novaMensagem
+        lblMensagem?.text = novaMensagem
     }
     
     
