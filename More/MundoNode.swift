@@ -13,7 +13,7 @@ protocol MundoDelegate{
     func animacaoDeIntroducaoTerminou()
 }
 
-class Mundo: SKSpriteNode {
+class MundoNode: SKSpriteNode {
     
     var delegate:MundoDelegate?
     

@@ -16,7 +16,7 @@ class MundoScene : AbstractScene, MundoDelegate{
     var vtLojas:NSMutableArray!
     
     
-    var nodeTerra:Mundo!
+    var nodeTerra:MundoNode!
     
     var singleton:Singleton!
     
@@ -68,7 +68,7 @@ class MundoScene : AbstractScene, MundoDelegate{
         vtPosicoesLivres = NSMutableArray()
         
         //INICIALIZA O NODE QUE REPRESENTA A TERRA
-        nodeTerra = Mundo(size: CGSizeMake(295, 295))
+        nodeTerra = MundoNode(size: CGSizeMake(295, 295))
         nodeTerra.position = CGPointMake(self.size.width / 2, self.size.height / 2)
         nodeTerra.delegate = self
         self.addChild(nodeTerra)
