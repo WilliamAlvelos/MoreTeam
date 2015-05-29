@@ -18,9 +18,13 @@ class GraficoNode: SKSpriteNode {
     var nodeAmbiental:SKSpriteNode!
     var nodeEconomico:SKSpriteNode!
     
-    init(size:CGSize){
+    init(size:CGSize, valorSocial:CGFloat, valorAmbiental:CGFloat, valorEconomico:CGFloat){
         super.init(texture: nil, color: UIColor.greenColor(), size: size)
         self.zPosition = 1
+        
+        social = valorSocial
+        ambiental = valorAmbiental
+        economico = valorEconomico
     }
 
     required init?(coder aDecoder: NSCoder) {
