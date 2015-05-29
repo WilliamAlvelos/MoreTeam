@@ -169,6 +169,7 @@ class AbstractScene: SKScene, SingletonDelegate {
     }
     
     
+
     func showBackButton(){
         btVoltar = SKSpriteNode(color: UIColor.greenColor(), size: CGSizeMake(40, 40))
         //CÁLCULO PARA MANTER O MESMO ESPAÇAMENTO ENTRE TOP, LEFT E BOTTOM

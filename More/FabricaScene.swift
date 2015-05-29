@@ -273,7 +273,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             NSLog("%d", valorEsteira2)
             
             if(node.name == "voltar"){
-                myDelegate.backToWorld()
+                myDelegate!.backToWorld()
             }
             
             

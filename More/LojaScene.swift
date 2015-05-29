@@ -59,6 +59,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         }
     }
     
+    
+    
     func gerarFila(posicao : CGPoint) -> FilaLoja {
         
         var fila = FilaLoja(size: CGSizeMake(50, nodePrincipal.size.height), varMarketing: 0, qtdClientes: 14)
@@ -83,6 +85,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     override init(size: CGSize) {
         super.init(size: size)
+        
+        showBackButton()
     
         var timerAndar = NSTimer.scheduledTimerWithTimeInterval(6, target: self, selector: Selector("andarCliente"), userInfo: nil, repeats: true)
         
@@ -124,6 +128,20 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         removerFuncionario?.position = CGPoint(x: 0, y: -100)
         nodeLatBotoes.addChild(removerFuncionario!)
         
+    }
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        var bodyA = contact.bodyA.node!
+        var bodyB = contact.bodyB.node!
+        
+        
+        if(bodyA.name == "clienteNode" && bodyB.name == "clienteNode"){
+            bodyA.runAction(SKAction.moveByX(0, y: 30, duration: 1))
+        }
+        else if(bodyA.name == "clienteNodeBalcao" && bodyB.name == "clienteNode")
+        {
+            bodyB.runAction(SKAction.moveByX(0, y: 30, duration: 1))
+        }
     }
     
     
@@ -189,6 +207,10 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             let location = touch.locationInNode(self)
             let touchedNode = nodeAtPoint(location)
             let nodeName: String? = touchedNode.name
+            
+            if(nodeName == "voltar") {
+                myDelegate?.backToWorld()
+            }
             
             if nodeName == "addFuncionario" {
                 if contadorFila < 3  {
