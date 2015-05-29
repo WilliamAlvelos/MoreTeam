@@ -15,6 +15,7 @@ class MundoScene : AbstractScene, MundoDelegate{
     var vtFabricas:NSMutableArray!
     var vtLojas:NSMutableArray!
     
+    
     var nodeTerra:Mundo!
     
     var singleton:Singleton!

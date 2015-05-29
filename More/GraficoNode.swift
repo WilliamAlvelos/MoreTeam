@@ -10,9 +10,9 @@ import SpriteKit
 
 class GraficoNode: SKSpriteNode {
     
-    var social:Float!
-    var ambiental:Float!
-    var economico:Float!
+    var social:CGFloat!
+    var ambiental:CGFloat!
+    var economico:CGFloat!
     
     var nodeSocial:SKSpriteNode!
     var nodeAmbiental:SKSpriteNode!
@@ -25,5 +25,12 @@ class GraficoNode: SKSpriteNode {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    private func inicializarNodes(){
+        nodeSocial = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeMake(60.0, (social/100) * self.size.height))
+        nodeAmbiental = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeMake(60.0, (ambiental/100) * self.size.height))
+        nodeEconomico = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeMake(60.0, (economico/100) * self.size.height))
     }
 }
