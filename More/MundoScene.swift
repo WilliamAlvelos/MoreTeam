@@ -9,13 +9,15 @@
 import SpriteKit
 
 
-class MundoScene : AbstractScene{
+class MundoScene : AbstractScene, MundoDelegate{
     
     var vtPosicoesLivres:NSMutableArray!
     var vtFabricas:NSMutableArray!
     var vtLojas:NSMutableArray!
     
-    var nodeTerra:SKSpriteNode!
+    var nodeTerra:Mundo!
+    
+    var singleton:Singleton!
     
     var itemEscolhido:SKSpriteNode!
     
@@ -25,7 +27,6 @@ class MundoScene : AbstractScene{
 
         
         inicializarClasse()
-        inicializarTerraComAnimacao()
         
         var btNovaFabrica = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeMake(nodeLatBotoes.size.width, 125))
         btNovaFabrica.position = CGPointMake(0, nodeLateral.size.height / 2 - btNovaFabrica.size.height / 2 - 47.5)
@@ -66,14 +67,20 @@ class MundoScene : AbstractScene{
         vtPosicoesLivres = NSMutableArray()
         
         //INICIALIZA O NODE QUE REPRESENTA A TERRA
-        nodeTerra = SKSpriteNode(imageNamed: "terra.png")
+        nodeTerra = Mundo(size: CGSizeMake(295, 295))
         nodeTerra.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+        nodeTerra.delegate = self
         self.addChild(nodeTerra)
         
-        var singleton = Singleton.sharedInstance
-        singleton.delegate = self
+        
     }
     
+    
+    override func didMoveToView(view: SKView) {
+        nodeTerra.startAnimacaoDeIntroducao(nodePrincipal.size.width / 2)
+        singleton = Singleton.sharedInstance
+        singleton.delegate = self
+    }
     
     
     
@@ -100,33 +107,22 @@ class MundoScene : AbstractScene{
     }
     
     
-    private func inicializarTerraComAnimacao(){
-        
-        //VERIFICA SE O TAMANHO DA TERRA É MAIOR QUE O NODE PRINCIPAL
-        var tamanho = nodeTerra.size
-        if(tamanho.height > nodePrincipal.size.height){
-            tamanho.height -= tamanho.height - nodePrincipal.size.height + 20
-            tamanho.width = tamanho.height
-        }
-        
-        //CRIA AS ANIMAÇÕES DE MOVIMENTO DA TERRA, APARECIMENTO DOS NODES E REDIMENSIONAMENTO DA TERRA(CASO NECESSÁRIO)
-        var actionMove = SKAction.moveToX(nodePrincipal.size.width / 2, duration: 0.8)
-        actionMove.timingMode = SKActionTimingMode.EaseInEaseOut
-        var actionResize = SKAction.resizeToWidth(tamanho.width, height: tamanho.height, duration: actionMove.duration)
+    func animacaoDeIntroducaoTerminou() {
         var actionFade = SKAction.fadeInWithDuration(1)
         
         //EXECUTA AS ACTIONS
-        nodeTerra.runAction(SKAction.group([actionMove, actionResize]), completion: { () -> Void in
-            self.nodeTerra.removeAllActions()
-            self.nodeLateral.runAction(actionFade)
-            self.nodeSuperior.runAction(actionFade)
-            self.nodeInferior.runAction(actionFade)
-            
-            self.setMensagem("Mensagem ao usuário")
-            self.inicializarPosicoesLivres()
-        })
-    }
+        
+        self.nodeTerra.removeAllActions()
+        self.nodeLateral.runAction(actionFade)
+        self.nodeSuperior.runAction(actionFade)
+        self.nodeInferior.runAction(actionFade)
+        
+        self.setMensagem("Mensagem ao usuário")
+        self.inicializarPosicoesLivres()
     
+    
+    }
+
     
     //INSERE POSIÇÕES NA TERRA ONDE PODERÁ SER INSERIDO NOVAS LOJAS OU FÁBRICAS
     private func inicializarPosicoesLivres(){

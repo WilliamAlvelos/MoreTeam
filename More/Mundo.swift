@@ -9,15 +9,19 @@
 import SpriteKit
 
 
+protocol MundoDelegate{
+    func animacaoDeIntroducaoTerminou()
+}
+
 class Mundo: SKSpriteNode {
     
+    var delegate:MundoDelegate?
     
     
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "terra"), color: nil, size: size)
         
         self.zPosition = 1
-        self.userInteractionEnabled = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,7 +37,7 @@ class Mundo: SKSpriteNode {
         
         //EXECUTA AS ACTIONS
         self.runAction(actionMove, completion: { () -> Void in
-            
+            delegate?.animacaoDeIntroducaoTerminou()
         })
     }
 }
