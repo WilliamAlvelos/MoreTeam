@@ -95,14 +95,14 @@ class MundoScene : AbstractScene, MundoDelegate{
     
     
     private func gerarFabrica() -> SKSpriteNode{
-        var fabrica = Fabrica(size: CGSizeMake(nodeTerra.size.width * 0.3, nodeTerra.size.width * 0.3))
+        var fabrica = FabricaNode(size: CGSizeMake(nodeTerra.size.width * 0.3, nodeTerra.size.width * 0.3))
         fabrica.delegate = myDelegate
         return fabrica
     }
     
     
     private func gerarLoja() -> SKSpriteNode{
-        var loja = Loja(size: CGSizeMake(nodeTerra.size.width * 0.2, nodeTerra.size.width * 0.2))
+        var loja = LojaNode(size: CGSizeMake(nodeTerra.size.width * 0.2, nodeTerra.size.width * 0.2))
         loja.delegate = myDelegate
         return loja
     }

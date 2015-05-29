@@ -9,10 +9,14 @@
 import Foundation
 import CoreData
 
+
 @objc(Trabalhadores)
 class Trabalhadores: NSManagedObject {
     
-    @NSManaged var quantidade: String
-    @NSManaged var felicidade: String
+    @NSManaged var id: UInt16
+    @NSManaged var posicao: UInt32
+    @NSManaged var tipo: UInt32
     
 }
+
+
