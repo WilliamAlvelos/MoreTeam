@@ -12,13 +12,13 @@ import SpriteKit
 class GameController:AbstractSceneDelegate{
     
     var gameView:SKView!
-    var mundo:Mundo!
+    var mundo:MundoScene!
     
     
     
     init(view:SKView){
         gameView = view
-        mundo = Mundo(size: gameView.frame.size)
+        mundo = MundoScene(size: gameView.frame.size)
         mundo.myDelegate = self
     }
     
@@ -37,6 +37,7 @@ class GameController:AbstractSceneDelegate{
     
     func goToLoja(loja:SKSpriteNode){
         let loja = LojaScene(size: gameView.frame.size)
+        loja.myDelegate = self
         gameView.presentScene(loja)
     }
     

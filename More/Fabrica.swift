@@ -17,7 +17,7 @@ class Fabrica : SKSpriteNode{
     var delegate:AbstractSceneDelegate?
     
     init(size:CGSize){
-        super.init(texture: SKTexture(imageNamed: "fabrica.png"), color: nil, size: size)
+        super.init(texture: SKTexture(imageNamed: "fabrica"), color: nil, size: size)
         
         self.zPosition = 1
         self.name = "fabrica"

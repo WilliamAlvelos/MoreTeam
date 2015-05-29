@@ -17,6 +17,11 @@ class TelaPrincipal: SKScene{
     init(size: CGSize, view:SKView) {
         super.init(size: size)
         gameController = GameController(view: view)
+        self.backgroundColor = UIColor.whiteColor()
+        
+        var nodeTerra = SKSpriteNode(imageNamed: "terra.png")
+        nodeTerra.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+        self.addChild(nodeTerra)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -26,22 +31,22 @@ class TelaPrincipal: SKScene{
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Heveltica")
-        myLabel.text = "Play!";
-        myLabel.fontSize = 65;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
-        
-        let play = SKSpriteNode(imageNamed: "Play")
-        play.xScale = 0.5
-        play.yScale = 0.5
-        play.position = CGPointMake(frame.size.width/2 ,frame.size.height/2)
-        play.name = "play"
-        
-        
+//        let myLabel = SKLabelNode(fontNamed:"Heveltica")
+//        myLabel.text = "Play!";
+//        myLabel.fontSize = 65;
+//        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
+//        
+//        let play = SKSpriteNode(imageNamed: "Play")
+//        play.xScale = 0.5
+//        play.yScale = 0.5
+//        play.position = CGPointMake(frame.size.width/2 ,frame.size.height/2)
+//        play.name = "play"
         
         
-        self.addChild(play)
-        self.addChild(myLabel)
+        
+        
+//        self.addChild(play)
+//        self.addChild(myLabel)
     }
     
     
