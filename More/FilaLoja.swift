@@ -18,11 +18,14 @@ class FilaLoja: SKSpriteNode {
     var foregroundNode = SKSpriteNode()
     var quantidadeNodes : Int = 0;
     var randTimer : NSTimeInterval!
+    var quadrado1 : SKShapeNode!
     
     let CollisionNodeCliente     : UInt32 = 0x1 << 1
     let CollisionNodeBalcao : UInt32 = 0x1 << 2
+    let CollisionQuadrado : UInt32 = 0x1 << 3
+
     
-    let acaoAndar = SKAction.moveByX(0, y: 900, duration: 9)
+    let acaoAndar = SKAction.moveByX(0, y: 700, duration: 9)
     var varQtdClientes : Int!
     
     init(size : CGSize, varMarketing : Int, qtdClientes : Int)
@@ -30,22 +33,15 @@ class FilaLoja: SKSpriteNode {
         super.init(texture: nil, color: nil, size: size)
         
         
+        addQuadrado()
+        
         
         self.varQtdClientes = qtdClientes
-        
-        balcaoNode = SKSpriteNode(imageNamed: "balcaoNode")
-        balcaoNode!.position = CGPoint(x: 0, y: 100)
-        var tamanho = CGSize(width: balcaoNode!.size.width, height: balcaoNode!.size.height + 30)
-        balcaoNode!.physicsBody = SKPhysicsBody(rectangleOfSize: tamanho)
-        balcaoNode!.physicsBody!.dynamic = false
-        balcaoNode!.physicsBody!.categoryBitMask = CollisionNodeBalcao
-        balcaoNode!.name = "balcaoNode"
-        self.addChild(balcaoNode!)
         
         //trabalhadorNode = SKSpriteNode(imageNamed: "funcionario")
         trabalhadorNode = SKShapeNode(circleOfRadius: CGFloat(20))
         trabalhadorNode?.fillColor = UIColor.blueColor()
-        trabalhadorNode!.position = CGPoint(x: 0, y: size.height / 4)
+        trabalhadorNode!.position = CGPoint(x: -110, y: size.height / 20)
         trabalhadorNode!.name = "trabalhadorNode"
         self.addChild(trabalhadorNode!)
         
@@ -60,7 +56,28 @@ class FilaLoja: SKSpriteNode {
     func iniciarFila() {
         
         
-        var timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("addCliente"), userInfo: nil, repeats: true)
+        var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("addCliente"), userInfo: nil, repeats: true)
+        
+    }
+    
+    func addQuadrado() {
+    
+        quadrado1 = SKShapeNode(rectOfSize: CGSize(width: 20, height: 1))
+        quadrado1!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 1))
+        quadrado1!.physicsBody?.contactTestBitMask = 0
+        
+        quadrado1!.position = CGPointMake(0, 30)
+        quadrado1!.physicsBody?.dynamic = true
+        quadrado1!.name = "quadrado"
+        quadrado1.physicsBody?.pinned = true
+        //quadrado1!.fillColor = UIColor.blueColor()
+        //quadrado1.physicsBody?.collisionBitMask = 0
+        quadrado1!.physicsBody!.categoryBitMask = CollisionQuadrado
+        quadrado1!.physicsBody!.contactTestBitMask = CollisionNodeCliente
+        self.addChild(quadrado1!)
+        
+
+        
         
     }
     
@@ -72,21 +89,26 @@ class FilaLoja: SKSpriteNode {
         
         clienteNode.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 30, height: 30))
         //        clienteNode.
-        clienteNode.position = CGPoint(x: 0, y: -self.size.height / 3 )
+        clienteNode.position = CGPoint(x: 0, y: -600)
         clienteNode.physicsBody?.dynamic = true
         clienteNode.physicsBody!.categoryBitMask = CollisionNodeCliente
         clienteNode.physicsBody!.contactTestBitMask =
-            CollisionNodeCliente | CollisionNodeBalcao
+            CollisionNodeCliente
+
+        
         clienteNode.name = "clienteNode"
         clienteNode.removeAllActions()
+
         
         if(self.children.count < varQtdClientes) {
             self.addChild(clienteNode)
             quantidadeNodes++
             clienteNode.runAction(acaoAndar, withKey: "acaoAndarEntrando")
+            
+            
         }
-        
-        
+   
+            
     }
     
 }
