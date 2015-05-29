@@ -9,8 +9,15 @@
 import UIKit
 
 protocol SingletonDelegate{
-    func setValor(novoValor:Float)
-    func setProducao(novaproducao:Float)
+    func setDinheiro(novoDinheiro:NSInteger)
+    func setMatPrima(novaMatPrima:NSInteger)
+    func setProdutos(novoProduto:NSInteger)
+    func setPorcEconomia(novaEconomia:Float)
+    func setPorcSocial(novoSocial:Float)
+    func setPorcAmbiental(novoAmbiental:Float)
+    func setSegundo(novoSegundo:Int)
+    func setMinuto(novoMinutos:Int)
+    func setHora(novaHora:Int)
 }
 
 class Singleton:NSObject{
@@ -25,7 +32,7 @@ class Singleton:NSObject{
     var tipoMObra:Int = 0;
     var treinamento:Bool = false;
     var volVendas:Int = 0;
-    var nLojas:Int = 0;
+    var nVendedores:Int = 0;
     var tipoMarketing:Int = 0;
     var dinheiro:NSInteger = 1000;
     var nFuncionarios:Int = 0;
@@ -35,7 +42,7 @@ class Singleton:NSObject{
     var volExtracao:Int = 0
     var precoFuncionario:Double = 100
     var precoLenhador:Double = 100
-    var precoLoja:Double = 100
+    var precoVendedor:Double = 100
     var reciclaveis:Int = 0
     var economia:Int = 0
     var social:Int = 0
@@ -45,7 +52,12 @@ class Singleton:NSObject{
     var placeHolderVal:Int = 0
     var totalMatPrima:Int = 691200000
     var doacao:Int = 0
-    
+    var porcEconomia:Float = 0
+    var porcSocial:Float = 0
+    var porcAmbiental:Float = 0
+    var segundos:Int = 0
+    var minutos:Int = 0
+    var horas:Int = 0
     
     var delegate:SingletonDelegate?
     
@@ -69,129 +81,107 @@ class Singleton:NSObject{
         startGame()
     }
     
-    
-    func demitirLenhador(sender: UIButton) {
-        nLenhadores--
-        labNLenhadores.text = String(stringInterpolationSegment: Int(nLenhadores));
-        dinheiro += Int(precoLenhador / 2)
-        labDinheiro.text = String(stringInterpolationSegment: Int(dinheiro))
-        precoLenhador -= precoLenhador * 0.13
-        labPrecoLenhador.text = String(stringInterpolationSegment: Int(precoLenhador))
+    func demitirLenhador() {
+        if(nLenhadores > 0){
+            nLenhadores--
+            dinheiro += Int(precoLenhador / 2)
+            precoLenhador -= precoLenhador * 0.13
+        }
     }
     
-    func numeroLenhadores(sender: UIButton) {
+    func addLenhador() {
         if(dinheiro >= Int(precoLenhador)){
             nLenhadores++
-            labNLenhadores.text = String(stringInterpolationSegment: Int(nLenhadores))
             dinheiro -= Int(precoLenhador)
-            labDinheiro.text = String(stringInterpolationSegment: Int(dinheiro))
             precoLenhador += precoLenhador * 0.15
-            labPrecoLenhador.text = String(stringInterpolationSegment: Int(precoLenhador))
         }
     }
     
-    func demitirFuncionario(sender: UIButton) {
-        nFuncionarios--
-        labNFuncionarios.text = String(stringInterpolationSegment: Int(nFuncionarios));
-        dinheiro += Int(precoFuncionario / 2)
-        labDinheiro.text = String(stringInterpolationSegment: Int(dinheiro))
-        precoFuncionario -= precoFuncionario * 0.13
-        labPrecoFuncionario.text = String(stringInterpolationSegment: Int(precoFuncionario))
+    func demitirFuncionario() {
+        if(nFuncionarios > 0){
+            nFuncionarios--
+            dinheiro += Int(precoFuncionario / 2)
+            precoFuncionario -= precoFuncionario * 0.13
+        }
     }
     
-    func numeroFuncionarios(sender: UIButton) {
+    func addFuncionarios() {
         if(dinheiro >= Int(precoFuncionario)){
             nFuncionarios++
-            labNFuncionarios.text = String(stringInterpolationSegment: Int(nFuncionarios))
             dinheiro -= Int(precoFuncionario)
-            labDinheiro.text = String(stringInterpolationSegment: Int(dinheiro))
             precoFuncionario += precoFuncionario * 0.15
-            labPrecoFuncionario.text = String(stringInterpolationSegment: Int(precoFuncionario))
         }
     }
     
-    func venderLoja(sender: UIButton) {
-        nLojas--;
-        labNLojas.text = String(stringInterpolationSegment: Int(nLojas));
-        dinheiro += Int(precoLoja / 2)
-        labDinheiro.text = String(stringInterpolationSegment: Int(dinheiro))
-        precoLoja -= precoLoja * 0.13
-        labPrecoLoja.text = String(stringInterpolationSegment: Int(precoLoja))
+    func demitirVendedor() {
+        if(nVendedores > 0){
+            nVendedores--;
+            dinheiro += Int(precoVendedor / 2)
+            precoVendedor -= precoVendedor * 0.13
+        }
     }
     
-    func materiaPrima(sender: UIButton) {
+    func tipoMateriaPrima() {
         tipoMPrima++
         if(tipoMPrima == 3){
             tipoMPrima = 0
         }
-        labTMateria.text = String(stringInterpolationSegment: Int(tipoMPrima));
         calcPorcentagem()
     }
     
-    func reciclagem(sender: UIButton) {
+    func reciclar() {
         if(reciclagem == false){
             reciclagem = true
             reciclagemVal = 1
-            labReciclagem.text = "1";
         } else {
             reciclagem = false
             reciclagemVal = 0
-            labReciclagem.text = "0";
         }
         calcPorcentagem()
     }
     
-    func maoDeObra(sender: UIButton) {
+    func addMaoDeObra() {
         tipoMObra++
         if(tipoMObra == 3){
             tipoMObra = 0
         }
-        labMaoDeObra.text = String(stringInterpolationSegment: Int(tipoMObra));
         calcPorcentagem()
     }
     
-    func CentroTreinamento(sender: UIButton) {
+    func centroTreinamento() {
         if(treinamento == false){
             treinamento = true
             treinamentoVal = 1
-            labTreinamento.text = "1";
         } else {
             treinamento = false
             treinamentoVal = 0
-            labTreinamento.text = "0";
         }
         calcPorcentagem()
     }
     
-    func numeroDeLojas(sender: UIButton) {
-        if(dinheiro >= Int(precoLoja)){
-            nLojas++
-            labNLojas.text = String(stringInterpolationSegment: Int(nLojas))
-            dinheiro -= Int(precoLoja)
-            labDinheiro.text = String(stringInterpolationSegment: Int(dinheiro))
-            precoLoja += precoLoja * 0.15
-            labPrecoLoja.text = String(stringInterpolationSegment: Int(precoLoja))
+    func addNumeroLojas(){
+        if(dinheiro >= Int(precoVendedor)){
+            nVendedores++
+            dinheiro -= Int(precoVendedor)
+            precoVendedor += precoVendedor * 0.15
         }
     }
     
-    func Marketing(sender: UIButton) {
+    func marketing() {
         tipoMarketing++
         if(tipoMarketing == 3){
             tipoMarketing = 0
         }
-        labMarketing.text = String(stringInterpolationSegment: Int(tipoMarketing));
         calcPorcentagem()
     }
     
-    func funcPlaceHolder(sender: UIButton) {
+    func funcPlaceHolder() {
         if(placeHolder == false){
             placeHolder = true
             placeHolderVal = 1;
-            labPlaceHolder.text = "1";
         } else {
             placeHolder = false
             placeHolderVal = 0
-            labPlaceHolder.text = "0";
         }
         calcPorcentagem()
     }
@@ -218,9 +208,7 @@ class Singleton:NSObject{
             timer.invalidate()
         }
         
-        labTempo.text = String(stringInterpolationSegment: Int(elapsedTime));
-        
-        if(nLojas >= 1){
+        if(nVendedores >= 1){
             calcDinheiro()
         }
         
@@ -232,9 +220,11 @@ class Singleton:NSObject{
         } else {
             doacao = 0
         }
+        segundos = Int(elapsedTime)
         
         calcMateriaPrima()
         calcPorcentagem()
+        calcTempo()
     }
     
     func calcMateriaPrima(){
@@ -259,9 +249,6 @@ class Singleton:NSObject{
         
         matPrima += nLenhadores * 200 * tipo;
         volExtracao = nLenhadores * 200 * tipo + recicladosInt
-        
-        labVolExtracao.text = String(stringInterpolationSegment: Int(volExtracao))
-        labMPrima.text = String(stringInterpolationSegment: Int(matPrima))
         
         totalMatPrima -= volExtracao
         println(totalMatPrima)
@@ -293,8 +280,6 @@ class Singleton:NSObject{
             }
             matPrima -= volProd / tipo * 100
         }
-        labVolumeProd.text = String(stringInterpolationSegment: Int(volProd))
-        labProdutos.text = String(stringInterpolationSegment: Int(produtos))
     }
     
     func calcDinheiro(){
@@ -318,8 +303,8 @@ class Singleton:NSObject{
         }
         
         if(produtos >= vendas){
-            if(produtos / vendas >= nLojas){
-                volVendas = nLojas * tipo
+            if(produtos / vendas >= nVendedores){
+                volVendas = nVendedores * tipo
                 dinheiro += volVendas * 100
             } else {
                 volVendas = produtos / vendas * tipo
@@ -327,18 +312,15 @@ class Singleton:NSObject{
             }
             produtos -= volVendas / tipo * 4
         }
-        labVolVendas.text = String(stringInterpolationSegment: Int(volVendas))
-        labDinheiro.text = String(stringInterpolationSegment: Int(dinheiro))
-        reciclaveis += 4 * nLojas - volVendas
+        reciclaveis += 4 * nVendedores - volVendas
+        
+        delegate?.setDinheiro(dinheiro)
     }
     
     func calcPorcentagem(){
         var marketingVal:Int = 0
         var temp:Int = 0
         var temp2:Int = 0
-        var porcEconomia:Float = 0
-        var porcSocial:Float = 0
-        var porcAmbiental:Float = 0
         var total:Float = 0
         
         if(tipoMarketing == 0){
@@ -361,10 +343,16 @@ class Singleton:NSObject{
         porcEconomia = Float(economia) / total * 100;
         porcAmbiental = Float(ambiental) / total * 100;
         porcSocial = Float(social) / total * 100;
-        
-        labPorcEconomia.text = String(format: "%.1f", porcEconomia)
-        labPorcSocial.text = String(format: "%.1f", porcSocial)
-        labPorcAmbiental.text = String(format: "%.1f", porcAmbiental)
     }
     
+    func calcTempo(){
+        if(segundos >= 60){
+            minutos++
+            segundos -= 60
+        }
+        if(minutos >= 60){
+            horas++
+            minutos -= 60
+        }
+    }
 }
