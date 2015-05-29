@@ -8,16 +8,17 @@
 
 import UIKit
 
-protocol SingletonDelegate{
-    func setDinheiro(novoDinheiro:NSInteger)
-    func setMatPrima(novaMatPrima:NSInteger)
-    func setProdutos(novoProduto:NSInteger)
-    func setPorcEconomia(novaEconomia:Float)
-    func setPorcSocial(novoSocial:Float)
-    func setPorcAmbiental(novoAmbiental:Float)
-    func setSegundo(novoSegundo:Int)
-    func setMinuto(novoMinutos:Int)
-    func setHora(novaHora:Int)
+@objc protocol SingletonDelegate{
+    
+    optional func setDinheiro(novoDinheiro:NSInteger)
+    optional func setMatPrima(novaMatPrima:NSInteger)
+    optional func setProdutos(novoProduto:NSInteger)
+    optional func setPorcEconomia(novaEconomia:Float)
+    optional func setPorcSocial(novoSocial:Float)
+    optional func setPorcAmbiental(novoAmbiental:Float)
+    optional func setSegundo(novoSegundo:Int)
+    optional func setMinuto(novoMinutos:Int)
+    optional func setHora(novaHora:Int)
 }
 
 class Singleton:NSObject{
@@ -314,7 +315,7 @@ class Singleton:NSObject{
         }
         reciclaveis += 4 * nVendedores - volVendas
         
-        delegate?.setDinheiro(dinheiro)
+        delegate?.setDinheiro?(dinheiro)
     }
     
     func calcPorcentagem(){

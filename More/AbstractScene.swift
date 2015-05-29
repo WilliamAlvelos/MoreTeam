@@ -22,7 +22,7 @@ class AbstractScene: SKScene, SingletonDelegate {
     
     //VARIÁVEIS QUE CONTROLAM AS LABELS
     private var producao:Float!
-    private var valor:Float!
+    private var dinheiro:NSInteger!
     private var mensagem:String!
     
     //LABELS
@@ -198,14 +198,14 @@ class AbstractScene: SKScene, SingletonDelegate {
     }
     
     
-    func setValor(novoValor:Float){
-        valor = novoValor;
-        lblValor.text = String(format: "R$ %.2f", valor)
+    func setDinheiro(novoDinheiro:NSInteger){
+        dinheiro = novoDinheiro;
+        lblValor.text = String(format: "R$ %.2f", dinheiro)
     }
 
     
-    func getValor() -> Float{
-        return valor
+    func getValor() -> NSInteger{
+        return dinheiro
     }
     
     
