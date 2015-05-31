@@ -15,7 +15,7 @@ class MundoScene : AbstractScene, MundoDelegate{
     var vtFabricas:NSMutableArray!
     var vtLojas:NSMutableArray!
     
-    
+    var nodeGrafico:GraficoNode!
     var nodeTerra:MundoNode!
     
     var singleton:Singleton!
@@ -41,8 +41,18 @@ class MundoScene : AbstractScene, MundoDelegate{
         btNovaLoja.name = "nova loja"
         nodeLatBotoes.addChild(btNovaLoja)
         
+        nodeGrafico = GraficoNode(size: CGSizeMake(nodeLatBotoes.size.width, 250), valorSocial: 30, valorAmbiental: 100, valorEconomico: 30)
+        nodeGrafico.position = CGPointMake(0, btNovaLoja.position.y - nodeGrafico.size.height - 75)
+        nodeLatBotoes.addChild(nodeGrafico)
         
+        nodeTerra.startAnimacaoDeIntroducao(nodePrincipal.size.width / 2)
         
+        //var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("geraValores"), userInfo: nil, repeats: true)
+    }
+    
+    
+    func geraValores(){
+        nodeGrafico.setValoresGrafico(CGFloat(arc4random() % 100), valorAmbiental: CGFloat(arc4random() % 100), valorEconomico: CGFloat(arc4random() % 100))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -78,9 +88,11 @@ class MundoScene : AbstractScene, MundoDelegate{
     
     
     override func didMoveToView(view: SKView) {
-        nodeTerra.startAnimacaoDeIntroducao(nodePrincipal.size.width / 2)
+        super.didMoveToView(view)
         singleton = Singleton.sharedInstance
         singleton.delegate = self
+        
+        geraValores()
     }
     
     
@@ -120,7 +132,7 @@ class MundoScene : AbstractScene, MundoDelegate{
         
         self.setMensagem("Mensagem ao usuário")
         self.inicializarPosicoesLivres()
-    
+        //self.geraValores()
     
     }
 
