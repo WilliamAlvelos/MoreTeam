@@ -46,8 +46,6 @@ class MundoScene : AbstractScene, MundoDelegate{
         nodeLatBotoes.addChild(nodeGrafico)
         
         nodeTerra.startAnimacaoDeIntroducao(nodePrincipal.size.width / 2)
-        
-        //var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("geraValores"), userInfo: nil, repeats: true)
     }
     
     

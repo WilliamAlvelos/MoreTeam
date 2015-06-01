@@ -116,7 +116,6 @@ class GraficoNode: SKSpriteNode {
     
     
     func setValoresGrafico(valorSocial:CGFloat, valorAmbiental:CGFloat, valorEconomico:CGFloat){
-        println("mudou grafico")
         var actionSocial = gerarAction(social, valorNovo: valorSocial)
         var actionAmbiental = gerarAction(ambiental, valorNovo: valorAmbiental)
         var actionEconomico = gerarAction(economico, valorNovo: valorEconomico)
@@ -131,8 +130,7 @@ class GraficoNode: SKSpriteNode {
         
         
         timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("alterarValoresDoGrafico"), userInfo: nil, repeats: true)
-        
-        
+
     }
     
     
