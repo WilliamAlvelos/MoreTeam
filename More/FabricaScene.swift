@@ -50,13 +50,17 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     var flagEsteira2 = 1
     
     
+    var singleton = Singleton.sharedInstance
+    
+    
 
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         showBackButton()
         
-        var singleton = Singleton.sharedInstance
         singleton.delegate = self
+        
+        
         
         setDinheiro(singleton.dinheiro)
         
@@ -114,7 +118,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     func caixaProducao(){
         
 
-        
         if(valorEsteira1 <= 0){
             let produto = SKSpriteNode(imageNamed: "produto_preto.jpg")
             
@@ -189,8 +192,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     
     func caixaProducaoEsteira2(){
         
-        
-
         
         if(valorEsteira2 <= 0){
             let produto = SKSpriteNode(imageNamed: "produto_preto.jpg")
@@ -290,9 +291,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             if (node.name == "mais") {
                 
                 
-                var singleton = Singleton.sharedInstance
-                singleton.delegate = self
-                
                 singleton.addFuncionarios()
                 
                 
@@ -301,75 +299,81 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                 }
                 
                 
-                if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
-                    trabalhadores++
-                }
+                if(singleton.dinheiro > singleton.precoFuncionario){
                 
-                if(trabalhadores < 23){
-                    if(trabalhadores == -1 && flagEsteira1 == 1){
-                        runAction(SKAction.runBlock(caixaProducao))
-                        flagEsteira1 = 0;
-                    }
-                    if(trabalhadores == 11 && flagEsteira2 == 1){
-                        runAction(SKAction.runBlock(caixaProducaoEsteira2))
-                        flagEsteira2 = 0
+                    if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
+                        trabalhadores++
                     }
                     
-                    trabalhadores++;
-                    trabalhadoresLabel++;
-                    let funcionario = SKSpriteNode(imageNamed: "funcionario")
-                    funcionario.xScale = 0.1
-                    funcionario.yScale = 0.1
-                    funcionario.name = "funcionario"
-                    
-                    myLabel.text = NSString(format: "%d", trabalhadoresLabel) as String
-                    
-                    
-                    if(trabalhadores <= 5){
-                            var aux = trabalhadores;
-                            var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                            funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 400, y-(nodePrincipal.size.width/2))
-                    }
-                    else if(trabalhadores >= 6 && trabalhadores < 12){
+                    if(trabalhadores < 23){
+                        if(trabalhadores == -1 && flagEsteira1 == 1){
+                            runAction(SKAction.runBlock(caixaProducao))
+                            flagEsteira1 = 0;
+                        }
+                        if(trabalhadores == 11 && flagEsteira2 == 1){
+                            runAction(SKAction.runBlock(caixaProducaoEsteira2))
+                            flagEsteira2 = 0
+                        }
                         
-                            var aux = trabalhadores - 6;
-                            var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                            funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 200, y-(nodePrincipal.size.width/2))
-                    }
+                        trabalhadores++;
+                        trabalhadoresLabel++;
+                        let funcionario = SKSpriteNode(imageNamed: "funcionario")
+                        funcionario.xScale = 0.1
+                        funcionario.yScale = 0.1
+                        funcionario.name = "funcionario"
                         
-                    else if(trabalhadores >= 12 && trabalhadores < 18){
-                            var aux = trabalhadores - 12;
-                            var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                            funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 25, y-(nodePrincipal.size.width/2))
-                    }
+                        myLabel.text = NSString(format: "%d", trabalhadoresLabel) as String
+                        
+                        
+                        if(trabalhadores <= 5){
+                                var aux = trabalhadores;
+                                var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 400, y-(nodePrincipal.size.width/2))
+                        }
+                        else if(trabalhadores >= 6 && trabalhadores < 12){
+                            
+                                var aux = trabalhadores - 6;
+                                var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 200, y-(nodePrincipal.size.width/2))
+                        }
+                            
+                        else if(trabalhadores >= 12 && trabalhadores < 18){
+                                var aux = trabalhadores - 12;
+                                var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 25, y-(nodePrincipal.size.width/2))
+                        }
 
-                    else{
-                        var y:CGFloat = (CGFloat(trabalhadores-18)*100)+125.0
-                        funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 175, y-(nodePrincipal.size.width/2))
-                
-                    }
+                        else{
+                            var y:CGFloat = (CGFloat(trabalhadores-18)*100)+125.0
+                            funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 175, y-(nodePrincipal.size.width/2))
                     
-                    if(funcionario.position.x < nodePrincipal.size.height/2 - 300){
-                        novoEsteira++;
+                        }
                         
-                        nodePrincipal.addChild(funcionario);
-                        
-                        ultimoFuncionario.append(funcionario)
-                    }
-                        
-                    else{
-                        novoEsteira1++;
-                        
-                        nodePrincipal.addChild(funcionario);
-                        
-                        ultimoFuncionario.append(funcionario)
-                    }
+                        if(funcionario.position.x < nodePrincipal.size.height/2 - 300){
+                            novoEsteira++;
+                            
+                            nodePrincipal.addChild(funcionario);
+                            
+                            ultimoFuncionario.append(funcionario)
+                        }
+                            
+                        else{
+                            novoEsteira1++;
+                            
+                            nodePrincipal.addChild(funcionario);
+                            
+                            ultimoFuncionario.append(funcionario)
+                        }
 
+                        
+                    }
                     
                 }
             }
             
             if(node.name == "menos"){
+                
+                singleton.demitirFuncionario()
                 
                 if(trabalhadores >= 0){
                     trabalhadores--
