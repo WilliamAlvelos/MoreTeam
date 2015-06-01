@@ -51,6 +51,95 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     var singleton = Singleton.sharedInstance
     
     
+    
+    init(y:Int, size: CGSize){
+        
+        super.init(size: size)
+        
+        trabalhadoresLabel = y
+        
+        trabalhadores = y
+        
+        
+        
+        myLabel.text = NSString(format: "%d", trabalhadoresLabel) as String
+        
+        var x = y
+        
+        
+        
+        for(var i = -1; i <= x; i++){
+        
+            if(i == 1 || i == 7 || i == 13 || i == 19){
+                i++
+            }
+            
+            if(i < 23){
+                if(i == 0 && flagEsteira1 == 1){
+                    runAction(SKAction.runBlock(caixaProducao))
+                    flagEsteira1 = 0;
+                }
+                if(i == 12 && flagEsteira2 == 1){
+                    runAction(SKAction.runBlock(caixaProducaoEsteira2))
+                    flagEsteira2 = 0
+                }
+                
+
+                let funcionario = SKSpriteNode(imageNamed: "funcionario")
+                funcionario.xScale = 0.1
+                funcionario.yScale = 0.1
+                funcionario.name = "funcionario"
+
+                
+                
+                if(i <= 5){
+                    var aux = i;
+                    var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 400, y-(nodePrincipal.size.width/2))
+                }
+                else if(i >= 6 && i < 12){
+                    
+                    var aux = i - 6;
+                    var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 200, y-(nodePrincipal.size.width/2))
+                }
+                    
+                else if(i >= 12 && i < 18){
+                    var aux = i - 12;
+                    var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 25, y-(nodePrincipal.size.width/2))
+                }
+                    
+                else{
+                    var y:CGFloat = (CGFloat(i-18)*100)+125.0
+                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 175, y-(nodePrincipal.size.width/2))
+                    
+                }
+                
+                if(funcionario.position.x < nodePrincipal.size.height/2 - 300){
+                    novoEsteira++;
+                    
+                    nodePrincipal.addChild(funcionario);
+                    
+                    ultimoFuncionario.append(funcionario)
+                }
+                    
+                else{
+                    novoEsteira1++;
+                    
+                    nodePrincipal.addChild(funcionario);
+                    
+                    ultimoFuncionario.append(funcionario)
+                }
+            }
+        }
+
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -62,9 +151,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
         
         setDinheiro(singleton.dinheiro)
         
-        trabalhadores = -1;
-        
-        trabalhadoresLabel = 0;
         
         let fundoFabrica = SKSpriteNode(imageNamed: "chao")
         fundoFabrica.xScale = 1.5

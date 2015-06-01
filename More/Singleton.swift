@@ -83,9 +83,12 @@ class Singleton:NSObject{
         matPrima = totalMatPrima
         startGame()
 
+<<<<<<< HEAD
 
         //delegate?.setDinheiro!(dinheiro)
 
+=======
+>>>>>>> origin/master
     }
     
     func demitirLenhador() {
