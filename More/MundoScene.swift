@@ -90,6 +90,9 @@ class MundoScene : AbstractScene, MundoDelegate{
         singleton = Singleton.sharedInstance
         singleton.delegate = self
         
+        setDinheiro(singleton.dinheiro)
+        
+        
         geraValores()
     }
     
@@ -173,7 +176,7 @@ class MundoScene : AbstractScene, MundoDelegate{
                 }
                 
             }else{
-                removerReferencias()
+                
             }
         
         }

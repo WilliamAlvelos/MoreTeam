@@ -51,10 +51,11 @@ class AbstractScene: SKScene, SingletonDelegate {
     
     override init(size: CGSize) {
         super.init(size: size)
+        
+        
 
         inicializarNodes()
         inicializarLabels()
-        
     }
     
     
@@ -198,25 +199,13 @@ class AbstractScene: SKScene, SingletonDelegate {
     }
     
     
-    func setDinheiro(novoDinheiro:NSInteger){
-        dinheiro = novoDinheiro;
-        lblValor.text = String(format: "R$ %.2f", dinheiro)
-    }
-
     
-    func getValor() -> NSInteger{
-        return dinheiro
+    func setVolProducao(novoVolProducao: Int) {
+        lblProducao.text = "\(novoVolProducao) P/s"
     }
     
     
-    func setProducao(novaProducao:Float){
-        producao = novaProducao;
-        lblProducao.text = String(format: "%.2f P/s", producao)
+    func setDinheiro(novoDinheiro: NSInteger) {
+        lblValor.text = "R$ \(novoDinheiro)"
     }
-    
-    
-    func getProducao() -> Float{
-        return producao
-    }
-    
 }
