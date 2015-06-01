@@ -274,6 +274,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     
     }
     
+    
     func caixaProducaoEsteira2(){
         
         
