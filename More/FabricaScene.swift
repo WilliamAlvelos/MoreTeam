@@ -39,8 +39,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     
     var demitirFuncionarios:[SKNode] = []
     
-    var funcionariosDemitidos:[SKNode] = []
-    
     var trabalhadoresEsteira1:UInt32 = 0
     
     var trabalhadoresEsteira2:UInt32 = 0
@@ -204,12 +202,10 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             produto.position = CGPoint(x:nodePrincipal.size.width/6+75 , y:-nodePrincipal.size.height/2)
             produto.zPosition = 3.0
             
-            
             nodePrincipal.addChild(produto)
             
             valorEsteira2 += novoEsteira1
             novoEsteira1 = 0
-            
             
             
             let acaoAndar = SKAction.moveTo(CGPoint(x:nodePrincipal.size.width/6+75, y: nodePrincipal.size.height + 100), duration: NSTimeInterval(3.0))
@@ -291,7 +287,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             if (node.name == "mais") {
                 
                 
-                singleton.addFuncionarios()
+
                 
                 
                 for demitir in demitirFuncionarios{
@@ -299,7 +295,9 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                 }
                 
                 
-                if(singleton.dinheiro > singleton.precoFuncionario){
+                if(singleton.dinheiro >= NSInteger(singleton.precoFuncionario)){
+                    
+                    singleton.addFuncionarios()
                 
                     if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
                         trabalhadores++
@@ -373,7 +371,12 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             
             if(node.name == "menos"){
                 
-                singleton.demitirFuncionario()
+                
+                if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
+                    trabalhadores--
+                }
+                
+
                 
                 if(trabalhadores >= 0){
                     trabalhadores--
@@ -382,6 +385,8 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                     myLabel.text = NSString(format: "%d", trabalhadoresLabel) as String
                     
                     excluirFuncionario(node as! SKSpriteNode)
+                    
+                    singleton.demitirFuncionario()
                 }
                 
             }
@@ -398,8 +403,8 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     
     func excluirFuncionario(funcionario:SKSpriteNode) {
         
-        funcionariosDemitidos.append(ultimoFuncionario.last!)
-        
+        //funcionariosDemitidos.append(ultimoFuncionario.last!)
+            
             if(ultimoFuncionario.last!.position.x < nodePrincipal.size.height/2 - 300){
                 novoEsteira--;
             }
@@ -407,7 +412,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             else{
                 novoEsteira1--;
             }
-        
         
         ultimoFuncionario.removeLast().removeFromParent()
         
