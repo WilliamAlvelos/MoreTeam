@@ -83,7 +83,10 @@ class Singleton:NSObject{
         matPrima = totalMatPrima
         startGame()
 
+<<<<<<< HEAD
         //delegate?.setDinheiro!(dinheiro)
+=======
+>>>>>>> origin/master
     }
     
     func demitirLenhador() {
@@ -259,13 +262,13 @@ class Singleton:NSObject{
         volExtracao = nLenhadores * 200 * tipo + recicladosInt
         
         totalMatPrima -= volExtracao
-        println(totalMatPrima)
+        println(matPrima)
     }
     
     func calcProdutos(){
         var tipo:Int = 1;
         var custoMPrima:Int = 500;
-        delegate?.setMatPrima!(totalMatPrima)
+        delegate?.setMatPrima?(matPrima)
         
         if(tipoMObra == 0){
             tipo = 1

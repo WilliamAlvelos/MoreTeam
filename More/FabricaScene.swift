@@ -289,12 +289,11 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                 for demitir in demitirFuncionarios{
                     demitir.removeFromParent()
                 }
-                
-                
-                if(singleton.dinheiro >= NSInteger(singleton.precoFuncionario)){
                     
-                    singleton.addFuncionarios()
+                if(singleton.dinheiro > NSInteger(singleton.precoFuncionario)){
                 
+                    singleton.addFuncionarios()
+                    
                     if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
                         trabalhadores++
                     }
