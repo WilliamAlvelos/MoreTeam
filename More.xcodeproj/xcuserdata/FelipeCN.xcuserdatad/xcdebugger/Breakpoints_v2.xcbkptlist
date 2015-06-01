@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "More/Singleton.swift"
-            timestampString = "454875609.993022"
+            timestampString = "454877486.097265"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
             landmarkName = "calcDinheiro()"
             landmarkType = "5">
          </BreakpointContent>

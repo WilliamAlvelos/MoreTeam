@@ -105,6 +105,7 @@ class Singleton:NSObject{
             nFuncionarios--
             dinheiro += Int(precoFuncionario / 2)
             precoFuncionario -= precoFuncionario * 0.13
+            delegate?.setDinheiro!(dinheiro)
         }
     }
     
@@ -113,6 +114,7 @@ class Singleton:NSObject{
             nFuncionarios++
             dinheiro -= Int(precoFuncionario)
             precoFuncionario += precoFuncionario * 0.15
+            delegate?.setDinheiro?(dinheiro)
         }
     }
     
@@ -121,6 +123,7 @@ class Singleton:NSObject{
             nVendedores--;
             dinheiro += Int(precoVendedor / 2)
             precoVendedor -= precoVendedor * 0.13
+            delegate?.setDinheiro!(dinheiro)
         }
     }
     
