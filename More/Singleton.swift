@@ -52,7 +52,7 @@ class Singleton:NSObject{
     var reciclagemVal:Int = 0
     var treinamentoVal:Int = 0
     var placeHolderVal:Int = 0
-    var totalMatPrima:Int = 691200000
+    var totalMatPrima:Int = 3000000
     var doacao:Int = 0
     var porcEconomia:Float = 0
     var porcSocial:Float = 0
@@ -80,8 +80,12 @@ class Singleton:NSObject{
     override init(){
         super.init()
         
+        matPrima = totalMatPrima
         startGame()
+<<<<<<< Updated upstream
         //delegate?.setDinheiro!(dinheiro)
+=======
+>>>>>>> Stashed changes
     }
     
     func demitirLenhador() {
@@ -263,6 +267,7 @@ class Singleton:NSObject{
     func calcProdutos(){
         var tipo:Int = 1;
         var custoMPrima:Int = 500;
+        delegate?.setMatPrima!(totalMatPrima)
         
         if(tipoMObra == 0){
             tipo = 1
