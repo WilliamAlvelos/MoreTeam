@@ -10,10 +10,9 @@ import SpriteKit
 
 class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
-    var actionWait = SKAction.waitForDuration(1)
+    var actionWait = SKAction.waitForDuration(300)
     var actionMoveUp1 = SKAction.moveByX(0, y: 35, duration: 2)
     var actionMoveUp2 = SKAction.moveByX(0, y: 500, duration: 10)
-    //    var actionMoveDown = SKAction.moveToY(-700, duration: 2)
     var arrayDeFila : NSMutableArray = NSMutableArray()
     var addFuncionario : SKShapeNode?
     var removerFuncionario : SKShapeNode?
@@ -22,6 +21,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var contadorFila : Int = 0
     var posicaoFila : CGPoint!
     var balcaoNode25 : SKSpriteNode!
+    
+    var totalClientes : NSInteger = 14
     
     var numeroNodes : NSInteger = 0
     
@@ -35,8 +36,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     var porta1 : SKShapeNode!
     
-    
-    
     override func didMoveToView(view: SKView) {
         
     }
@@ -47,10 +46,9 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     }
     
     
-    
-    func gerarFila(posicao : CGPoint) -> FilaLoja {
+    func gerarFila(posicao : CGPoint, qtdClientesVar : NSInteger) -> FilaLoja {
         
-        var fila = FilaLoja(size: CGSizeMake(50, nodePrincipal.size.height), varMarketing: 0, qtdClientes: 14)
+        var fila = FilaLoja(size: CGSizeMake(50, nodePrincipal.size.height), varMarketing: 0, qtdClientes: qtdClientesVar)
         fila.position = posicao
         nodePrincipal.addChild(fila)
         
@@ -90,8 +88,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         
         
-        ///-----------
-        arrayDeFila.addObject(gerarFila(posicaoFila))
+        ///--- Primeiro Balcao --------
+        arrayDeFila.addObject(gerarFila(posicaoFila,qtdClientesVar: totalClientes))
         nodePrincipal.color = UIColor.whiteColor()
         
         //Fisica Mundo
@@ -114,7 +112,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         
-        let acaoAndar = SKAction.moveByX(0, y: 600, duration: 6)
+        let acaoAndar = SKAction.moveByX(0, y: 300, duration: 6)
         let acaoApagar = SKAction.removeFromParent()
         
         var bodyA = contact.bodyA.node!
@@ -123,7 +121,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         if(bodyA.name == "quadrado" && bodyB.name == "clienteNode"){
             
             
-            bodyB.runAction(SKAction.waitForDuration(3), completion: { () -> Void in
+            bodyB.runAction(SKAction.waitForDuration(300), completion: { () -> Void in
                 bodyA.position.x = bodyA.position.x + 40
                 self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
                 bodyB.runAction(SKAction.moveByX(0, y: 100, duration: 1), completion: { () -> Void in
@@ -180,8 +178,15 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                 if contadorFila < 3  {
                     println("addFuncionario")
                     posicaoFila.x = posicaoFila.x + 200
-                    arrayDeFila.addObject(gerarFila(posicaoFila))
+                    arrayDeFila.addObject(gerarFila(posicaoFila, qtdClientesVar:  totalClientes))
                     contadorFila++
+                    
+                    for fila in arrayDeFila {
+                        
+                        var filaA = fila as! FilaLoja
+                        filaA.varQtdClientes = totalClientes / arrayDeFila.count
+                    }
+                    
                 }
                 
             }else if nodeName == "removerFuncionario" {
@@ -194,6 +199,11 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                     contadorFila--
                 }
                 
+                for fila in arrayDeFila {
+                    
+                    var filaA = fila as! FilaLoja
+                    filaA.varQtdClientes = totalClientes / arrayDeFila.count
+                }
                 
             }
             
@@ -206,17 +216,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         
-        //        for position in arrayDeFila {
-        //            for node in position.children {
-        //
-        //                if node.name != "trabalhadorNode" && node.name != "quadrado" {
-        //                    if !(node .hasActions())
-        //                    {
-        //                        node.runAction(SKAction.moveByX(0, y: 20, duration: 0.5))
-        //                    }
-        //                }
-        //            }
-        //}
     }
     
     

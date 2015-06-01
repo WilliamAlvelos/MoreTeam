@@ -29,6 +29,7 @@ class FilaLoja: SKSpriteNode {
     
     
     let acaoAndar = SKAction.moveByX(0, y: 700, duration: 9)
+    
     var varQtdClientes : Int!
     
     init(size : CGSize, varMarketing : Int, qtdClientes : Int)
@@ -39,6 +40,8 @@ class FilaLoja: SKSpriteNode {
         addlinha()
         
         self.varQtdClientes = qtdClientes
+        
+        println(self.varQtdClientes)
         
         //trabalhadorNode = SKSpriteNode(imageNamed: "funcionario")
         trabalhadorNode = SKShapeNode(circleOfRadius: CGFloat(20))
@@ -93,29 +96,7 @@ class FilaLoja: SKSpriteNode {
         linha2.physicsBody?.dynamic = true
         self.addChild(linha2)
     }
-    //
-    //    func addQuadrado() {
-    //
-    //        quadrado1 = SKShapeNode(rectOfSize: CGSize(width: 20, height: 1))
-    //        quadrado1!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 1))
-    //        quadrado1!.physicsBody?.contactTestBitMask = 0
-    //
-    //        quadrado1!.position = CGPointMake(0, 30)
-    //        quadrado1!.physicsBody?.dynamic = false
-    //        quadrado1!.name = "quadrado"
-    //        quadrado1.physicsBody?.pinned = true
-    //        quadrado1!.physicsBody!.mass = 0
-    //        quadrado1!.physicsBody?.restitution = 0
-    //        //quadrado1!.fillColor = UIColor.blueColor()
-    //        //quadrado1.physicsBody?.collisionBitMask = 0
-    //        quadrado1!.physicsBody!.categoryBitMask = CollisionQuadrado
-    //        quadrado1!.physicsBody!.contactTestBitMask = CollisionNodeCliente
-    //        self.addChild(quadrado1!)
-    //
-    //
-    //
-    //
-    //    }
+    
     
     func addCliente() {
         
@@ -138,7 +119,7 @@ class FilaLoja: SKSpriteNode {
         clienteNode.name = "clienteNode"
         clienteNode.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 200))
         
-        if(self.children.count < varQtdClientes) {
+        if(self.children.count - 4 < varQtdClientes) {
             self.addChild(clienteNode)
             quantidadeNodes++
             
