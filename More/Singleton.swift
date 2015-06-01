@@ -12,6 +12,7 @@ import UIKit
     
     optional func setDinheiro(novoDinheiro:NSInteger)
     optional func setMatPrima(novaMatPrima:NSInteger)
+    optional func setVolProducao(novoVolProducao:Int)
     optional func setProdutos(novoProduto:NSInteger)
     optional func setPorcEconomia(novaEconomia:Float)
     optional func setPorcSocial(novoSocial:Float)
@@ -280,6 +281,7 @@ class Singleton:NSObject{
                 produtos += volProd
             }
             matPrima -= volProd / tipo * 100
+            delegate?.setVolProducao!(volProd)
         }
     }
     
