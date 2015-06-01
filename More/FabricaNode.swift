@@ -13,6 +13,7 @@ class FabricaNode : SKSpriteNode{
     
     var delegate:AbstractSceneDelegate?
     
+    
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "fabrica"), color: nil, size: size)
         

@@ -28,7 +28,8 @@ class FilaLoja: SKSpriteNode {
     let CollisionQuadrado : UInt32 = 0x1 << 3
     
     
-    let acaoAndar = SKAction.moveByX(0, y: 700, duration: 9)
+//    let acaoAndar = SKAction.moveByX(0, y: 700, duration: 1)
+    let acaoAndar = SKAction.moveTo(CGPoint(x: 0, y: 30), duration: 3)
     
     var varQtdClientes : Int!
     
@@ -117,7 +118,7 @@ class FilaLoja: SKSpriteNode {
         
         
         clienteNode.name = "clienteNode"
-        clienteNode.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 200))
+        clienteNode.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 100))
         
         if(self.children.count - 4 < varQtdClientes) {
             self.addChild(clienteNode)

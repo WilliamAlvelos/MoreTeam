@@ -372,7 +372,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                 }
                 
                 
-                if(trabalhadores > 0){
+                if(trabalhadores >= 0){
                     trabalhadores--
                     trabalhadoresLabel--
                     

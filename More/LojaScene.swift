@@ -10,9 +10,7 @@ import SpriteKit
 
 class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
-    var actionWait = SKAction.waitForDuration(300)
-    var actionMoveUp1 = SKAction.moveByX(0, y: 35, duration: 2)
-    var actionMoveUp2 = SKAction.moveByX(0, y: 500, duration: 10)
+    var actionWait = SKAction.waitForDuration(2)
     var arrayDeFila : NSMutableArray = NSMutableArray()
     var addFuncionario : SKShapeNode?
     var removerFuncionario : SKShapeNode?
@@ -121,13 +119,13 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         if(bodyA.name == "quadrado" && bodyB.name == "clienteNode"){
             
             
-            bodyB.runAction(SKAction.waitForDuration(300), completion: { () -> Void in
+            bodyB.runAction(SKAction.waitForDuration(3), completion: { () -> Void in
                 bodyA.position.x = bodyA.position.x + 40
                 self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
-                bodyB.runAction(SKAction.moveByX(0, y: 100, duration: 1), completion: { () -> Void in
+                bodyB.runAction(SKAction.moveByX(0, y: 40, duration: 0.4), completion: { () -> Void in
                     bodyA.position.x = 0
-                    bodyB.runAction(SKAction.waitForDuration(0.0001), completion: { () ->    Void in
-                        self.physicsWorld.gravity = CGVectorMake(0.0, 0.1);
+                    bodyB.runAction(SKAction.waitForDuration(0.1), completion: { () ->    Void in
+                        self.physicsWorld.gravity = CGVectorMake(0.0, 0.2);
                         self.numeroNodes++
                         println(self.numeroNodes)
                         bodyB.runAction(SKAction.sequence([acaoAndar, acaoApagar]))
@@ -143,10 +141,10 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             bodyA.runAction(SKAction.waitForDuration(3), completion: { () -> Void in
                 bodyB.position.x = bodyA.position.x + 40
                 self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
-                bodyA.runAction(SKAction.moveByX(0, y: 100, duration: 1), completion: { () -> Void in
+                bodyA.runAction(SKAction.moveByX(0, y: 40, duration: 0.4), completion: { () -> Void in
                     bodyB.position.x = 0
-                    bodyA.runAction(SKAction.waitForDuration(0.0001), completion: { () ->    Void in
-                        self.physicsWorld.gravity = CGVectorMake(0.0, 0.1);
+                    bodyA.runAction(SKAction.waitForDuration(0.1), completion: { () ->    Void in
+                        self.physicsWorld.gravity = CGVectorMake(0.0, 0.2);
                         self.numeroNodes++
                         println(self.numeroNodes)
                         bodyA.runAction(SKAction.sequence([acaoAndar, acaoApagar]))
@@ -175,7 +173,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             }
             
             if nodeName == "addFuncionario" {
-                if contadorFila < 3  {
+                if contadorFila < 2  {
                     println("addFuncionario")
                     posicaoFila.x = posicaoFila.x + 200
                     arrayDeFila.addObject(gerarFila(posicaoFila, qtdClientesVar:  totalClientes))
