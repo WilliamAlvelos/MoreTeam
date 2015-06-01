@@ -81,6 +81,7 @@ class Singleton:NSObject{
         super.init()
         
         startGame()
+        delegate?.setDinheiro!(dinheiro)
     }
     
     func demitirLenhador() {
