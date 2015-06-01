@@ -286,10 +286,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             
             if (node.name == "mais") {
                 
-                
-
-                
-                
                 for demitir in demitirFuncionarios{
                     demitir.removeFromParent()
                 }
@@ -376,9 +372,8 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                     trabalhadores--
                 }
                 
-
                 
-                if(trabalhadores >= 0){
+                if(trabalhadores > 0){
                     trabalhadores--
                     trabalhadoresLabel--
                     
@@ -402,8 +397,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
 
     
     func excluirFuncionario(funcionario:SKSpriteNode) {
-        
-        //funcionariosDemitidos.append(ultimoFuncionario.last!)
             
             if(ultimoFuncionario.last!.position.x < nodePrincipal.size.height/2 - 300){
                 novoEsteira--;

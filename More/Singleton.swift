@@ -82,10 +82,8 @@ class Singleton:NSObject{
         
         matPrima = totalMatPrima
         startGame()
-<<<<<<< Updated upstream
+
         //delegate?.setDinheiro!(dinheiro)
-=======
->>>>>>> Stashed changes
     }
     
     func demitirLenhador() {
