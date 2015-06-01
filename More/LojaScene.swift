@@ -13,7 +13,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var actionWait = SKAction.waitForDuration(1)
     var actionMoveUp1 = SKAction.moveByX(0, y: 35, duration: 2)
     var actionMoveUp2 = SKAction.moveByX(0, y: 500, duration: 10)
-//    var actionMoveDown = SKAction.moveToY(-700, duration: 2)
+    //    var actionMoveDown = SKAction.moveToY(-700, duration: 2)
     var arrayDeFila : NSMutableArray = NSMutableArray()
     var addFuncionario : SKShapeNode?
     var removerFuncionario : SKShapeNode?
@@ -23,6 +23,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var posicaoFila : CGPoint!
     var balcaoNode25 : SKSpriteNode!
     
+    var numeroNodes : NSInteger = 0
+    
     var balcaoNode1 : SKSpriteNode!
     var balcaoNode2 : SKSpriteNode!
     var balcaoNode3 : SKSpriteNode!
@@ -31,7 +33,9 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var quadrado2 : SKShapeNode!
     var quadrado3 : SKShapeNode!
     
-
+    var porta1 : SKShapeNode!
+    
+    
     
     override func didMoveToView(view: SKView) {
         
@@ -40,23 +44,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
-    }
-    
-    
-    func andarCliente() {
-        
-        for position in arrayDeFila {
-            for node in position.children {
-                
-                if node.name != "trabalhadorNode" && node.name != "quadrado" {
-                    if !(node .hasActions())
-                    {
-                        node.runAction(SKAction.moveByX(0, y: 60, duration: 2))
-                    }
-                }
-            }
-            
-        }
     }
     
     
@@ -71,26 +58,21 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         return fila
     }
     
-//    func gerarBalcao(balcaoNode24 : SKSpriteNode) {
-//        
-//        balcaoNode25 = balcaoNode24
-//        
-//        balcaoNode25 = SKSpriteNode(imageNamed: "balcaoNode")
-//        balcaoNode25!.position = CGPoint(x: 0, y: 100)
-//        balcaoNode25!.physicsBody!.dynamic = false
-//        balcaoNode25!.name = "balcaoNode"
-//        
-//    }
+    
+    func gerarPorta1() {
+        
+    }
     
     
     override init(size: CGSize) {
         super.init(size: size)
         
         showBackButton()
-    
-        var timerAndar = NSTimer.scheduledTimerWithTimeInterval(6, target: self, selector: Selector("andarCliente"), userInfo: nil, repeats: true)
+        
         
         posicaoFila = CGPointMake(-100, 0)
+        
+        
         
         //Balcao 1
         balcaoNode1 = SKSpriteNode(imageNamed: "balcaoNode")
@@ -104,9 +86,9 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         balcaoNode3 = SKSpriteNode(imageNamed: "balcaoNode")
         balcaoNode3!.position = CGPoint(x: 200, y: 50)
         nodePrincipal.addChild(balcaoNode3)
-    
         
-               
+        
+        
         
         ///-----------
         arrayDeFila.addObject(gerarFila(posicaoFila))
@@ -114,7 +96,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         //Fisica Mundo
         physicsWorld.contactDelegate = self
-        physicsWorld.gravity = CGVectorMake(0.0, 0.0);
+        physicsWorld.gravity = CGVectorMake(0.0, 0.2);
         
         addFuncionario = SKShapeNode(circleOfRadius: CGFloat(30))
         addFuncionario!.name = "addFuncionario"
@@ -130,74 +112,56 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
     }
     
-    func didEndContact(contact: SKPhysicsContact) {
-        var bodyA = contact.bodyA.node!
-        var bodyB = contact.bodyB.node!
-        
-        
-        if(bodyA.name == "clienteNode" && bodyB.name == "clienteNode"){
-            bodyA.runAction(SKAction.moveByX(0, y: 30, duration: 1))
-        }
-        else if(bodyA.name == "clienteNodeBalcao" && bodyB.name == "clienteNode")
-        {
-            bodyB.runAction(SKAction.moveByX(0, y: 30, duration: 1))
-        }
-    }
-    
-    
     func didBeginContact(contact: SKPhysicsContact) {
         
+        let acaoAndar = SKAction.moveByX(0, y: 600, duration: 6)
+        let acaoApagar = SKAction.removeFromParent()
         
         var bodyA = contact.bodyA.node!
         var bodyB = contact.bodyB.node!
-        
-
         
         if(bodyA.name == "quadrado" && bodyB.name == "clienteNode"){
             
-            bodyB.removeAllActions()
             
-            bodyB.physicsBody?.dynamic = false
-            bodyA.physicsBody?.dynamic = false
-            
-            bodyB.name = "clienteNodeBalcao"
-            println("encostou no balcão")
-            
-            bodyB.runAction(SKAction.sequence([actionWait, actionMoveUp1]), completion: { () -> Void in
-                
-                bodyA.physicsBody?.dynamic = true
-                
-                    bodyB.runAction(self.actionMoveUp2, completion: { () -> Void in
-                        bodyB.removeAllActions()
-                        bodyB.removeFromParent()
-                        
+            bodyB.runAction(SKAction.waitForDuration(3), completion: { () -> Void in
+                bodyA.position.x = bodyA.position.x + 40
+                self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
+                bodyB.runAction(SKAction.moveByX(0, y: 100, duration: 1), completion: { () -> Void in
+                    bodyA.position.x = 0
+                    bodyB.runAction(SKAction.waitForDuration(0.0001), completion: { () ->    Void in
+                        self.physicsWorld.gravity = CGVectorMake(0.0, 0.1);
+                        self.numeroNodes++
+                        println(self.numeroNodes)
+                        bodyB.runAction(SKAction.sequence([acaoAndar, acaoApagar]))
                     })
-                
+                })
+            })
+            
+            println("contado!")
+        } else if bodyB.name == "quadrado" && bodyA.name == "clienteNode"
+        {
+            
+            
+            bodyA.runAction(SKAction.waitForDuration(3), completion: { () -> Void in
+                bodyB.position.x = bodyA.position.x + 40
+                self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
+                bodyA.runAction(SKAction.moveByX(0, y: 100, duration: 1), completion: { () -> Void in
+                    bodyB.position.x = 0
+                    bodyA.runAction(SKAction.waitForDuration(0.0001), completion: { () ->    Void in
+                        self.physicsWorld.gravity = CGVectorMake(0.0, 0.1);
+                        self.numeroNodes++
+                        println(self.numeroNodes)
+                        bodyA.runAction(SKAction.sequence([acaoAndar, acaoApagar]))
+                    })
+                })
             })
             
             
         }
-            
-        else if(bodyA.name == "clienteNode" && bodyB.name == "clienteNode"){
-            println("colidiu clinte com cliente")
-            bodyB.removeAllActions()
-            bodyA.removeAllActions()
-        }
-        else if(bodyA.name == "clienteNodeBalcao" && bodyB.name == "clienteNode") {
-            
-            println("colidiu clinte com cliente balcão")
-            bodyB.removeAllActions()
-            
-        }
-        else if(bodyA.name == "clienteNode" && bodyB.name == "clienteNodeBalcao")
-        {
-            println("colidiu clinte balcao com cliente")
-            bodyA.removeAllActions()
-        }
         
     }
     
-
+    
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
@@ -224,7 +188,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                 if contadorFila > 0  {
                     println("removerFuncionario")
                     posicaoFila.x = posicaoFila.x - 200
-                    //                arrayDeFila.lastObject?.removeFromParent()
                     println(arrayDeFila.count)
                     arrayDeFila.lastObject?.removeFromParent()
                     arrayDeFila.removeObjectAtIndex(contadorFila)
@@ -239,20 +202,20 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
     }
     
-
+    
     
     override func update(currentTime: CFTimeInterval) {
         
-//        for position in arrayDeFila {
-//            for node in position.children {
-//                
-//                if node.name != "trabalhadorNode" && node.name != "quadrado" {
-//                    if !(node .hasActions())
-//                    {
-//                        node.runAction(SKAction.moveByX(0, y: 20, duration: 0.5))
-//                    }
-//                }
-//            }
+        //        for position in arrayDeFila {
+        //            for node in position.children {
+        //
+        //                if node.name != "trabalhadorNode" && node.name != "quadrado" {
+        //                    if !(node .hasActions())
+        //                    {
+        //                        node.runAction(SKAction.moveByX(0, y: 20, duration: 0.5))
+        //                    }
+        //                }
+        //            }
         //}
     }
     

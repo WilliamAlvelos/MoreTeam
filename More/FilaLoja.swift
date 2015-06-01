@@ -20,10 +20,13 @@ class FilaLoja: SKSpriteNode {
     var randTimer : NSTimeInterval!
     var quadrado1 : SKShapeNode!
     
+    var linha1 : SKShapeNode!
+    var linha2 : SKShapeNode!
+    
     let CollisionNodeCliente     : UInt32 = 0x1 << 1
     let CollisionNodeBalcao : UInt32 = 0x1 << 2
     let CollisionQuadrado : UInt32 = 0x1 << 3
-
+    
     
     let acaoAndar = SKAction.moveByX(0, y: 700, duration: 9)
     var varQtdClientes : Int!
@@ -32,9 +35,8 @@ class FilaLoja: SKSpriteNode {
     {
         super.init(texture: nil, color: nil, size: size)
         
-        
-        addQuadrado()
-        
+        gerarQuadrado()
+        addlinha()
         
         self.varQtdClientes = qtdClientes
         
@@ -52,6 +54,19 @@ class FilaLoja: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func gerarQuadrado() {
+        quadrado1 = SKShapeNode(rectOfSize: CGSize(width: 20, height: 1))
+        quadrado1!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 1))
+        quadrado1!.physicsBody?.contactTestBitMask = 0
+        
+        quadrado1!.position = CGPointMake(0, 30)
+        quadrado1!.physicsBody?.dynamic = false
+        quadrado1!.name = "quadrado"
+        quadrado1.physicsBody?.pinned = true
+        quadrado1!.physicsBody!.mass = 0
+        quadrado1!.physicsBody?.restitution = 0
+        self.addChild(quadrado1!)
+    }
     
     func iniciarFila() {
         
@@ -60,26 +75,47 @@ class FilaLoja: SKSpriteNode {
         
     }
     
-    func addQuadrado() {
     
-        quadrado1 = SKShapeNode(rectOfSize: CGSize(width: 20, height: 1))
-        quadrado1!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 1))
-        quadrado1!.physicsBody?.contactTestBitMask = 0
+    func addlinha() {
+        linha1 = SKShapeNode(rectOfSize: CGSize(width: 1, height: size.height))
+        linha1!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 1, height: size.height))
+        linha1.position = CGPointMake(-17.5, 0)
+        linha1.physicsBody!.pinned = true
+        linha1.physicsBody!.mass = 300000
+        linha1.physicsBody?.dynamic = true
+        self.addChild(linha1)
         
-        quadrado1!.position = CGPointMake(0, 30)
-        quadrado1!.physicsBody?.dynamic = true
-        quadrado1!.name = "quadrado"
-        quadrado1.physicsBody?.pinned = true
-        //quadrado1!.fillColor = UIColor.blueColor()
-        //quadrado1.physicsBody?.collisionBitMask = 0
-        quadrado1!.physicsBody!.categoryBitMask = CollisionQuadrado
-        quadrado1!.physicsBody!.contactTestBitMask = CollisionNodeCliente
-        self.addChild(quadrado1!)
-        
-
-        
-        
+        linha2 = SKShapeNode(rectOfSize: CGSize(width: 1, height: size.height))
+        linha2!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 1, height: size.height))
+        linha2.position = CGPointMake(17.5, 0)
+        linha2.physicsBody!.pinned = true
+        linha2.physicsBody!.mass = 300000
+        linha2.physicsBody?.dynamic = true
+        self.addChild(linha2)
     }
+    //
+    //    func addQuadrado() {
+    //
+    //        quadrado1 = SKShapeNode(rectOfSize: CGSize(width: 20, height: 1))
+    //        quadrado1!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 1))
+    //        quadrado1!.physicsBody?.contactTestBitMask = 0
+    //
+    //        quadrado1!.position = CGPointMake(0, 30)
+    //        quadrado1!.physicsBody?.dynamic = false
+    //        quadrado1!.name = "quadrado"
+    //        quadrado1.physicsBody?.pinned = true
+    //        quadrado1!.physicsBody!.mass = 0
+    //        quadrado1!.physicsBody?.restitution = 0
+    //        //quadrado1!.fillColor = UIColor.blueColor()
+    //        //quadrado1.physicsBody?.collisionBitMask = 0
+    //        quadrado1!.physicsBody!.categoryBitMask = CollisionQuadrado
+    //        quadrado1!.physicsBody!.contactTestBitMask = CollisionNodeCliente
+    //        self.addChild(quadrado1!)
+    //
+    //
+    //
+    //
+    //    }
     
     func addCliente() {
         
@@ -89,26 +125,26 @@ class FilaLoja: SKSpriteNode {
         
         clienteNode.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 30, height: 30))
         //        clienteNode.
-        clienteNode.position = CGPoint(x: 0, y: -600)
+        clienteNode.position = CGPoint(x: 0, y: -size.height)
         clienteNode.physicsBody?.dynamic = true
+        clienteNode.physicsBody?.restitution = 0
+        clienteNode.physicsBody!.mass = 300
         clienteNode.physicsBody!.categoryBitMask = CollisionNodeCliente
         clienteNode.physicsBody!.contactTestBitMask =
-            CollisionNodeCliente
-
+        CollisionNodeCliente
+        clienteNode.physicsBody?.allowsRotation = false
+        
         
         clienteNode.name = "clienteNode"
-        clienteNode.removeAllActions()
-
+        clienteNode.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 200))
         
         if(self.children.count < varQtdClientes) {
             self.addChild(clienteNode)
             quantidadeNodes++
-            clienteNode.runAction(acaoAndar, withKey: "acaoAndarEntrando")
-            
             
         }
-   
-            
+        
+        
     }
     
 }
