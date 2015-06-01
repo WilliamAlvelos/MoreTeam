@@ -9,9 +9,6 @@
 import SpriteKit
 
 
-
-
-
 class FabricaNode : SKSpriteNode{
     
     var delegate:AbstractSceneDelegate?
