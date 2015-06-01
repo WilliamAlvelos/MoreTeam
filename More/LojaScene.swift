@@ -33,6 +33,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var quadrado3 : SKShapeNode!
     
     var porta1 : SKShapeNode!
+
+    var singleton:Singleton!
     
     override func didMoveToView(view: SKView) {
         
@@ -64,7 +66,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         super.init(size: size)
         
         showBackButton()
-        
+        singleton = Singleton.sharedInstance
+        singleton.delegate = self
         
         posicaoFila = CGPointMake(-100, 0)
         
@@ -88,6 +91,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         ///--- Primeiro Balcao --------
         arrayDeFila.addObject(gerarFila(posicaoFila,qtdClientesVar: totalClientes))
+        singleton.nVendedores++
         nodePrincipal.color = UIColor.whiteColor()
         
         //Fisica Mundo
@@ -178,6 +182,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                     posicaoFila.x = posicaoFila.x + 200
                     arrayDeFila.addObject(gerarFila(posicaoFila, qtdClientesVar:  totalClientes))
                     contadorFila++
+                    singleton.nVendedores++
                     
                     for fila in arrayDeFila {
                         
@@ -195,6 +200,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                     arrayDeFila.lastObject?.removeFromParent()
                     arrayDeFila.removeObjectAtIndex(contadorFila)
                     contadorFila--
+                    singleton.nVendedores--
                 }
                 
                 for fila in arrayDeFila {
