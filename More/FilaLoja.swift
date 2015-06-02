@@ -11,12 +11,8 @@ import SpriteKit
 class FilaLoja: SKSpriteNode {
     
     var balcaoNode : SKSpriteNode?
-    //    var trabalhadorNode : SKSpriteNode?
     var trabalhadorNode : SKShapeNode?
-    var contadorNodes : Int = 0
-    //    var foregroundNode = SKSpriteNode()
-    var quantidadeNodes : Int = 0;
-    var randTimer : NSTimeInterval!
+
     var quadrado1 : SKShapeNode!
     
     var linha1 : SKShapeNode!
@@ -25,10 +21,6 @@ class FilaLoja: SKSpriteNode {
     let CollisionNodeCliente     : UInt32 = 0x1 << 1
     let CollisionNodeBalcao : UInt32 = 0x1 << 2
     let CollisionQuadrado : UInt32 = 0x1 << 3
-    
-    
-    //    let acaoAndar = SKAction.moveByX(0, y: 700, duration: 1)
-    let acaoAndar = SKAction.moveTo(CGPoint(x: 0, y: 30), duration: 3)
     
     var varQtdClientes : Int!
     
@@ -41,9 +33,6 @@ class FilaLoja: SKSpriteNode {
         
         self.varQtdClientes = qtdClientes
         
-        println(self.varQtdClientes)
-        
-        //trabalhadorNode = SKSpriteNode(imageNamed: "funcionario")
         trabalhadorNode = SKShapeNode(circleOfRadius: CGFloat(20))
         trabalhadorNode?.fillColor = UIColor.blueColor()
         trabalhadorNode!.position = CGPoint(x: -110, y: size.height / 20)
@@ -78,11 +67,11 @@ class FilaLoja: SKSpriteNode {
     
     
     func addlinha() {
+        
         linha1 = SKShapeNode(rectOfSize: CGSize(width: 1, height: size.height))
         linha1!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 1, height: size.height))
         linha1.position = CGPointMake(-17.5, 0)
         linha1.physicsBody!.pinned = true
-        linha1.physicsBody!.mass = 300000
         linha1.physicsBody?.dynamic = true
         linha1.physicsBody?.allowsRotation = false
         self.addChild(linha1)
@@ -91,7 +80,6 @@ class FilaLoja: SKSpriteNode {
         linha2!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 1, height: size.height))
         linha2.position = CGPointMake(17.5, 0)
         linha2.physicsBody!.pinned = true
-        linha2.physicsBody!.mass = 300000
         linha2.physicsBody?.dynamic = true
         linha2.physicsBody?.allowsRotation = false
         self.addChild(linha2)
@@ -115,14 +103,9 @@ class FilaLoja: SKSpriteNode {
         clienteNode.physicsBody?.allowsRotation = false
         
         
-        //        clienteNode.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 100))
-        
-        
         if(self.children.count - 1 < varQtdClientes) {
             self.addChild(clienteNode)
             clienteNode.runAction(SKAction.moveByX(0, y: 900, duration: 9))
-            quantidadeNodes++
-            
         }
         
         
