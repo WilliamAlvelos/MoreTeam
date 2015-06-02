@@ -38,7 +38,7 @@ class Singleton:NSObject{
     var tipoMarketing:Int = 0;
     var dinheiro:NSInteger = 1000;
     var nFuncionarios:Int = 0;
-    var nLenhadores:Int = 0;
+    var nLenhadores:Int = 4;
     var placeHolder:Bool = false;
     var produtos:NSInteger = 0
     var volExtracao:Int = 0
@@ -60,6 +60,7 @@ class Singleton:NSObject{
     var segundos:Int = 0
     var minutos:Int = 0
     var horas:Int = 0
+    var limiteMPrima:Int = 10000
     
     var delegate:SingletonDelegate?
     
@@ -80,27 +81,10 @@ class Singleton:NSObject{
     override init(){
         super.init()
         
-        matPrima = totalMatPrima
+        //matPrima = totalMatPrima
         startGame()
 
         //delegate?.setDinheiro!(dinheiro)
-
-    }
-    
-    func demitirLenhador() {
-        if(nLenhadores > 0){
-            nLenhadores--
-            dinheiro += Int(precoLenhador / 2)
-            precoLenhador -= precoLenhador * 0.13
-        }
-    }
-    
-    func addLenhador() {
-        if(dinheiro >= Int(precoLenhador)){
-            nLenhadores++
-            dinheiro -= Int(precoLenhador)
-            precoLenhador += precoLenhador * 0.15
-        }
     }
     
     func demitirFuncionario() {
@@ -231,7 +215,9 @@ class Singleton:NSObject{
         }
         segundos = Int(elapsedTime)
         
-        calcMateriaPrima()
+        if(limiteMPrima != 0){
+            calcMateriaPrima()
+        }
         calcPorcentagem()
         calcTempo()
     }
@@ -240,6 +226,8 @@ class Singleton:NSObject{
         var tipo:Int = 1;
         var reciclados: Double = 0;
         var recicladosInt: Int = 0;
+        var custoInicial: Int = 0;
+        var tempo: Double = 0;
         
         if(tipoMPrima == 0){
             tipo = 1
@@ -249,18 +237,29 @@ class Singleton:NSObject{
             tipo = 5
         }
         
+        custoInicial = 200 * tipo;
+        
+        tempo = Double(limiteMPrima / (custoInicial * nLenhadores))
+        
+        volExtracao = custoInicial * nLenhadores
+        
+        if(limiteMPrima >= volExtracao){
+            volExtracao = custoInicial * nLenhadores
+            limiteMPrima -= volExtracao
+            matPrima += volExtracao
+            totalMatPrima -= volExtracao
+        } else {
+            volExtracao = limiteMPrima
+            matPrima += limiteMPrima;
+            limiteMPrima = 0
+        }
+        
         if(reciclagem == true){
             reciclados = Double(reciclaveis) * 0.25 * 500
             recicladosInt = Int(reciclados)
             matPrima += recicladosInt
             reciclaveis = 0;
         }
-        
-        matPrima += nLenhadores * 200 * tipo;
-        volExtracao = nLenhadores * 200 * tipo + recicladosInt
-        
-        totalMatPrima -= volExtracao
-        println(matPrima)
     }
     
     func calcProdutos(){
