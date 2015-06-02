@@ -11,29 +11,27 @@ import SpriteKit
 class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     var actionWait = SKAction.waitForDuration(2)
+    
+    var actionMove = SKAction.moveByX(0, y: 55, duration: 4)
+    var actionMoveUp = SKAction.moveByX(0, y: 400, duration: 4)
+    
     var arrayDeFila : NSMutableArray = NSMutableArray()
+    
+    //Adicionar e Remover Funcionarios
     var addFuncionario : SKShapeNode?
     var removerFuncionario : SKShapeNode?
-    var balcaoNodeArray : NSMutableArray = NSMutableArray()
-    var posicaoFilaBalcao : CGPoint!
+    
     var contadorFila : Int = 0
     var posicaoFila : CGPoint!
-    var balcaoNode25 : SKSpriteNode!
     
     var totalClientes : NSInteger = 14
-    
-    var numeroNodes : NSInteger = 0
     
     var balcaoNode1 : SKSpriteNode!
     var balcaoNode2 : SKSpriteNode!
     var balcaoNode3 : SKSpriteNode!
     
-    var quadrado1 : SKShapeNode!
-    var quadrado2 : SKShapeNode!
-    var quadrado3 : SKShapeNode!
-    
     var porta1 : SKShapeNode!
-
+    
     var singleton:Singleton!
     
     override func didMoveToView(view: SKView) {
@@ -51,8 +49,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         var fila = FilaLoja(size: CGSizeMake(50, nodePrincipal.size.height), varMarketing: 0, qtdClientes: qtdClientesVar)
         fila.position = posicao
         nodePrincipal.addChild(fila)
-        
         fila.iniciarFila()
+        
         return fila
     }
     
@@ -96,14 +94,16 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         //Fisica Mundo
         physicsWorld.contactDelegate = self
-        physicsWorld.gravity = CGVectorMake(0.0, 0.2);
+        physicsWorld.gravity = CGVectorMake(0.0, 0.0);
         
+        //Add Funcionario
         addFuncionario = SKShapeNode(circleOfRadius: CGFloat(30))
         addFuncionario!.name = "addFuncionario"
         addFuncionario?.fillColor = UIColor.blackColor()
         addFuncionario!.position = CGPoint(x: 0, y: 0)
         nodeLatBotoes.addChild(addFuncionario!)
         
+        //Remover Funcionario
         removerFuncionario = SKShapeNode(circleOfRadius: CGFloat(30))
         removerFuncionario!.name = "removerFuncionario"
         removerFuncionario?.fillColor = UIColor.blueColor()
@@ -112,53 +112,86 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
     }
     
-    func didBeginContact(contact: SKPhysicsContact) {
-        
-        let acaoAndar = SKAction.moveByX(0, y: 300, duration: 6)
-        let acaoApagar = SKAction.removeFromParent()
-        
+    
+    func didEndContact(contact: SKPhysicsContact) {
         var bodyA = contact.bodyA.node!
         var bodyB = contact.bodyB.node!
         
-        if(bodyA.name == "quadrado" && bodyB.name == "clienteNode"){
+        
+        if(bodyA.name == "cliente" && bodyB.name == "cliente"){
+            bodyA.runAction(actionMove, withKey: "move")
+            bodyB.runAction(actionMove, withKey: "move")
             
             
-            bodyB.runAction(SKAction.waitForDuration(3), completion: { () -> Void in
-                bodyA.position.x = bodyA.position.x + 40
-                self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
-                bodyB.runAction(SKAction.moveByX(0, y: 40, duration: 0.4), completion: { () -> Void in
-                    bodyA.position.x = 0
-                    bodyB.runAction(SKAction.waitForDuration(0.1), completion: { () ->    Void in
-                        self.physicsWorld.gravity = CGVectorMake(0.0, 0.2);
-                        self.numeroNodes++
-                        println(self.numeroNodes)
-                        bodyB.runAction(SKAction.sequence([acaoAndar, acaoApagar]))
-                    })
-                })
-            })
-            
-            println("contado!")
-        } else if bodyB.name == "quadrado" && bodyA.name == "clienteNode"
-        {
+        }else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente"){
+            bodyB.runAction(actionMove, withKey: "move")
             
             
-            bodyA.runAction(SKAction.waitForDuration(3), completion: { () -> Void in
-                bodyB.position.x = bodyA.position.x + 40
-                self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
-                bodyA.runAction(SKAction.moveByX(0, y: 40, duration: 0.4), completion: { () -> Void in
-                    bodyB.position.x = 0
-                    bodyA.runAction(SKAction.waitForDuration(0.1), completion: { () ->    Void in
-                        self.physicsWorld.gravity = CGVectorMake(0.0, 0.2);
-                        self.numeroNodes++
-                        println(self.numeroNodes)
-                        bodyA.runAction(SKAction.sequence([acaoAndar, acaoApagar]))
-                    })
-                })
-            })
-            
-            
+        }else if(bodyB.name == "clienteBalcao" && bodyA.name == "cliente"){
+            bodyA.runAction(actionMove, withKey: "move")
         }
         
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        var bodyA = contact.bodyA.node!
+        var bodyB = contact.bodyB.node!
+        
+        if(bodyA.name == "quadrado" && bodyB.name == "cliente"){
+            
+            bodyB.removeAllActions()
+            bodyB.name = "clienteBalcao"
+            
+            bodyB.runAction(actionWait, completion: { () -> Void in
+                bodyB.physicsBody?.dynamic = false
+                
+                bodyB.runAction(self.actionMoveUp, completion: { () -> Void in
+                    bodyB.removeAllActions()
+                    bodyB.removeFromParent()
+                    
+                })
+                
+                
+            })
+            
+            
+        }else if(bodyB.name == "quadrado" && bodyA.name == "cliente"){
+            
+            bodyA.removeAllActions()
+            bodyA.name = "clienteBalcao"
+            
+            
+            bodyA.runAction(actionWait, completion: { () -> Void in
+                bodyA.physicsBody?.dynamic = false
+                
+                bodyA.runAction(self.actionMoveUp, completion: { () -> Void in
+                    bodyA.removeAllActions()
+                    bodyA.removeFromParent()
+                    
+                })
+                
+                
+            })
+            
+        }
+        else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente"){
+            bodyB.removeAllActions()
+            
+            
+        }else if(bodyB.name == "clienteBalcao" && bodyA.name == "cliente"){
+            bodyA.removeAllActions()
+            
+        }else{
+            
+            if((bodyB.actionForKey("move")) == nil && bodyB.name != "clienteBalcao"){
+                bodyB.removeAllActions()
+            }
+            
+            if((bodyA.actionForKey("move")) == nil && bodyA.name != "clienteBalcao"){
+                bodyA.removeAllActions()
+            }
+            
+        }
     }
     
     
