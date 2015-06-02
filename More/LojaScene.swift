@@ -71,7 +71,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         
         
-        //Balcao 1
+        //Basalcao 1
         balcaoNode1 = SKSpriteNode(imageNamed: "balcaoNode")
         balcaoNode1!.position = CGPoint(x: -200, y: 50)
         nodePrincipal.addChild(balcaoNode1)
@@ -206,7 +206,16 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             let nodeName: String? = touchedNode.name
             
             if(nodeName == "voltar") {
+                
+                for node in arrayDeFila {
+                    var pause = node as! FilaLoja
+                    pause.timer.invalidate()
+                    
+                }
+                
                 myDelegate?.backToWorld()
+                
+                
             }
             
             if nodeName == "addFuncionario" {

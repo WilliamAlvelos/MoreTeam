@@ -18,6 +18,8 @@ class FilaLoja: SKSpriteNode {
     var linha1 : SKShapeNode!
     var linha2 : SKShapeNode!
     
+    var timer : NSTimer!
+    
     let CollisionNodeCliente     : UInt32 = 0x1 << 1
     let CollisionNodeBalcao : UInt32 = 0x1 << 2
     let CollisionQuadrado : UInt32 = 0x1 << 3
@@ -61,7 +63,7 @@ class FilaLoja: SKSpriteNode {
     func iniciarFila() {
         
         
-        var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("addCliente"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("addCliente"), userInfo: nil, repeats: true)
         
     }
     
