@@ -60,7 +60,7 @@ class Singleton:NSObject{
     var segundos:Int = 0
     var minutos:Int = 0
     var horas:Int = 0
-    var limiteMPrima:Int = 10000
+    var limiteMPrima:Int = 0
     
     var delegate:SingletonDelegate?
     
@@ -82,6 +82,7 @@ class Singleton:NSObject{
         super.init()
         
         //matPrima = totalMatPrima
+        matPrima = totalMatPrima
         startGame()
 
         //delegate?.setDinheiro!(dinheiro)
