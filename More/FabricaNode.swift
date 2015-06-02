@@ -17,7 +17,7 @@ class FabricaNode : SKSpriteNode{
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "fabrica"), color: nil, size: size)
         
-        self.zPosition = 1
+        //self.zPosition = 1
         self.name = "fabrica"
         self.userInteractionEnabled = true
     }

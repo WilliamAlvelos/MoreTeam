@@ -19,7 +19,7 @@ class LojaNode : SKSpriteNode{
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "loja.png"), color: nil, size: size)
         
-        self.zPosition = 1
+        //self.zPosition = 1
         self.name = "loja"
         
         self.userInteractionEnabled = true
