@@ -29,7 +29,7 @@ class GameController:AbstractSceneDelegate{
     
     
     func goToFabrica(fabrica:SKSpriteNode){
-        let fabrica = FabricaScene(y: 10, size: gameView.frame.size)
+        let fabrica = FabricaScene(y: 2, size: gameView.frame.size)
         fabrica.myDelegate = self
         gameView.presentScene(fabrica)
     }

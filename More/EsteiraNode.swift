@@ -9,31 +9,56 @@
 import Foundation
 import SpriteKit
 
-class EsteiraNode: SKSpriteNode{
 
+protocol EsteiraNodeDelegate{
+    func actionFinish(esteira:EsteiraNode)
+
+}
+
+
+class EsteiraNode: SKSpriteNode{
     
-    var esteira = SKSpriteNode(imageNamed: "conveyor_belt-23")
     
-    var esteira2 = SKSpriteNode(imageNamed: "conveyor_belt-23")
+    var delegate:EsteiraNodeDelegate!
+    var velocidade:NSTimeInterval!
 
     
     init(){
-        super.init(texture: nil, color: UIColor.grayColor(), size: CGSizeMake(esteira.size.width, esteira.size.height))
+        super.init(texture: nil, color: UIColor.grayColor(), size: CGSizeMake(106, 1192))
 
     }
     
     
     func moveEsteira(){
         
-        var moveEsteiraSprite = SKAction.moveByX(0, y:esteira.size.height, duration: 0.5)
-        var moveGroundSpritesForever = SKAction.repeatActionForever(SKAction.sequence([moveEsteiraSprite]))
-        esteira.position = CGPointMake(0, -esteira.size.height/2)
-        esteira2.position = CGPointMake(0, esteira.position.y - esteira2.size.height)
+        var esteira = SKSpriteNode(imageNamed: "conveyor_belt-23")
+        var esteira2 = SKSpriteNode(imageNamed: "conveyor_belt-23")
         
-        esteira.runAction(moveGroundSpritesForever)
+        
+        addChild(esteira)
+        addChild(esteira2)
+        
+        var moveEsteiraSprite = SKAction.moveByX(0, y: esteira.size.height , duration:(3.0))
+       // var moveSpritesForever = SKAction.repeatActionForever(SKAction.sequence([moveEsteiraSprite]))
+        
+        
+        esteira.position = CGPointMake(0, 0)
+        esteira2.position = CGPointMake(0, esteira.position.y - esteira.size.height + 8)
+        esteira.zPosition = 0.2
+        
+        esteira.runAction(moveEsteiraSprite, completion: { () -> Void in
+            esteira.removeFromParent()
+            self.delegate.actionFinish(self)
+        })
+        
+        esteira2.runAction(moveEsteiraSprite, completion: { () -> Void in
+            esteira2.removeFromParent()
+        })
         
         
     }
+    
+
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

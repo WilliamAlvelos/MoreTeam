@@ -12,7 +12,7 @@ import SpriteKit
 import CoreData
 
 
-class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
+class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate{
     
     var novoEsteira:Int = 0
     var novoEsteira1:Int = 0
@@ -35,6 +35,8 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     
     var valorEsteira2 = 0
     
+    var esteira: SKNode!
+    
     var ultimoFuncionario:[SKNode] = []
     
     var demitirFuncionarios:[SKNode] = []
@@ -48,13 +50,39 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     var flagEsteira2 = 1
     
     
-    var singleton = Singleton.sharedInstance
+    var esteira2:EsteiraNode = EsteiraNode()
     
+    var esteira1:EsteiraNode = EsteiraNode()
+    
+    
+    var singleton = Singleton.sharedInstance
     
     
     init(y:Int, size: CGSize){
         
         super.init(size: size)
+        
+        nodePrincipal.color = UIColor.lightGrayColor()
+        
+        esteira1.delegate = self
+        
+        esteira2.delegate = self
+        
+        esteira1.position.x = nodePrincipal.size.width/6 + 75
+        
+        esteira2.position.x = nodePrincipal.size.width/6 - 300
+        
+        nodePrincipal.addChild(esteira1)
+        
+        nodePrincipal.addChild(esteira2)
+        
+        esteira1.velocidade = 1.5
+        
+        esteira2.velocidade = 1.5
+        
+        esteira1.moveEsteira()
+        
+        esteira2.moveEsteira()
         
         trabalhadoresLabel = y
         
@@ -66,9 +94,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
         
         var x = y
         
-        
-        
-        for(var i = 0; i <= x; ++i){
+        for(var i = 0; i < x; ++i){
         
             if(i == 2 || i == 8 || i == 14 || i == 20){
                 i++
@@ -158,6 +184,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                 funcionario.runAction(animacao)
                 funcionario.xScale = 0.5
                 funcionario.yScale = 0.5
+                funcionario.zPosition = 2.0
                 funcionario.physicsBody?.allowsRotation = false
                 funcionario.name = "funcionario"
 
@@ -166,26 +193,26 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                 if(i <= 5){
                     var aux = i;
                     var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 400, y-(nodePrincipal.size.width/2))
+                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 375, y-(nodePrincipal.size.width/2))
                 }
                 else if(i >= 6 && i < 12){
                     
                     funcionario.xScale = -0.5
                     var aux = i - 6;
                     var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 200, y-(nodePrincipal.size.width/2))
+                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 225, y-(nodePrincipal.size.width/2))
                 }
                     
                 else if(i >= 12 && i < 18){
                     var aux = i - 12;
                     var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 25, y-(nodePrincipal.size.width/2))
+                    funcionario.position = CGPointMake(nodePrincipal.size.width/6, y-(nodePrincipal.size.width/2))
                 }
                     
                 else{
                     funcionario.xScale = -0.5
                     var y:CGFloat = (CGFloat(i-18)*100)+125.0
-                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 175, y-(nodePrincipal.size.width/2))
+                    funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 150, y-(nodePrincipal.size.width/2))
                     
                 }
                 
@@ -215,15 +242,15 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     
 
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
+        
+        
+        
+
         showBackButton()
         
         singleton.delegate = self
         
-        
-        
         setDinheiro(singleton.dinheiro)
-        
         
         let fundoFabrica = SKSpriteNode(imageNamed: "chao")
         fundoFabrica.xScale = 1.5
@@ -249,38 +276,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
         menos.yScale = 0.2
         menos.position = CGPointMake(0 ,0)
         menos.name = "menos"
-
-        let esteira = SKSpriteNode(imageNamed: "conveyor_belt-23")
-        esteira.xScale = 1.0
-        esteira.yScale = 1.0
-        esteira.position = CGPointMake(nodePrincipal.size.width/6 - 300 , 150)
-        esteira.name = "esteira"
-        esteira.zPosition = 0.5
-        
-        
-//        let esteira = SKSpriteNode(imageNamed: "conveyor_belt-23")
-//        esteira.xScale = 1.0
-//        esteira.yScale = 1.0
-//        esteira.position = CGPointMake(nodePrincipal.size.width/6 - 300 , 150)
-//        esteira.name = "esteira"
-//        esteira.zPosition = 0.5
-//        
-//        let esteiraa = SKSpriteNode(imageNamed: "conveyor_belt-23")
-//        esteiraa.xScale = 1.0
-//        esteiraa.yScale = 1.0
-//        esteiraa.position = CGPointMake(nodePrincipal.size.width/6 - 300 , 150)
-//        esteiraa.name = "esteira"
-//        esteiraa.zPosition = 0.5
-//        
-//        
-//        var moveEsteiraSprite = SKAction.moveByX(0, y:esteira.size.height, duration: 0.5)
-//        var moveGroundSpritesForever = SKAction.repeatActionForever(SKAction.sequence([moveEsteiraSprite]))
-//        esteira.position = CGPointMake(0, -esteira.size.height/2)
-//        esteiraa.position = CGPointMake(0, esteira.position.y - esteiraa.size.height)
-//        
-//        esteira.runAction(moveGroundSpritesForever)
-        
-        
         
         
         var maquina1 = SKTexture(imageNamed: "machine-02")
@@ -331,17 +326,17 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
         maquina.position = CGPointMake(-175, -45)
         
         
+        let maquinaNode = SKSpriteNode(texture: maquina1)
+        maquinaNode.setScale(2.0)
+        maquinaNode.runAction(animacao)
+        maquinaNode.xScale = 1.0
+        maquinaNode.yScale = 0.8
+        maquinaNode.name = "maquina2"
+        maquinaNode.zPosition = 10.0
+        maquinaNode.position = CGPointMake(esteira1.position.x, -45)
         
-        let esteira2 = SKSpriteNode(imageNamed: "conveyor_belt-23")
-        esteira2.xScale = 1.0
-        esteira2.yScale = 1.0
-        esteira2.position = CGPointMake(nodePrincipal.size.width/6 + 75, 150)
-        esteira2.name = "esteira2"
-        esteira2.zPosition = 0.5
-        
-        nodePrincipal.addChild(esteira2)
-        nodePrincipal.addChild(esteira)
         nodeLatBotoes.addChild(play)
+        nodePrincipal.addChild(maquinaNode)
         nodePrincipal.addChild(maquina)
         nodeLateral.addChild(myLabel)
         nodeLatBotoes.addChild(menos)
@@ -360,7 +355,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             yVar = 0
             
             produto.position = CGPoint(x:nodePrincipal.size.width/6 - 300 , y: -nodePrincipal.size.height/2)
-            produto.zPosition = 3.0
+            produto.zPosition = -3.0
             
             nodePrincipal.addChild(produto)
             
@@ -375,6 +370,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                 self.yVar = self.yVar + 60
                 
             })
+            
             produto.runAction(SKAction.waitForDuration(1.2 - (Double(self.valorEsteira1)/16)), completion: { () -> Void in
                 self.runAction(SKAction.runBlock(self.caixaProducao))
 
@@ -436,7 +432,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             yVar = 0
             
             produto.position = CGPoint(x:nodePrincipal.size.width/6+75 , y:-nodePrincipal.size.height/2)
-            produto.zPosition = 3.0
+            produto.zPosition = -3.0
             
             nodePrincipal.addChild(produto)
             
@@ -530,7 +526,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                     
                 if(singleton.dinheiro > NSInteger(singleton.precoFuncionario)){
                 
-                    singleton.addFuncionarios()
+                    //singleton.addFuncionarios()
                     
                     if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
                         trabalhadores++
@@ -548,8 +544,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                         
                         trabalhadores++;
                         trabalhadoresLabel++;
-                        
-                        
                         
                     
                         var workerTexture1 = SKTexture(imageNamed: "worker-61")
@@ -623,6 +617,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                         let funcionario = SKSpriteNode(texture: workerTexture1)
                         funcionario.setScale(2.0)
                         funcionario.runAction(animacao)
+                        funcionario.zPosition = 2.0
                         funcionario.xScale = 0.5
                         funcionario.yScale = 0.5
                         funcionario.physicsBody?.allowsRotation = false
@@ -636,26 +631,26 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
                         if(trabalhadores <= 5){
                                 var aux = trabalhadores;
                                 var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 400, y-(nodePrincipal.size.width/2))
+                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 375, y-(nodePrincipal.size.width/2))
                         }
                         else if(trabalhadores >= 6 && trabalhadores < 12){
                             
                                 funcionario.xScale = -0.5
                                 var aux = trabalhadores - 6;
                                 var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 200, y-(nodePrincipal.size.width/2))
+                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 225, y-(nodePrincipal.size.width/2))
                         }
                             
                         else if(trabalhadores >= 12 && trabalhadores < 18){
                                 var aux = trabalhadores - 12;
                                 var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 25, y-(nodePrincipal.size.width/2))
+                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 , y-(nodePrincipal.size.width/2))
                         }
 
                         else{
                             funcionario.xScale = -0.5
                             var y:CGFloat = (CGFloat(trabalhadores-18)*100)+125.0
-                            funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 175, y-(nodePrincipal.size.width/2))
+                            funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 150, y-(nodePrincipal.size.width/2))
                     
                         }
                         
@@ -684,10 +679,9 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
             if(node.name == "menos"){
                 
                 
-                if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
+                if(trabalhadores == 3 || trabalhadores == 9 || trabalhadores == 15 || trabalhadores == 21){
                     trabalhadores--
                 }
-                
                 
                 if(trabalhadores >= 0){
                     trabalhadores--
@@ -727,7 +721,14 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate{
     }
     
     
+    
+    func actionFinish(esteira: EsteiraNode) {
+        esteira.moveEsteira()
+    }
+    
+}
+    
 
     
 
-}
+
