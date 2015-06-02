@@ -1,42 +1,33 @@
 //
-//  Loja.swift
+//  ArvoreNode.swift
 //  More
 //
-//  Created by Felipe Costa Nascimento on 5/27/15.
+//  Created by Felipe Costa Nascimento on 6/2/15.
 //  Copyright (c) 2015 MoreTeam. All rights reserved.
 //
 
 import SpriteKit
 
-
-
-
-class LojaNode : SKSpriteNode{
+class ArvoreNode: SKSpriteNode {
     
-    var delegate:AbstractSceneDelegate?
-    let IMAGE_NAME = "swing_store-"
+    let IMAGE_NAME = "swing_tree-"
     let NUM_TEXTURES = 4
     var actionSwing:SKAction!
     
     
     init(size:CGSize){
-        super.init(texture: SKTexture(imageNamed: "\(IMAGE_NAME)01.png"), color: nil, size: size)
+        super.init(texture: SKTexture(imageNamed: "\(IMAGE_NAME)03.png"), color: nil, size: size)
         
         //self.zPosition = 1
-        self.name = "loja"
-        self.userInteractionEnabled = true
         inicializarActionSwing()
     }
     
-    
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        delegate?.goToLoja(self)
+        println("tocou na fabrica")
     }
     
     
@@ -57,5 +48,5 @@ class LojaNode : SKSpriteNode{
     func startSwingAnimation(){
         self.runAction(actionSwing)
     }
-    
+
 }

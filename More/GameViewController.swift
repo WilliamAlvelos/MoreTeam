@@ -15,7 +15,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        
+        
         let scene = TelaPrincipal(size: self.view.frame.size, view: self.view as! SKView)
         
         //let scene = LojaScene(size: self.view.frame.size)
