@@ -381,10 +381,13 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
             produto.removeAllChildren()
         }
         else{
-            let produto = SKSpriteNode(imageNamed: "produto.jpg")
             
-            produto.xScale = 0.05
-            produto.yScale = 0.05
+            var x = arc4random()%4 + 1
+            
+            let produto = SKSpriteNode(imageNamed: "pack-0\(x)")
+            
+            produto.xScale = 1.0
+            produto.yScale = 1.0
             
             yVar = 0
             
@@ -456,10 +459,12 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
             produto.removeAllChildren()
         }
         else{
-            let produto = SKSpriteNode(imageNamed: "produto.jpg")
+            var x = arc4random()%4 + 1
             
-            produto.xScale = 0.05
-            produto.yScale = 0.05
+            let produto = SKSpriteNode(imageNamed: "pack-0\(x)")
+            
+            produto.xScale = 1.0
+            produto.yScale = 1.0
             
             yVar = 0
             
@@ -526,7 +531,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
                     
                 if(singleton.dinheiro > NSInteger(singleton.precoFuncionario)){
                 
-                    //singleton.addFuncionarios()
+                    singleton.addFuncionarios()
                     
                     if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
                         trabalhadores++

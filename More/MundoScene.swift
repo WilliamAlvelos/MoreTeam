@@ -176,11 +176,11 @@ class MundoScene : AbstractScene, MundoDelegate{
                 }
                 
             }else{
-                var pop = PopUpNode(size: self.size)
-                pop.zPosition = 3
-                pop.position = CGPointMake(self.size.width / 2, self.size.height / 2)
-                pop.showPopUp()
-                self.addChild(pop)
+//                var pop = PopUpNode(size: self.size)
+//                pop.zPosition = 3
+//                pop.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+//                pop.showPopUp()
+//                self.addChild(pop)
             }
         
         }
