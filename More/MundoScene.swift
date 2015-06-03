@@ -22,7 +22,6 @@ class MundoScene : AbstractScene, MundoDelegate{
     
     var itemEscolhido:SKSpriteNode!
     
-    
     override init(size: CGSize) {
         super.init(size: size)
 

@@ -49,11 +49,9 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
     
     var flagEsteira2 = 1
     
-    
     var esteira2:EsteiraNode = EsteiraNode()
     
     var esteira1:EsteiraNode = EsteiraNode()
-    
     
     var singleton = Singleton.sharedInstance
     
@@ -84,7 +82,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
         
         esteira2.moveEsteira()
         
-        trabalhadoresLabel = y
+        trabalhadoresLabel = y + 1
         
         trabalhadores = y
         
@@ -94,8 +92,11 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
         
         var x = y
         
-        for(var i = 0; i < x; ++i){
+        var i = -1;
         
+        while(i < x){
+        
+            i++;
             if(i == 2 || i == 8 || i == 14 || i == 20){
                 i++
             }
@@ -221,16 +222,17 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
                     
                     nodePrincipal.addChild(funcionario);
                     
-                    ultimoFuncionario.append(funcionario)
                 }
                     
                 else{
                     novoEsteira1++;
                     
                     nodePrincipal.addChild(funcionario);
-                    
-                    ultimoFuncionario.append(funcionario)
                 }
+                
+                
+                ultimoFuncionario.append(funcionario)
+
             }
         }
 
