@@ -116,7 +116,7 @@ class FilaLoja: SKSpriteNode {
         
         if(self.children.count - 4 < varQtdClientes) {
             self.addChild(clienteNode)
-            clienteNode.runAction(action)
+            clienteNode.runAction(acaoAndar)
         }
         
         
