@@ -10,18 +10,23 @@ import SpriteKit
 
 class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
-    var actionWait = SKAction.waitForDuration(2)
+    var actionWait = SKAction.waitForDuration(5)
+    var actionWaitPorta = SKAction.waitForDuration(2)
     
-    var actionMove = SKAction.moveByX(0, y: 120, duration: 2)
-    var actionMoveUp = SKAction.moveByX(0, y: 400, duration: 4)
+    
+    var actionMove = SKAction.moveByX(0, y: 120, duration: 1.2)
+    var actionMoveUp = SKAction.moveByX(0, y: 150, duration: 1.5)
+    var actionMoveSair = SKAction.moveByX(0, y: 100, duration: 1)
     
     var arrayDeFila : NSMutableArray = NSMutableArray()
     
     
-
+    
     //Adicionar e Remover Funcionarios
     var addFuncionario : SKShapeNode?
     var removerFuncionario : SKShapeNode?
+    
+    var portaAbrir : SKSpriteNode!
     
     var contadorFila : Int = 0
     var posicaoFila : CGPoint!
@@ -32,16 +37,18 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var balcaoNode2 : SKSpriteNode!
     var balcaoNode3 : SKSpriteNode!
     
-    var spriteArray = Array<SKTexture>();
-//    
-//    var arrayPorta = ["door-C-16", "door-C-17", "door-C-18", "door-C-19", "door-C-20", "door-C-21", "door-C-22", "door-C-23", "door-C-24", "door-C-25", "door-C-26"]
+    var abrirPortaArray = Array<SKTexture>()
+    var fecharPortaArray = Array<SKTexture>()
+    var balcaoArray = Array<SKTexture>()
     
-    var animacaoPorta : SKAction!
+    var animacaoPortaAbrir : SKAction!
+    var animacaoPortaFechar : SKAction!
+    var balcaoAnimacao : SKAction!
     
     var porta1 : SKSpriteNode!
     var porta2 : SKSpriteNode!
     var porta3 : SKSpriteNode!
-
+    
     var singleton:Singleton!
     
     override func didMoveToView(view: SKView) {
@@ -56,7 +63,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     func gerarFila(posicao : CGPoint, qtdClientesVar : NSInteger) -> FilaLoja {
         
-        var fila = FilaLoja(size: CGSizeMake(50, nodePrincipal.size.height), varMarketing: 0, qtdClientes: qtdClientesVar)
+        var fila = FilaLoja(size: CGSizeMake(50, nodePrincipal.size.height), varMarketing: 0, qtdClientes: qtdClientesVar, fila : contadorFila)
         fila.position = posicao
         nodePrincipal.addChild(fila)
         fila.iniciarFila()
@@ -73,11 +80,24 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     override init(size: CGSize) {
         super.init(size: size)
         
-
-        for i in 16 ... 26
+        balcaoArray.append(SKTexture(imageNamed: "cashier-02"))
+        balcaoArray.append(SKTexture(imageNamed: "cashier-03"))
+        balcaoArray.append(SKTexture(imageNamed: "cashier-04"))
+        
+        balcaoAnimacao = SKAction.animateWithTextures(balcaoArray, timePerFrame: 1)
+        
+        for i in 16 ... 20
         {
-            spriteArray.append(SKTexture(imageNamed: "door-C-\(i)"))
+            abrirPortaArray.append(SKTexture(imageNamed: "door-C-\(i)"))
         }
+        
+        for i in 20 ... 26
+        {
+            fecharPortaArray.append(SKTexture(imageNamed: "door-C-\(i)"))
+        }
+        
+        animacaoPortaAbrir = SKAction.animateWithTextures(abrirPortaArray, timePerFrame: 0.1)
+        animacaoPortaFechar = SKAction.animateWithTextures(fecharPortaArray, timePerFrame: 0.1)
         
         nodePrincipal.texture = SKTexture(imageNamed: "Store-57")
         
@@ -109,7 +129,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         //F4EBC6
         
-       
+        
         
         //Add Porta
         porta1 = SKSpriteNode(imageNamed: "door-C-15.png")
@@ -117,15 +137,15 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         porta1!.zPosition = 1
         nodePrincipal.addChild(porta1)
         
-        porta1 = SKSpriteNode(imageNamed: "door-C-15.png")
-        porta1!.position = CGPoint(x: 10, y: 265)
-        porta1!.zPosition = 1
-        nodePrincipal.addChild(porta1)
+        porta2 = SKSpriteNode(imageNamed: "door-C-15.png")
+        porta2!.position = CGPoint(x: 10, y: 265)
+        porta2!.zPosition = 1
+        nodePrincipal.addChild(porta2)
         
-        porta1 = SKSpriteNode(imageNamed: "door-C-15.png")
-        porta1!.position = CGPoint(x: 205, y: 265)
-        porta1!.zPosition = 1
-        nodePrincipal.addChild(porta1)
+        porta3 = SKSpriteNode(imageNamed: "door-C-15.png")
+        porta3!.position = CGPoint(x: 205, y: 265)
+        porta3!.zPosition = 1
+        nodePrincipal.addChild(porta3)
         
         
         
@@ -182,17 +202,34 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         if(bodyA.name == "quadrado" && bodyB.name == "cliente"){
             
+            var teste = bodyB as! ClienteNode
+            var a = teste.fila
+            
             bodyB.removeAllActions()
             bodyB.name = "clienteBalcao"
             
             bodyB.runAction(actionWait, completion: { () -> Void in
                 bodyB.physicsBody?.dynamic = false
                 
-                bodyB.runAction(self.actionMoveUp, completion: { () -> Void in
-//                  
-                    self.porta1.runAction(SKAction.repeatActionForever(self.animacaoPorta))
-                    bodyB.removeAllActions()
-                   bodyB.removeFromParent()
+                bodyB.runAction(self.actionMoveSair, completion: { () -> Void in
+                    //
+                    
+                    if(a == 0)
+                    {
+                        self.porta1.runAction(SKAction.sequence([self.animacaoPortaAbrir, self.actionWaitPorta, self.animacaoPortaFechar]))
+                    } else if(a == 1) {
+                        self.porta2.runAction(SKAction.sequence([self.animacaoPortaAbrir, self.actionWaitPorta, self.animacaoPortaFechar]))
+                    } else if(a == 2) {
+                        self.porta3.runAction(SKAction.sequence([self.animacaoPortaAbrir, self.actionWaitPorta, self.animacaoPortaFechar]))
+                    }
+                    
+                    
+                    
+                    bodyB.runAction(self.actionMoveUp, completion: { () -> Void in
+                        bodyB.removeAllActions()
+                        bodyB.removeFromParent()
+                        
+                    })
                     
                 })
                 
@@ -202,45 +239,64 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             
         }else if(bodyB.name == "quadrado" && bodyA.name == "cliente"){
             
-            bodyA.removeAllActions()
-            bodyA.name = "clienteBalcao"
+            var bodyA = contact.bodyA.node!
+            var bodyB = contact.bodyB.node!
             
-            
-            bodyA.runAction(actionWait, completion: { () -> Void in
-                bodyA.physicsBody?.dynamic = false
+            if(bodyB.name == "quadrado" && bodyA.name == "cliente"){
                 
+                var teste = bodyA as! ClienteNode
+                var a = teste.fila
                 
-                bodyA.runAction(self.actionMoveUp, completion: { () -> Void in
-                    bodyA.removeAllActions()
-                    bodyA.removeFromParent()
+                println(a)
+                
+                bodyA.removeAllActions()
+                bodyA.name = "clienteBalcao"
+                
+                bodyA.runAction(actionWait, completion: { () -> Void in
+                    bodyA.physicsBody?.dynamic = false
+                    
+                    bodyA.runAction(self.actionMoveSair, completion: { () -> Void in
+                        //
+                        
+                        if(a == 0)
+                        {
+                            self.porta1.runAction(SKAction.sequence([self.animacaoPortaAbrir, self.actionWaitPorta, self.animacaoPortaFechar]))
+                        } else if(a == 1) {
+                            self.porta2.runAction(SKAction.sequence([self.animacaoPortaAbrir, self.actionWaitPorta, self.animacaoPortaFechar]))
+                        } else if(a == 2) {
+                            self.porta3.runAction(SKAction.sequence([self.animacaoPortaAbrir, self.actionWaitPorta, self.animacaoPortaFechar]))
+                        }
+                        
+                        bodyA.runAction(self.actionMoveUp, completion: { () -> Void in
+                            
+                            bodyA.removeAllActions()
+                            bodyA.removeFromParent()
+                            
+                        })
+                        
+                    })
+                    
                     
                 })
                 
                 
-            })
-            
-        }
-        else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente"){
-            bodyB.removeAllActions()
-            
-            
-        }else if(bodyB.name == "clienteBalcao" && bodyA.name == "cliente"){
-            bodyA.removeAllActions()
-            
-        }else{
-            
-            if((bodyB.actionForKey("move")) == nil && bodyB.name != "clienteBalcao"){
-                bodyB.removeAllActions()
             }
-            
-            if((bodyA.actionForKey("move")) == nil && bodyA.name != "clienteBalcao"){
+            else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente"){
+                bodyB.removeAllActions()
+                
+                
+            }else if(bodyB.name == "clienteBalcao" && bodyA.name == "cliente"){
+                bodyA.removeAllActions()
+                
+            }else if((bodyB.actionForKey("move")) == nil && bodyB.name != "clienteBalcao"){
+                bodyB.removeAllActions()
+            } else if((bodyA.actionForKey("move")) == nil && bodyA.name != "clienteBalcao"){
                 bodyA.removeAllActions()
             }
             
         }
+        
     }
-    
-    
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
@@ -268,8 +324,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                 if contadorFila < 2  {
                     println("addFuncionario")
                     posicaoFila.x = posicaoFila.x + 200
-                    arrayDeFila.addObject(gerarFila(posicaoFila, qtdClientesVar:  totalClientes))
                     contadorFila++
+                    arrayDeFila.addObject(gerarFila(posicaoFila, qtdClientesVar:  totalClientes))
                     singleton.nVendedores++
                     
                     for fila in arrayDeFila {

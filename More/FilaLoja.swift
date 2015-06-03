@@ -12,8 +12,10 @@ class FilaLoja: SKSpriteNode {
     
     var balcaoNode : SKSpriteNode?
     var trabalhadorNode : SKSpriteNode?
-
+    
     var quadrado1 : SKShapeNode!
+    
+    var varFila : Int!
     
     var linha1 : SKShapeNode!
     var linha2 : SKShapeNode!
@@ -26,12 +28,14 @@ class FilaLoja: SKSpriteNode {
     
     var varQtdClientes : Int!
     
-    init(size : CGSize, varMarketing : Int, qtdClientes : Int)
+    init(size : CGSize, varMarketing : Int, qtdClientes : Int, fila : Int)
     {
         super.init(texture: nil, color: nil, size: size)
         
         gerarQuadrado()
-//        addlinha()
+        addlinha()
+        
+        self.varFila = fila
         
         var fundo = SKSpriteNode(imageNamed: "retangulos-45")        //fundo.fillColor = UIColor.blackColor()
         fundo.position = CGPoint(x: -70, y: 335)
@@ -60,7 +64,7 @@ class FilaLoja: SKSpriteNode {
         quadrado1 = SKShapeNode(rectOfSize: CGSize(width: 20, height: 10))
         quadrado1!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 40, height: 10))
         quadrado1.physicsBody!.categoryBitMask = CollisionNodeBalcao
-        quadrado1!.position = CGPointMake(-70, 70)
+        quadrado1!.position = CGPointMake(-50, 70)
         quadrado1!.physicsBody?.dynamic = true
         quadrado1!.name = "quadrado"
         quadrado1.physicsBody?.pinned = true
@@ -80,7 +84,7 @@ class FilaLoja: SKSpriteNode {
         
         linha1 = SKShapeNode(rectOfSize: CGSize(width: 1, height: size.height - 500))
         linha1!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 1, height: size.height))
-        linha1.position = CGPointMake(-90.5, 0)
+        linha1.position = CGPointMake(-70.5, 0)
         linha1.physicsBody!.pinned = true
         linha1.physicsBody?.dynamic = true
         linha1.physicsBody?.allowsRotation = false
@@ -88,7 +92,7 @@ class FilaLoja: SKSpriteNode {
         
         linha2 = SKShapeNode(rectOfSize: CGSize(width: 1, height: size.height - 500))
         linha2!.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 1, height: size.height))
-        linha2.position = CGPointMake(-50.5, 0)
+        linha2.position = CGPointMake(-33.5, 0)
         linha2.physicsBody!.pinned = true
         linha2.physicsBody?.dynamic = true
         linha2.physicsBody?.allowsRotation = false
@@ -98,27 +102,11 @@ class FilaLoja: SKSpriteNode {
     
     func addCliente() {
         
-        //var arrayConsumidor = ["consumer-01", "consumer-23", "consumer-45"]
+        var acaoAndar = SKAction.moveByX(0, y: 1200, duration: 9)
         
-        //var numRandom = random() % 3
+        var clienteNode = ClienteNode(size: CGSize(width: 60, height: 117), varFila: varFila)
         
-        var arrayAndar = ["consumer-02","consumer-03","consumer-04","consumer-05","consumer-06","consumer-07","consumer-08","consumer-09","consumer-10","consumer-11","consumer-12","consumer-13","consumer-14","consumer-15","consumer-16","consumer-17","consumer-18","consumer-19","consumer-20","consumer-21","consumer-22"]
-        
-        var actionPassos = SKAction.animateWithTextures(arrayAndar, timePerFrame: 9)
-        var acaoAndar = SKAction.moveByX(0, y: 1500, duration: 9)
-        
-        var action = SKAction.group([SKAction.repeatActionForever(actionPassos), acaoAndar])
-        
-        var clienteNode = SKSpriteNode(imageNamed: "consumer-01")
-        clienteNode.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 30, height: 115))
-        //        clienteNode.
         clienteNode.position = CGPoint(x: -50, y: -size.height - 400)
-        clienteNode.physicsBody?.dynamic = true
-        clienteNode.physicsBody!.categoryBitMask = CollisionNodeCliente
-        clienteNode.physicsBody!.contactTestBitMask =
-            CollisionNodeCliente | CollisionNodeBalcao
-        clienteNode.name = "cliente"
-        clienteNode.physicsBody?.allowsRotation = false
         
         
         if(self.children.count - 4 < varQtdClientes) {
