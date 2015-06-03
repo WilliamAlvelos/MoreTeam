@@ -15,12 +15,15 @@ protocol MundoDelegate{
 
 class MundoNode: SKSpriteNode {
     
+    var dadosMundo:Mundo!
+    
     var delegate:MundoDelegate?
     
     
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "terra"), color: nil, size: size)
-        
+
+        dadosMundo = Mundo()
         self.zPosition = 1
     }
     

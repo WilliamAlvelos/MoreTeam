@@ -13,6 +13,9 @@ import SpriteKit
 
 class LojaNode : SKSpriteNode{
     
+    
+    var dadosLoja:Loja!
+    
     var delegate:AbstractSceneDelegate?
     let IMAGE_NAME = "swing_store-"
     let NUM_TEXTURES = 4
@@ -21,6 +24,8 @@ class LojaNode : SKSpriteNode{
     
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "\(IMAGE_NAME)01.png"), color: nil, size: size)
+        
+        dadosLoja = Loja()
         
         //self.zPosition = 1
         self.name = "loja"

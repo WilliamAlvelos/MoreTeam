@@ -11,6 +11,8 @@ import SpriteKit
 
 class FabricaNode : SKSpriteNode{
     
+    var dadosFabrica:Fabrica!
+    
     var delegate:AbstractSceneDelegate?
     let IMAGE_NAME = "swing_factory-"
     let NUM_TEXTURES = 5
@@ -19,6 +21,8 @@ class FabricaNode : SKSpriteNode{
     
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "\(IMAGE_NAME)06.png"), color: nil, size: size)
+        
+        dadosFabrica = Fabrica()
         
         //self.zPosition = 1
         self.name = "fabrica"
@@ -40,7 +44,6 @@ class FabricaNode : SKSpriteNode{
         var arrayTextures:Array<SKTexture> = Array()
         
         for i in 1 ... NUM_TEXTURES{
-            //arrayTextures.addObject(SKTexture(imageNamed: "\(IMAGE_NAME)\(i).png"))
             arrayTextures.append(SKTexture(imageNamed: "\(IMAGE_NAME)0\(i).png"))
         }
         
