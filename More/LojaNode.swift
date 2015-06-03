@@ -28,6 +28,7 @@ class LojaNode : SKSpriteNode{
         dadosLoja = Loja()
         
         //self.zPosition = 1
+        self.anchorPoint = CGPointMake(0.5, 0.2)
         self.name = "loja"
         self.userInteractionEnabled = true
         inicializarActionSwing()

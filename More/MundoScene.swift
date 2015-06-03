@@ -143,7 +143,7 @@ class MundoScene : AbstractScene, MundoDelegate{
         self.nodePrincipal.runAction(actionFade)
         
         //self.setMensagem("Mensagem ao usuário")
-        self.inicializarPosicoesLivres()
+        //self.inicializarPosicoesLivres()
         //self.geraValores()
     
     }
@@ -167,24 +167,26 @@ class MundoScene : AbstractScene, MundoDelegate{
             let nodeName: String? = touchedNode.name
             
 
-            if nodeName == "nova fabrica" {
+            if nodeName == "nova fabrica"{
                 itemEscolhido = gerarFabrica()
                 vtFabricas.addObject(itemEscolhido)
-                mostrarPosicoesLivres()
+                nodeTerra.showEmptyPlace()
                 
             }else if nodeName == "nova loja"{
                 itemEscolhido = gerarLoja()
                 vtLojas.addObject(itemEscolhido)
-                mostrarPosicoesLivres()
+                //mostrarPosicoesLivres()
+                nodeTerra.showEmptyPlace()
                 
             }else if nodeName == "empty place"{
                 touchedNode.addChild(itemEscolhido)
                 itemEscolhido = nil
-                
-                for i in 0 ... vtPosicoesLivres.count - 1{
-                    var node = vtPosicoesLivres[i] as! EmptyPlace
-                    node.hiddenEmptyPlace()
-                }
+
+                nodeTerra.hiddeEmptyPlace()
+//                for i in 0 ... vtPosicoesLivres.count - 1{
+//                    var node = vtPosicoesLivres[i] as! EmptyPlace
+//                    nodeTerra.hiddenEmptyPlace()
+//                }
                 
             }else{
 //                var pop = PopUpNode(size: self.size)
