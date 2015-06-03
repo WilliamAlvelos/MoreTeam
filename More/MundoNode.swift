@@ -13,18 +13,19 @@ protocol MundoDelegate{
     func animacaoDeIntroducaoTerminou()
 }
 
+
 class MundoNode: SKSpriteNode {
     
     var dadosMundo:Mundo!
-    
     var delegate:MundoDelegate?
     
     
     init(size:CGSize){
-        super.init(texture: SKTexture(imageNamed: "terra"), color: nil, size: size)
+        super.init(texture: SKTexture(imageNamed: "w1"), color: nil, size: size)
 
         dadosMundo = Mundo()
         self.zPosition = 1
+        inicializarIlhas()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,5 +43,32 @@ class MundoNode: SKSpriteNode {
         self.runAction(actionMove, completion: { () -> Void in
             delegate?.animacaoDeIntroducaoTerminou()
         })
+    }
+    
+    
+    private func inicializarIlhas(){
+        var ilha1 = IlhaNode(size: CGSizeMake(296, 105), tipoIlha: IlhaNode.TIPO_ILHA1)
+        ilha1.position = CGPointMake(-122, 192)
+        self.addChild(ilha1)
+        
+        var ilha2 = IlhaNode(size: CGSizeMake(228, 72), tipoIlha: IlhaNode.TIPO_ILHA2)
+        ilha2.position = CGPointMake(60, 182)
+        self.addChild(ilha2)
+        
+        var ilha3 = IlhaNode(size: CGSizeMake(205, 98), tipoIlha: IlhaNode.TIPO_ILHA3)
+        ilha3.position = CGPointMake(-49, 52)
+        self.addChild(ilha3)
+        
+        var ilha4 = IlhaNode(size: CGSizeMake(124, 54), tipoIlha: IlhaNode.TIPO_ILHA4)
+        ilha4.position = CGPointMake(136, 85)
+        self.addChild(ilha4)
+        
+        var ilha5 = IlhaNode(size: CGSizeMake(388, 162), tipoIlha: IlhaNode.TIPO_ILHA5)
+        ilha5.position = CGPointMake(-120, -25)
+        self.addChild(ilha5)
+        
+        var ilha6 = IlhaNode(size: CGSizeMake(161, 203), tipoIlha: IlhaNode.TIPO_ILHA6)
+        ilha6.position = CGPointMake(234, 18)
+        self.addChild(ilha6)
     }
 }

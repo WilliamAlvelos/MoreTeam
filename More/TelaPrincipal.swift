@@ -19,7 +19,7 @@ class TelaPrincipal: SKScene{
         gameController = GameController(view: view)
         self.backgroundColor = UIColor.whiteColor()
         
-        var nodeTerra = SKSpriteNode(imageNamed: "terra.png")
+        var nodeTerra = SKSpriteNode(imageNamed: "w1")
         nodeTerra.position = CGPointMake(self.size.width / 2, self.size.height / 2)
         self.addChild(nodeTerra)
     }

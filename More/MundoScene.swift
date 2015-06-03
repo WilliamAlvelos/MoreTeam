@@ -65,7 +65,7 @@ class MundoScene : AbstractScene, MundoDelegate{
     private func inicializarClasse(){
         //DEFINO AS CORES DE FUNDO DA TELA
         self.backgroundColor = UIColor.whiteColor()
-        nodePrincipal.color = UIColor(red: 0, green: 193/255, blue: 254/255, alpha: 1)
+        nodePrincipal.color = UIColor(red: 96/255, green: 216/255, blue: 244/255, alpha: 1)
         nodeInferior.color = nodePrincipal.color
         
         //ZERO O ALPHA DOS NODES PARA FAZER POSTERIORMENTE A ANIMAÇÃO DE FADE IN
@@ -80,7 +80,7 @@ class MundoScene : AbstractScene, MundoDelegate{
         vtPosicoesLivres = NSMutableArray()
         
         //INICIALIZA O NODE QUE REPRESENTA A TERRA
-        nodeTerra = MundoNode(size: CGSizeMake(295, 295))
+        nodeTerra = MundoNode(size: CGSizeMake(631, 491))
         nodeTerra.position = CGPointMake(self.size.width / 2, self.size.height / 2)
         nodeTerra.delegate = self
         self.addChild(nodeTerra)
@@ -104,7 +104,7 @@ class MundoScene : AbstractScene, MundoDelegate{
     
     
     private func adicionarPosicaoLivre(position:CGPoint){
-        var emptyPlace = EmptyPlace(size: CGSizeMake(nodeTerra.size.width * 0.3, nodeTerra.size.width * 0.3))
+        var emptyPlace = EmptyPlace()
         emptyPlace.position = position
         nodeTerra.addChild(emptyPlace)
         vtPosicoesLivres.addObject(emptyPlace)
