@@ -235,6 +235,8 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
 
             }
         }
+        
+        trabalhadores++;
 
     }
 
