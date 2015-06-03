@@ -14,8 +14,6 @@ class GameController:AbstractSceneDelegate{
     var gameView:SKView!
     var mundo:MundoScene!
     
-    
-    
     init(view:SKView){
         gameView = view
         mundo = MundoScene(size: gameView.frame.size)
@@ -29,7 +27,7 @@ class GameController:AbstractSceneDelegate{
     
     
     func goToFabrica(fabrica:SKSpriteNode){
-        let fabrica = FabricaScene(y: 2, size: gameView.frame.size)
+        let fabrica = FabricaScene(y: -2, size: gameView.frame.size)
         fabrica.myDelegate = self
         gameView.presentScene(fabrica)
     }

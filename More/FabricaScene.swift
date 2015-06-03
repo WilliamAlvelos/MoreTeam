@@ -60,7 +60,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
         
         super.init(size: size)
         
-        nodePrincipal.color = UIColor.lightGrayColor()
         
         esteira1.delegate = self
         
@@ -246,9 +245,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
     
 
     override func didMoveToView(view: SKView) {
-        
-        
-        
 
         showBackButton()
         
@@ -256,30 +252,29 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
         
         setDinheiro(singleton.dinheiro)
         
-        let fundoFabrica = SKSpriteNode(imageNamed: "chao")
-        fundoFabrica.xScale = 1.5
-        fundoFabrica.yScale = 1.5
-        fundoFabrica.zPosition = -1.0
-        fundoFabrica.position = CGPointMake( 0,0)
         
-        nodePrincipal.addChild(fundoFabrica);
+        let fabrica = SKSpriteNode(imageNamed: "Factory")
+        fabrica.position = CGPointMake(0,0)
+        fabrica.zPosition = 0.00000001
+        fabrica.name = "fabrica"
         
 
-        myLabel.text = NSString(format: "%d", trabalhadoresLabel) as String
-        myLabel.fontSize = 65;
-        myLabel.position = CGPoint(x:0, y:300);
         
-        let play = SKSpriteNode(imageNamed: "Play")
-        play.xScale = 0.3
-        play.yScale = 0.3
-        play.position = CGPointMake(0,+100)
+        let play = SKSpriteNode(imageNamed: "wireframe-07")
+        play.size = CGSizeMake(190, 125)
+        play.position = CGPointMake(0,+250)
         play.name = "mais"
         
-        let menos = SKSpriteNode(imageNamed: "menos")
-        menos.xScale = 0.2
-        menos.yScale = 0.2
-        menos.position = CGPointMake(0 ,0)
+        let menos = SKSpriteNode(imageNamed: "wireframe-06")
+        menos.size = CGSizeMake(190, 125)
+        menos.position = CGPointMake(0 ,70)
         menos.name = "menos"
+
+        
+        let materia = SKSpriteNode(imageNamed: "wireframe-08")
+        materia.size = CGSizeMake(190, 125)
+        materia.position = CGPointMake(0 , -90)
+        materia.name = "materia"
         
         
         var maquina1 = SKTexture(imageNamed: "machine-02")
@@ -329,6 +324,8 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
         maquina.zPosition = 10.0
         maquina.position = CGPointMake(-175, -45)
         
+
+        
         
         let maquinaNode = SKSpriteNode(texture: maquina1)
         maquinaNode.setScale(2.0)
@@ -340,10 +337,11 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
         maquinaNode.position = CGPointMake(esteira1.position.x, -45)
         
         nodeLatBotoes.addChild(play)
+        nodeLatBotoes.addChild(materia)
         nodePrincipal.addChild(maquinaNode)
         nodePrincipal.addChild(maquina)
-        nodeLateral.addChild(myLabel)
         nodeLatBotoes.addChild(menos)
+        nodePrincipal.addChild(fabrica)
     }
     
     

@@ -46,6 +46,8 @@ class EsteiraNode: SKSpriteNode{
         esteira2.position = CGPointMake(0, esteira.position.y - esteira.size.height + 8)
         esteira.zPosition = 0.2
         
+        esteira2.zPosition = 0.2
+        
         esteira.runAction(moveEsteiraSprite, completion: { () -> Void in
             esteira.removeFromParent()
             self.delegate.actionFinish(self)

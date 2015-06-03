@@ -67,7 +67,7 @@ class AbstractScene: SKScene, SingletonDelegate {
         inicializarNodeLateral()
         
         //ADICIONA A BARRA INFERIOR DA CENA
-        nodeInferior = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(size.width - nodeLateral.size.width, 70))
+        nodeInferior = SKSpriteNode(color: UIColor(red: 40/255, green: 40/255, blue: 39/255, alpha: 1), size: CGSizeMake(size.width - nodeLateral.size.width, 70))
         nodeInferior.position = CGPointMake(nodeInferior.size.width / 2, (nodeInferior.size.height / 2))
         self.addChild(nodeInferior)
         
