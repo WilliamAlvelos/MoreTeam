@@ -26,14 +26,22 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var contadorFila : Int = 0
     var posicaoFila : CGPoint!
     
-    var totalClientes : NSInteger = 6
+    var totalClientes : NSInteger = 4
     
     var balcaoNode1 : SKSpriteNode!
     var balcaoNode2 : SKSpriteNode!
     var balcaoNode3 : SKSpriteNode!
     
-    var porta1 : SKShapeNode!
+    var spriteArray = Array<SKTexture>();
+//    
+//    var arrayPorta = ["door-C-16", "door-C-17", "door-C-18", "door-C-19", "door-C-20", "door-C-21", "door-C-22", "door-C-23", "door-C-24", "door-C-25", "door-C-26"]
     
+    var animacaoPorta : SKAction!
+    
+    var porta1 : SKSpriteNode!
+    var porta2 : SKSpriteNode!
+    var porta3 : SKSpriteNode!
+
     var singleton:Singleton!
     
     override func didMoveToView(view: SKView) {
@@ -65,6 +73,12 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     override init(size: CGSize) {
         super.init(size: size)
         
+
+        for i in 16 ... 26
+        {
+            spriteArray.append(SKTexture(imageNamed: "door-C-\(i)"))
+        }
+        
         nodePrincipal.texture = SKTexture(imageNamed: "Store-57")
         
         showBackButton()
@@ -83,13 +97,35 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         balcaoNode2 = SKSpriteNode(imageNamed: "cashier-01")
         balcaoNode2!.position = CGPoint(x: -50, y: 100)
-        balcaoNode1!.zPosition = 1
+        balcaoNode2!.zPosition = 1
         nodePrincipal.addChild(balcaoNode2)
         
         balcaoNode3 = SKSpriteNode(imageNamed: "cashier-01")
         balcaoNode3!.position = CGPoint(x: 150, y: 100)
-        balcaoNode1!.zPosition = 1
+        balcaoNode3!.zPosition = 1
         nodePrincipal.addChild(balcaoNode3)
+        
+        //244 235 198
+        
+        //F4EBC6
+        
+       
+        
+        //Add Porta
+        porta1 = SKSpriteNode(imageNamed: "door-C-15.png")
+        porta1!.position = CGPoint(x: -200, y: 265)
+        porta1!.zPosition = 1
+        nodePrincipal.addChild(porta1)
+        
+        porta1 = SKSpriteNode(imageNamed: "door-C-15.png")
+        porta1!.position = CGPoint(x: 10, y: 265)
+        porta1!.zPosition = 1
+        nodePrincipal.addChild(porta1)
+        
+        porta1 = SKSpriteNode(imageNamed: "door-C-15.png")
+        porta1!.position = CGPoint(x: 205, y: 265)
+        porta1!.zPosition = 1
+        nodePrincipal.addChild(porta1)
         
         
         
@@ -153,8 +189,10 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                 bodyB.physicsBody?.dynamic = false
                 
                 bodyB.runAction(self.actionMoveUp, completion: { () -> Void in
+//                  
+                    self.porta1.runAction(SKAction.repeatActionForever(self.animacaoPorta))
                     bodyB.removeAllActions()
-                    bodyB.removeFromParent()
+                   bodyB.removeFromParent()
                     
                 })
                 

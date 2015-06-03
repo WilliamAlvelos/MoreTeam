@@ -16,9 +16,9 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = TelaPrincipal(size: self.view.frame.size, view: self.view as! SKView)
+//        let scene = TelaPrincipal(size: self.view.frame.size, view: self.view as! SKView)
         
-        //let scene = LojaScene(size: self.view.frame.size)
+        let scene = LojaScene(size: self.view.frame.size)
         
         //let scene = FabricaScene(size: self.view.frame.size)
 
@@ -26,7 +26,7 @@ class GameViewController: UIViewController {
         let skView = self.view as! SKView
         skView.showsFPS = true
         skView.showsNodeCount = true
-        skView.showsPhysics = true
+        //skView.showsPhysics = true
         
         /* Sprite Kit applies additional optimizations to improve rendering performance */
         skView.ignoresSiblingOrder = true
