@@ -12,11 +12,12 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     var actionWait = SKAction.waitForDuration(2)
     
-    var actionMove = SKAction.moveByX(0, y: 55, duration: 4)
+    var actionMove = SKAction.moveByX(0, y: 120, duration: 4)
     var actionMoveUp = SKAction.moveByX(0, y: 400, duration: 4)
     
     var arrayDeFila : NSMutableArray = NSMutableArray()
     
+
     //Adicionar e Remover Funcionarios
     var addFuncionario : SKShapeNode?
     var removerFuncionario : SKShapeNode?
@@ -24,7 +25,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var contadorFila : Int = 0
     var posicaoFila : CGPoint!
     
-    var totalClientes : NSInteger = 14
+    var totalClientes : NSInteger = 6
     
     var balcaoNode1 : SKSpriteNode!
     var balcaoNode2 : SKSpriteNode!
@@ -72,15 +73,15 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         
         //Basalcao 1
-        balcaoNode1 = SKSpriteNode(imageNamed: "balcaoNode")
+        balcaoNode1 = SKSpriteNode(imageNamed: "cashier-01")
         balcaoNode1!.position = CGPoint(x: -200, y: 50)
         nodePrincipal.addChild(balcaoNode1)
         
-        balcaoNode2 = SKSpriteNode(imageNamed: "balcaoNode")
+        balcaoNode2 = SKSpriteNode(imageNamed: "cashier-01")
         balcaoNode2!.position = CGPoint(x: 0, y: 50)
         nodePrincipal.addChild(balcaoNode2)
         
-        balcaoNode3 = SKSpriteNode(imageNamed: "balcaoNode")
+        balcaoNode3 = SKSpriteNode(imageNamed: "cashier-01")
         balcaoNode3!.position = CGPoint(x: 200, y: 50)
         nodePrincipal.addChild(balcaoNode3)
         
