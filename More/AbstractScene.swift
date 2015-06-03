@@ -31,7 +31,7 @@ class AbstractScene: SKScene, SingletonDelegate {
     private var lblMensagem:UILabel?
     
     //BOTOES
-    var btVoltar:SKSpriteNode!
+    var btVoltar:SKLabelNode!
     
     //NODES QUE SERVEM COMO BASE DE TODA A SCENE
     var nodeLateral:SKSpriteNode!
@@ -84,7 +84,7 @@ class AbstractScene: SKScene, SingletonDelegate {
         var nodePosition = CGPoint()
         
         //INICIALIZA NODE SUPERIOR CONTAINER PRINCIPAL
-        nodeSuperior = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(size.width, 45))
+        nodeSuperior = SKSpriteNode(color: UIColor(red: 199/255, green: 169/255, blue: 91/255, alpha: 1), size: CGSizeMake(size.width, 45))
         //DEFINE O POSITION DO NODE
         nodePosition.x = nodeSuperior.size.width / 2
         nodePosition.y = size.height - (nodeSuperior.size.height / 2)
@@ -92,7 +92,7 @@ class AbstractScene: SKScene, SingletonDelegate {
         self.addChild(nodeSuperior)
         
         //INICIALIZA O NODE CONTAINER DO BOTÃO DE VOLTAR
-        nodeSupButton = SKSpriteNode(color: UIColor.redColor(), size: CGSizeMake(55, nodeSuperior.size.height))
+        nodeSupButton = SKSpriteNode(color: nil, size: CGSizeMake(55, nodeSuperior.size.height))
         //DEFINE O POSITION DO NODE
         nodePosition.x = (-nodeSuperior.size.width / 2) + (nodeSupButton.size.width / 2)
         nodePosition.y = 0
@@ -100,14 +100,14 @@ class AbstractScene: SKScene, SingletonDelegate {
         nodeSuperior.addChild(nodeSupButton)
         
         //INICIALIZA O NODE CONTAINER DA LABEL QUE EXIBE VALOR
-        nodeSupLabelValor = SKSpriteNode(color: UIColor.orangeColor(), size: CGSizeMake(165, nodeSuperior.size.height))
+        nodeSupLabelValor = SKSpriteNode(color: nil, size: CGSizeMake(300, nodeSuperior.size.height))
         //DEFINE O POSITION DO NODE
         nodePosition.x += nodeSupLabelValor.size.width / 2 + nodeSupButton.size.width / 2 + 15
         nodeSupLabelValor.position = nodePosition
         nodeSuperior.addChild(nodeSupLabelValor)
         
         //INICIALIZA O NODE CONTAINER DA LABEL QUE EXIBE PRODUÇÃO
-        nodeSupLabelProducao = SKSpriteNode(color: UIColor.orangeColor(), size: CGSizeMake(165, nodeSuperior.size.height))
+        nodeSupLabelProducao = SKSpriteNode(color: nil, size: CGSizeMake(350, nodeSuperior.size.height))
         //DEFINE O POSITION DO NODE
         nodePosition.x += nodeSupLabelProducao.size.width / 2 + nodeSupLabelValor.size.width / 2 + 15
         nodeSupLabelProducao.position = nodePosition
@@ -117,12 +117,12 @@ class AbstractScene: SKScene, SingletonDelegate {
     
     private func inicializarNodeLateral(){
         //INICIALIZA NODE CONTAINER LATERAL PRINCIPAL
-        nodeLateral = SKSpriteNode(color: UIColor.whiteColor(), size: CGSizeMake(274, size.height - nodeSuperior.size.height))
+        nodeLateral = SKSpriteNode(color: UIColor(red: 40/255, green: 40/255, blue: 39/255, alpha: 1), size: CGSizeMake(274, size.height - nodeSuperior.size.height))
         nodeLateral.position = CGPointMake(size.width - (nodeLateral.size.width / 2), (size.height / 2) - (nodeSuperior.size.height / 2))
         self.addChild(nodeLateral)
         
         //INICIALIZA O NODE CONTAINER DOS BOTÕES LATERAIS
-        nodeLatBotoes = SKSpriteNode(color: UIColor.greenColor(), size: CGSizeMake(190, nodeLateral.size.height))
+        nodeLatBotoes = SKSpriteNode(color: nil, size: CGSizeMake(190, nodeLateral.size.height))
         nodeLateral.addChild(nodeLatBotoes)
     }
     
@@ -135,15 +135,15 @@ class AbstractScene: SKScene, SingletonDelegate {
         nodeSupLabelValor.addChild(lblValor)
         
         //ADICIONA A LABEL QUE MOSTRA ALGO
-        lblProducao = gerarLabel("000000 P/s", pos: CGPointMake(0, 0))
+        lblProducao = gerarLabel("000000 product per second", pos: CGPointMake(0, 0))
         lblProducao.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         nodeSupLabelProducao.addChild(lblProducao)
     }
     
     
     private func gerarLabel(texto:String, pos:CGPoint) -> SKLabelNode{
-        var label = SKLabelNode(fontNamed: "AvenirNextCondensed-Regular")
-        label.fontSize = 10 + (nodeSuperior.size.width * 0.02)
+        var label = SKLabelNode(fontNamed: "Saniretro")
+        label.fontSize = 10 + (nodeSuperior.size.width * 0.015)
         label.text = texto
         label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         label.position = pos
@@ -172,9 +172,16 @@ class AbstractScene: SKScene, SingletonDelegate {
     
 
     func showBackButton(){
-        btVoltar = SKSpriteNode(color: UIColor.greenColor(), size: CGSizeMake(40, 40))
+        nodeSupButton.color = UIColor(red: 194/255, green: 130/255, blue: 0, alpha: 1)
+        nodeSupButton.name = "voltar"
+        
+        btVoltar = SKLabelNode(fontNamed: "Saniretro")
         btVoltar.position = CGPointMake(0, 0)
+        btVoltar.text = "<"
         btVoltar.name = "voltar"
+        btVoltar.fontSize = 50
+        btVoltar.horizontalAlignmentMode = .Center
+        btVoltar.verticalAlignmentMode = .Center
         
         nodeSupButton.addChild(btVoltar)
     }
@@ -199,11 +206,11 @@ class AbstractScene: SKScene, SingletonDelegate {
     
     
     func setVolProducao(novoVolProducao: Int) {
-        lblProducao.text = "\(novoVolProducao) P/s"
+        lblProducao.text = "\(novoVolProducao) product per second"
     }
     
     
     func setDinheiro(novoDinheiro: NSInteger) {
-        lblValor.text = "R$ \(novoDinheiro)"
+        lblValor.text = "$ \(novoDinheiro)"
     }
 }

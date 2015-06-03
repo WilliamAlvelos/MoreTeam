@@ -25,7 +25,7 @@ class GraficoNode: SKSpriteNode {
     var timer:NSTimer!
     
     init(size:CGSize, valorSocial:CGFloat, valorAmbiental:CGFloat, valorEconomico:CGFloat){
-        super.init(texture: nil, color: UIColor.blueColor(), size: size)
+        super.init(texture: nil, color: nil, size: size)
         self.zPosition = 1
         
         social = valorSocial
@@ -42,17 +42,17 @@ class GraficoNode: SKSpriteNode {
     
     
     private func inicializarNodes(){
-        nodeSocial = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeMake(60.0, (social/100) * self.size.height))
+        nodeSocial = SKSpriteNode(color: UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1), size: CGSizeMake(60.0, (social/100) * self.size.height))
         nodeSocial.position = CGPointMake(-self.size.width / 2 + nodeSocial.size.width / 2, -self.size.height / 2)
         nodeSocial.anchorPoint = CGPointMake(0.5, 0)
         self.addChild(nodeSocial)
         
-        nodeAmbiental = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeMake(60.0, (ambiental/100) * self.size.height))
+        nodeAmbiental = SKSpriteNode(color: UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1), size: CGSizeMake(60.0, (ambiental/100) * self.size.height))
         nodeAmbiental.position = CGPointMake(nodeSocial.position.x + nodeAmbiental.size.width + 5, -self.size.height / 2)
         nodeAmbiental.anchorPoint = CGPointMake(0.5, 0)
         self.addChild(nodeAmbiental)
         
-        nodeEconomico = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeMake(60.0, (economico/100) * self.size.height))
+        nodeEconomico = SKSpriteNode(color: UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1), size: CGSizeMake(60.0, (economico/100) * self.size.height))
         nodeEconomico.position = CGPointMake(nodeAmbiental.position.x + nodeEconomico.size.width + 5, -self.size.height / 2)
         nodeEconomico.anchorPoint = CGPointMake(0.5, 0)
         self.addChild(nodeEconomico)
@@ -60,19 +60,19 @@ class GraficoNode: SKSpriteNode {
     
     
     private func inicializarLabels(){
-        lblSocial = SKLabelNode(fontNamed: "AvenirNextCondensed-Regular")
+        lblSocial = SKLabelNode(fontNamed: "Saniretro")
         lblSocial.fontSize = 19
         lblSocial.text = "\(Int(social))%"
         lblSocial.position = CGPointMake(0, 5)
         nodeSocial.addChild(lblSocial)
         
-        lblAmbiental = SKLabelNode(fontNamed: "AvenirNextCondensed-Regular")
+        lblAmbiental = SKLabelNode(fontNamed: "Saniretro")
         lblAmbiental.fontSize = 19
         lblAmbiental.text = "\(Int(ambiental))%"
         lblAmbiental.position = CGPointMake(0, 5)
         nodeAmbiental.addChild(lblAmbiental)
         
-        lblEconomico = SKLabelNode(fontNamed: "AvenirNextCondensed-Regular")
+        lblEconomico = SKLabelNode(fontNamed: "Saniretro")
         lblEconomico.fontSize = 19
         lblEconomico.text = "\(Int(economico))%"
         lblEconomico.position = CGPointMake(0, 5)
@@ -110,7 +110,7 @@ class GraficoNode: SKSpriteNode {
             node.color = UIColor.redColor()
             
         }else{
-            node.color = UIColor.blackColor()
+            node.color = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1)
         }
     }
     

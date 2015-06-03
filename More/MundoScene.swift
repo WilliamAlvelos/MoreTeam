@@ -28,23 +28,27 @@ class MundoScene : AbstractScene, MundoDelegate{
         
         inicializarClasse()
         
-        var btNovaFabrica = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeMake(nodeLatBotoes.size.width, 125))
+        var btNovaFabrica = SKSpriteNode(imageNamed: "new-factory01")
+        btNovaFabrica.size = CGSizeMake(nodeLatBotoes.size.width, 125)
         btNovaFabrica.position = CGPointMake(0, nodeLateral.size.height / 2 - btNovaFabrica.size.height / 2 - 47.5)
         btNovaFabrica.zPosition = 1
         btNovaFabrica.name = "nova fabrica"
         nodeLatBotoes.addChild(btNovaFabrica)
         
-        var btNovaLoja = SKSpriteNode(color: UIColor.orangeColor(), size: CGSizeMake(nodeLatBotoes.size.width, 125))
+        var btNovaLoja = SKSpriteNode(imageNamed: "new-store01")
+        btNovaLoja.size = CGSizeMake(nodeLatBotoes.size.width, 125)
         btNovaLoja.position = CGPointMake(0, btNovaFabrica.position.y - btNovaLoja.size.height - 25)
         btNovaLoja.zPosition = 1
         btNovaLoja.name = "nova loja"
         nodeLatBotoes.addChild(btNovaLoja)
         
         nodeGrafico = GraficoNode(size: CGSizeMake(nodeLatBotoes.size.width, 250), valorSocial: 30, valorAmbiental: 100, valorEconomico: 30)
-        nodeGrafico.position = CGPointMake(0, btNovaLoja.position.y - nodeGrafico.size.height - 75)
+        nodeGrafico.position = CGPointMake(0, btNovaLoja.position.y - nodeGrafico.size.height - 50)
         nodeLatBotoes.addChild(nodeGrafico)
         
         nodeTerra.startAnimacaoDeIntroducao(nodePrincipal.size.width / 2)
+        
+        showBackButton()
     }
     
     
@@ -61,13 +65,14 @@ class MundoScene : AbstractScene, MundoDelegate{
     private func inicializarClasse(){
         //DEFINO AS CORES DE FUNDO DA TELA
         self.backgroundColor = UIColor.whiteColor()
-        nodePrincipal.color = UIColor.whiteColor()
-        nodeLateral.color = UIColor.lightGrayColor()
+        nodePrincipal.color = UIColor(red: 0, green: 193/255, blue: 254/255, alpha: 1)
+        nodeInferior.color = nodePrincipal.color
         
         //ZERO O ALPHA DOS NODES PARA FAZER POSTERIORMENTE A ANIMAÇÃO DE FADE IN
         nodeLateral.alpha = 0
         nodeSuperior.alpha = 0
         nodeInferior.alpha = 0
+        nodePrincipal.alpha = 0
         
         //INICIALIZA OS VETORES QUE TERÃO AS FÁBRICAS E LOJAS QUE FOREM ADICIONADAS NA TERRA
         vtFabricas = NSMutableArray()
@@ -135,8 +140,9 @@ class MundoScene : AbstractScene, MundoDelegate{
         self.nodeLateral.runAction(actionFade)
         self.nodeSuperior.runAction(actionFade)
         self.nodeInferior.runAction(actionFade)
+        self.nodePrincipal.runAction(actionFade)
         
-        self.setMensagem("Mensagem ao usuário")
+        //self.setMensagem("Mensagem ao usuário")
         self.inicializarPosicoesLivres()
         //self.geraValores()
     
