@@ -19,7 +19,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
     var novoEsteira2:Int = 0
     
     var frequencia:CGFloat = 0.0;
-    
+
     
     let myLabel = SKLabelNode(fontNamed:"Heveltica")
     

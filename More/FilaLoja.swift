@@ -91,11 +91,18 @@ class FilaLoja: SKSpriteNode {
     
     func addCliente() {
         
-        var arrayConsumidor = ["consumer-01", "consumer-23", "consumer-45"]
+        //var arrayConsumidor = ["consumer-01", "consumer-23", "consumer-45"]
         
-        var numRandom = random() % 3
+        //var numRandom = random() % 3
         
-        var clienteNode = SKSpriteNode(imageNamed: arrayConsumidor[numRandom])
+        var arrayAndar = ["consumer-02","consumer-03","consumer-04","consumer-05","consumer-06","consumer-07","consumer-08","consumer-09","consumer-10","consumer-11","consumer-12","consumer-13","consumer-14","consumer-15","consumer-16","consumer-17","consumer-18","consumer-19","consumer-20","consumer-21","consumer-22"]
+        
+        var actionPassos = SKAction.animateWithTextures(arrayAndar, timePerFrame: 9)
+        var acaoAndar = SKAction.moveByX(0, y: 1500, duration: 9)
+        
+        var action = SKAction.group([actionPassos, acaoAndar])
+        
+        var clienteNode = SKSpriteNode(imageNamed: "consumer-01")
         clienteNode.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 30, height: 115))
         //        clienteNode.
         clienteNode.position = CGPoint(x: 0, y: -size.height - 400)
@@ -109,7 +116,7 @@ class FilaLoja: SKSpriteNode {
         
         if(self.children.count - 4 < varQtdClientes) {
             self.addChild(clienteNode)
-            clienteNode.runAction(SKAction.moveByX(0, y: 1500, duration: 9))
+            clienteNode.runAction(action)
         }
         
         
