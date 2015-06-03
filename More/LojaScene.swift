@@ -12,10 +12,11 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     var actionWait = SKAction.waitForDuration(2)
     
-    var actionMove = SKAction.moveByX(0, y: 120, duration: 4)
+    var actionMove = SKAction.moveByX(0, y: 120, duration: 2)
     var actionMoveUp = SKAction.moveByX(0, y: 400, duration: 4)
     
     var arrayDeFila : NSMutableArray = NSMutableArray()
+    
     
 
     //Adicionar e Remover Funcionarios
@@ -64,6 +65,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     override init(size: CGSize) {
         super.init(size: size)
         
+        nodePrincipal.texture = SKTexture(imageNamed: "Store-57")
+        
         showBackButton()
         singleton = Singleton.sharedInstance
         singleton.delegate = self
@@ -74,15 +77,18 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         //Basalcao 1
         balcaoNode1 = SKSpriteNode(imageNamed: "cashier-01")
-        balcaoNode1!.position = CGPoint(x: -200, y: 50)
+        balcaoNode1!.position = CGPoint(x: -250, y: 100)
+        balcaoNode1!.zPosition = 1
         nodePrincipal.addChild(balcaoNode1)
         
         balcaoNode2 = SKSpriteNode(imageNamed: "cashier-01")
-        balcaoNode2!.position = CGPoint(x: 0, y: 50)
+        balcaoNode2!.position = CGPoint(x: -50, y: 100)
+        balcaoNode1!.zPosition = 1
         nodePrincipal.addChild(balcaoNode2)
         
         balcaoNode3 = SKSpriteNode(imageNamed: "cashier-01")
-        balcaoNode3!.position = CGPoint(x: 200, y: 50)
+        balcaoNode3!.position = CGPoint(x: 150, y: 100)
+        balcaoNode1!.zPosition = 1
         nodePrincipal.addChild(balcaoNode3)
         
         
@@ -164,6 +170,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             
             bodyA.runAction(actionWait, completion: { () -> Void in
                 bodyA.physicsBody?.dynamic = false
+                
                 
                 bodyA.runAction(self.actionMoveUp, completion: { () -> Void in
                     bodyA.removeAllActions()
