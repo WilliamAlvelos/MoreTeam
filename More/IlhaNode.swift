@@ -48,11 +48,11 @@ class IlhaNode: SKSpriteNode {
                 break
             
             case IlhaNode.TIPO_ILHA3:
-                adicionarEmptyPlace(CGPointMake(10, 30))
+                //adicionarEmptyPlace(CGPointMake(10, 30))
                 adicionarEmptyPlace(CGPointMake(-55, 20))
-                adicionarEmptyPlace(CGPointMake(-30, -10))
-                adicionarEmptyPlace(CGPointMake(30, -23))
-                adicionarEmptyPlace(CGPointMake(60, 8))
+                adicionarEmptyPlace(CGPointMake(0, -25))
+                adicionarEmptyPlace(CGPointMake(60, 10))
+                //adicionarEmptyPlace(CGPointMake(60, 8))
                 break
             
             case IlhaNode.TIPO_ILHA4:
@@ -67,8 +67,8 @@ class IlhaNode: SKSpriteNode {
                 break
             
             case IlhaNode.TIPO_ILHA6:
-                adicionarEmptyPlace(CGPointMake(27, 25))
-                adicionarEmptyPlace(CGPointMake(5, -15))
+                adicionarEmptyPlace(CGPointMake(40, 40))
+                adicionarEmptyPlace(CGPointMake(5, -35))
             
             default:
             break

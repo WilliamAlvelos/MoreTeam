@@ -135,7 +135,7 @@ class AbstractScene: SKScene, SingletonDelegate {
         nodeSupLabelValor.addChild(lblValor)
         
         //ADICIONA A LABEL QUE MOSTRA ALGO
-        lblProducao = gerarLabel("000000 product per second", pos: CGPointMake(0, 0))
+        lblProducao = gerarLabel("0 product per second", pos: CGPointMake(0, 0))
         lblProducao.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         nodeSupLabelProducao.addChild(lblProducao)
     }

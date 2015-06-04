@@ -23,7 +23,7 @@ class FabricaNode : SKSpriteNode{
         super.init(texture: SKTexture(imageNamed: "\(IMAGE_NAME)06.png"), color: nil, size: size)
         
         dadosFabrica = Fabrica()
-        self.anchorPoint = CGPointMake(0.5, 0.2)
+        self.anchorPoint = CGPointMake(0.5, 0.1)
         //self.zPosition = 1
         self.name = "fabrica"
         self.userInteractionEnabled = true

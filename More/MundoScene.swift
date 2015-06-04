@@ -175,7 +175,6 @@ class MundoScene : AbstractScene, MundoDelegate{
             }else if nodeName == "nova loja"{
                 itemEscolhido = gerarLoja()
                 vtLojas.addObject(itemEscolhido)
-                //mostrarPosicoesLivres()
                 nodeTerra.showEmptyPlace()
                 
             }else if nodeName == "empty place"{
@@ -183,12 +182,9 @@ class MundoScene : AbstractScene, MundoDelegate{
                 itemEscolhido = nil
 
                 nodeTerra.hiddeEmptyPlace()
-//                for i in 0 ... vtPosicoesLivres.count - 1{
-//                    var node = vtPosicoesLivres[i] as! EmptyPlace
-//                    nodeTerra.hiddenEmptyPlace()
-//                }
                 
             }else{
+                nodeTerra.hiddeEmptyPlace()
 //                var pop = PopUpNode(size: self.size)
 //                pop.zPosition = 3
 //                pop.position = CGPointMake(self.size.width / 2, self.size.height / 2)
