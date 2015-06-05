@@ -13,8 +13,8 @@ import CoreData
 @objc(Loja)
 class Loja: NSManagedObject {
     
-    @NSManaged var quantidade: UInt32
-    @NSManaged var posicao: UInt32
+    @NSManaged var quantidade: Int
+    @NSManaged var indexPosicao: Int
     
 }
 

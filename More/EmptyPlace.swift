@@ -12,9 +12,12 @@ class EmptyPlace: SKSpriteNode {
     
     var nodeTree:SKSpriteNode!
     var nodeBackgroundImage:SKSpriteNode!
+    var indexPosicao:Int!
     
-    init(){
+    init(indexPosicao:Int){
         super.init(texture: nil, color: nil, size: CGSizeMake(59, 28))
+        
+        self.indexPosicao = indexPosicao
         
         self.zPosition = 4
         
@@ -70,9 +73,21 @@ class EmptyPlace: SKSpriteNode {
     override func addChild(node: SKNode) {
         super.addChild(node)
         
+        if(node.isEqual(nil)){
+            return
+        }
+        
         if (nodeTree != nil){
             nodeTree.removeFromParent()
             nodeTree = nil
+        }
+        
+        if(node .isKindOfClass(FabricaNode)){
+            var fabrica = node as! FabricaNode
+            fabrica.dadosFabrica.setValue(indexPosicao, forKey: "indexPosicao")
+        }else if(node .isKindOfClass(LojaNode)){
+            var loja = node as! LojaNode
+            loja.dadosLoja.setValue(indexPosicao, forKey: "indexPosicao")
         }
     }
 

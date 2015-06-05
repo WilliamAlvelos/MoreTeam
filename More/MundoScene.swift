@@ -103,12 +103,12 @@ class MundoScene : AbstractScene, MundoDelegate{
     
     
     
-    private func adicionarPosicaoLivre(position:CGPoint){
-        var emptyPlace = EmptyPlace()
-        emptyPlace.position = position
-        nodeTerra.addChild(emptyPlace)
-        vtPosicoesLivres.addObject(emptyPlace)
-    }
+//    private func adicionarPosicaoLivre(position:CGPoint){
+//        var emptyPlace = EmptyPlace()
+//        emptyPlace.position = position
+//        nodeTerra.addChild(emptyPlace)
+//        vtPosicoesLivres.addObject(emptyPlace)
+//    }
     
     
     private func gerarFabrica() -> SKSpriteNode{
@@ -150,11 +150,11 @@ class MundoScene : AbstractScene, MundoDelegate{
 
     
     //INSERE POSIÇÕES NA TERRA ONDE PODERÁ SER INSERIDO NOVAS LOJAS OU FÁBRICAS
-    private func inicializarPosicoesLivres(){
-        adicionarPosicaoLivre(CGPointMake(0, nodeTerra.size.height / 2.3))
-        adicionarPosicaoLivre(CGPointMake(-nodeTerra.size.width / 3, nodeTerra.size.height / 4.2))
-        adicionarPosicaoLivre(CGPointMake(nodeTerra.size.width / 3.5, nodeTerra.size.height / 6))
-    }
+//    private func inicializarPosicoesLivres(){
+//        adicionarPosicaoLivre(CGPointMake(0, nodeTerra.size.height / 2.3))
+//        adicionarPosicaoLivre(CGPointMake(-nodeTerra.size.width / 3, nodeTerra.size.height / 4.2))
+//        adicionarPosicaoLivre(CGPointMake(nodeTerra.size.width / 3.5, nodeTerra.size.height / 6))
+//    }
    
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {

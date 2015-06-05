@@ -13,9 +13,10 @@ import CoreData
 @objc(Fabrica)
 class Fabrica: NSManagedObject {
     
-    @NSManaged var tipo: UInt32
-    @NSManaged var posicao: UInt32
-    @NSManaged var idFabrica: UInt16
+    @NSManaged var tipo: Int
+    @NSManaged var indexPosicao: Int
+    @NSManaged var qtdFuncionario: Int
+    //@NSManaged var idFabrica: UInt16
     
 }
 

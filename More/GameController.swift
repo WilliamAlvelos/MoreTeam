@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-
+import CoreData
 
 class GameController:AbstractSceneDelegate{
     
@@ -26,17 +26,17 @@ class GameController:AbstractSceneDelegate{
     }
     
     
-    func goToFabrica(fabrica:SKSpriteNode){
-        let fabrica = FabricaScene(y: -2, size: gameView.frame.size)
-        fabrica.myDelegate = self
-        gameView.presentScene(fabrica)
+    func goToFabrica(fabrica:NSManagedObject){
+        let fabricaScene = FabricaScene(y: -2, size: gameView.frame.size)
+        fabricaScene.myDelegate = self
+        gameView.presentScene(fabricaScene)
     }
     
     
-    func goToLoja(loja:SKSpriteNode){
-        let loja = LojaScene(size: gameView.frame.size)
-        loja.myDelegate = self
-        gameView.presentScene(loja)
+    func goToLoja(loja:NSManagedObject){
+        let lojaScene = LojaScene(size: gameView.frame.size)
+        lojaScene.myDelegate = self
+        gameView.presentScene(lojaScene)
     }
     
     

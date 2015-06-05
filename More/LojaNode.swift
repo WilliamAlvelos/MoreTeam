@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-
+import CoreData
 
 
 
@@ -25,7 +25,7 @@ class LojaNode : SKSpriteNode{
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "\(IMAGE_NAME)01.png"), color: nil, size: size)
         
-        dadosLoja = Loja()
+        inicializarDadosFabrica()
         
         //self.zPosition = 1
         self.anchorPoint = CGPointMake(0.5, 0.1)
@@ -35,6 +35,14 @@ class LojaNode : SKSpriteNode{
     }
     
     
+    private func inicializarDadosFabrica(){
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        let entity =  NSEntityDescription.entityForName("Loja", inManagedObjectContext: managedContext)
+        dadosLoja = Loja(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        dadosLoja.setValue(0, forKey: "qtdFuncionario")
+    }
+    
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -42,7 +50,7 @@ class LojaNode : SKSpriteNode{
     
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        delegate?.goToLoja(self)
+        delegate?.goToLoja(dadosLoja)
     }
     
     

@@ -7,12 +7,12 @@
 //
 
 import SpriteKit
-
+import CoreData
 
 protocol AbstractSceneDelegate{
     func backToWorld()
-    func goToFabrica(fabrica:SKSpriteNode)
-    func goToLoja(loja:SKSpriteNode)
+    func goToFabrica(fabrica:NSManagedObject)
+    func goToLoja(loja:NSManagedObject)
 }
 
 
