@@ -19,7 +19,7 @@ class IlhaNode: SKSpriteNode {
     
     var tipoEscolhido:Int!
     
-    var vtEmptyPlace:NSMutableArray = NSMutableArray()
+    var vtEmptyPlace:Array<EmptyPlace> = Array()
     
     init(size:CGSize, tipoIlha:Int){
         super.init(texture: SKTexture(imageNamed: "v\(tipoIlha)"), color: nil, size: size)
@@ -82,7 +82,7 @@ class IlhaNode: SKSpriteNode {
     private func adicionarEmptyPlace(posicao:CGPoint, index:Int){
         var emptyPlace = EmptyPlace(indexPosicao: index)
         emptyPlace.position = posicao
-        vtEmptyPlace.addObject(emptyPlace)
+        vtEmptyPlace.append(emptyPlace)
         self.addChild(emptyPlace)
     }
     
@@ -97,6 +97,13 @@ class IlhaNode: SKSpriteNode {
     func hiddeEmptyPlace(){
         for place in vtEmptyPlace{
             place.hiddeEmptyPlace()
+        }
+    }
+    
+    
+    func atualizarSprites(){
+        for place in vtEmptyPlace{
+            place.atualizarSprite()
         }
     }
     

@@ -102,7 +102,6 @@ class MundoScene : AbstractScene, MundoDelegate{
     private func gerarFabrica() -> SKSpriteNode{
         var fabrica = FabricaNode(size: CGSizeMake(52, 95))
         fabrica.delegate = myDelegate
-        fabrica.startSwingAnimation()
         return fabrica
     }
     
@@ -141,20 +140,20 @@ class MundoScene : AbstractScene, MundoDelegate{
 
             if nodeName == "nova fabrica"{
                 itemEscolhido = gerarFabrica()
-                nodeTerra.showEmptyPlace()
+                nodeTerra.showEmptyPlaces()
                 
             }else if nodeName == "nova loja"{
                 itemEscolhido = gerarLoja()
-                nodeTerra.showEmptyPlace()
+                nodeTerra.showEmptyPlaces()
                 
             }else if nodeName == "empty place"{
                 touchedNode.addChild(itemEscolhido)
                 itemEscolhido = nil
 
-                nodeTerra.hiddeEmptyPlace()
+                nodeTerra.hiddeEmptyPlaces()
                 
             }else{
-                nodeTerra.hiddeEmptyPlace()
+                nodeTerra.hiddeEmptyPlaces()
 //                var pop = PopUpNode(size: self.size)
 //                pop.zPosition = 3
 //                pop.position = CGPointMake(self.size.width / 2, self.size.height / 2)
@@ -164,6 +163,11 @@ class MundoScene : AbstractScene, MundoDelegate{
         
         }
         
+    }
+    
+    
+    func atualizarCena(){
+        nodeTerra.atualizarSprites()
     }
     
 }

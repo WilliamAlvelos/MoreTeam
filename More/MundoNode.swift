@@ -18,7 +18,7 @@ class MundoNode: SKSpriteNode {
     
     var dadosMundo:Mundo!
     var delegate:MundoDelegate?
-    var vtEmptyPlace:NSMutableArray = NSMutableArray()
+    var vtEmptyPlace:Array<IlhaNode> = Array()
     
     
     init(size:CGSize){
@@ -50,46 +50,53 @@ class MundoNode: SKSpriteNode {
     private func inicializarIlhas(){
         var ilha1 = IlhaNode(size: CGSizeMake(296, 105), tipoIlha: IlhaNode.TIPO_ILHA1)
         ilha1.position = CGPointMake(-122, 192)
-        vtEmptyPlace.addObject(ilha1)
+        vtEmptyPlace.append(ilha1)
         self.addChild(ilha1)
         
         var ilha2 = IlhaNode(size: CGSizeMake(228, 72), tipoIlha: IlhaNode.TIPO_ILHA2)
         ilha2.position = CGPointMake(60, 182)
-        vtEmptyPlace.addObject(ilha2)
+        vtEmptyPlace.append(ilha2)
         self.addChild(ilha2)
         
         var ilha3 = IlhaNode(size: CGSizeMake(205, 98), tipoIlha: IlhaNode.TIPO_ILHA3)
         ilha3.position = CGPointMake(-49, 52)
-        vtEmptyPlace.addObject(ilha3)
+        vtEmptyPlace.append(ilha3)
         self.addChild(ilha3)
         
         var ilha4 = IlhaNode(size: CGSizeMake(124, 54), tipoIlha: IlhaNode.TIPO_ILHA4)
         ilha4.position = CGPointMake(136, 85)
-        vtEmptyPlace.addObject(ilha4)
+        vtEmptyPlace.append(ilha4)
         self.addChild(ilha4)
         
         var ilha5 = IlhaNode(size: CGSizeMake(388, 162), tipoIlha: IlhaNode.TIPO_ILHA5)
         ilha5.position = CGPointMake(-120, -25)
-        vtEmptyPlace.addObject(ilha5)
+        vtEmptyPlace.append(ilha5)
         self.addChild(ilha5)
         
         var ilha6 = IlhaNode(size: CGSizeMake(161, 203), tipoIlha: IlhaNode.TIPO_ILHA6)
         ilha6.position = CGPointMake(234, 18)
-        vtEmptyPlace.addObject(ilha6)
+        vtEmptyPlace.append(ilha6)
         self.addChild(ilha6)
     }
     
     
-    func showEmptyPlace(){
-        for place in vtEmptyPlace{
-            place.showEmptyPlace()
+    func showEmptyPlaces(){
+        for ilha in vtEmptyPlace{
+            ilha.showEmptyPlace()
         }
     }
     
     
-    func hiddeEmptyPlace(){
-        for place in vtEmptyPlace{
-            place.hiddeEmptyPlace()
+    func hiddeEmptyPlaces(){
+        for ilha in vtEmptyPlace{
+            ilha.hiddeEmptyPlace()
+        }
+    }
+    
+    
+    func atualizarSprites(){
+        for ilha in vtEmptyPlace{
+            ilha.atualizarSprites()
         }
     }
 }

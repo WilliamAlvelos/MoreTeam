@@ -10,6 +10,8 @@ import SpriteKit
 
 class EmptyPlace: SKSpriteNode {
     
+    var nodeInserido:AbstractConstruction? = nil
+    
     var nodeTree:SKSpriteNode!
     var nodeBackgroundImage:SKSpriteNode!
     var indexPosicao:Int!
@@ -84,11 +86,20 @@ class EmptyPlace: SKSpriteNode {
         
         if(node .isKindOfClass(FabricaNode)){
             var fabrica = node as! FabricaNode
-            fabrica.dadosFabrica.setValue(indexPosicao, forKey: "indexPosicao")
+            fabrica.constructionData.setValue(indexPosicao, forKey: "indexPosicao")
+            nodeInserido = node as! FabricaNode
+            
         }else if(node .isKindOfClass(LojaNode)){
             var loja = node as! LojaNode
-            loja.dadosLoja.setValue(indexPosicao, forKey: "indexPosicao")
+            loja.constructionData.setValue(indexPosicao, forKey: "indexPosicao")
+            nodeInserido = node as! LojaNode
         }
     }
-
+    
+    
+    func atualizarSprite(){
+        if(nodeInserido != nil){
+            nodeInserido?.atualizarSprite()
+        }
+    }
 }
