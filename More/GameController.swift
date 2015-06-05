@@ -27,7 +27,7 @@ class GameController:AbstractSceneDelegate{
     
     
     func goToFabrica(fabrica:NSManagedObject){
-        let fabricaScene = FabricaScene(y: -2, size: gameView.frame.size)
+        let fabricaScene = FabricaScene(fabrica: fabrica, size: gameView.frame.size)
         fabricaScene.myDelegate = self
         gameView.presentScene(fabricaScene)
     }

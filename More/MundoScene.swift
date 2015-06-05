@@ -11,49 +11,26 @@ import SpriteKit
 
 class MundoScene : AbstractScene, MundoDelegate{
     
-    var vtPosicoesLivres:NSMutableArray!
-    var vtFabricas:NSMutableArray!
-    var vtLojas:NSMutableArray!
-    
+    //NODES UTILIZADOS NA COMPOSIÇÃO DA CENA
     var nodeGrafico: GraficoNode!
     var nodeTerra:MundoNode!
     
+    //SINGLETON QUE É USADO PARA CONSUMIR AS VARIÁVEIS GLOBAIS
     var singleton:Singleton!
     
     var itemEscolhido:SKSpriteNode!
     
     override init(size: CGSize) {
         super.init(size: size)
-
         
         inicializarClasse()
-        
-        var btNovaFabrica = SKSpriteNode(imageNamed: "new-factory01")
-        btNovaFabrica.size = CGSizeMake(nodeLatBotoes.size.width, 125)
-        btNovaFabrica.position = CGPointMake(0, nodeLateral.size.height / 2 - btNovaFabrica.size.height / 2 - 47.5)
-        btNovaFabrica.zPosition = 1
-        btNovaFabrica.name = "nova fabrica"
-        nodeLatBotoes.addChild(btNovaFabrica)
-        
-        var btNovaLoja = SKSpriteNode(imageNamed: "new-store01")
-        btNovaLoja.size = CGSizeMake(nodeLatBotoes.size.width, 125)
-        btNovaLoja.position = CGPointMake(0, btNovaFabrica.position.y - btNovaLoja.size.height - 25)
-        btNovaLoja.zPosition = 1
-        btNovaLoja.name = "nova loja"
-        nodeLatBotoes.addChild(btNovaLoja)
-        
-        nodeGrafico = GraficoNode(size: CGSizeMake(nodeLatBotoes.size.width, 250), valorSocial: 30, valorAmbiental: 100, valorEconomico: 30)
-        nodeGrafico.position = CGPointMake(0, btNovaLoja.position.y - nodeGrafico.size.height - 50)
-        nodeLatBotoes.addChild(nodeGrafico)
-        
         nodeTerra.startAnimacaoDeIntroducao(nodePrincipal.size.width / 2)
         
-        showBackButton()
     }
     
     
     func geraValores(){
-        nodeGrafico.setValoresGrafico(CGFloat(arc4random() % 100), valorAmbiental: CGFloat(arc4random() % 100), valorEconomico: CGFloat(arc4random() % 100))
+        nodeGrafico.setValoresGrafico(Float(arc4random() % 100), valorAmbiental: Float(arc4random() % 100), valorEconomico: Float(arc4random() % 100))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -74,20 +51,41 @@ class MundoScene : AbstractScene, MundoDelegate{
         nodeInferior.alpha = 0
         nodePrincipal.alpha = 0
         
-        //INICIALIZA OS VETORES QUE TERÃO AS FÁBRICAS E LOJAS QUE FOREM ADICIONADAS NA TERRA
-        vtFabricas = NSMutableArray()
-        vtLojas = NSMutableArray()
-        vtPosicoesLivres = NSMutableArray()
-        
         //INICIALIZA O NODE QUE REPRESENTA A TERRA
         nodeTerra = MundoNode(size: CGSizeMake(631, 491))
         nodeTerra.position = CGPointMake(self.size.width / 2, self.size.height / 2)
         nodeTerra.delegate = self
         self.addChild(nodeTerra)
         
-        
+        inicializarComponentes()
     }
     
+    private func inicializarComponentes(){
+        //CRIA O BOTÃO DE INSERIR NOVAS FÁBRICAS
+        var btNovaFabrica = gerarBotao("new-factory01", name: "nova fabrica")
+        btNovaFabrica.position = CGPointMake(0, nodeLateral.size.height / 2 - btNovaFabrica.size.height / 2 - 47.5)
+        nodeLatBotoes.addChild(btNovaFabrica)
+        
+        //CRIA O BOTÃO DE INSERIR NOVAS LOJAS
+        var btNovaLoja = gerarBotao("new-store01", name: "nova loja")
+        btNovaLoja.position = CGPointMake(0, btNovaFabrica.position.y - btNovaLoja.size.height - 25)
+        nodeLatBotoes.addChild(btNovaLoja)
+        
+        //CRIA O GRÁFICO QUE EXIBE AS 3 VARIÁVEIS GLOBAIS
+        nodeGrafico = GraficoNode(size: CGSizeMake(nodeLatBotoes.size.width, 250), valorSocial: 30, valorAmbiental: 100, valorEconomico: 30)
+        nodeGrafico.position = CGPointMake(0, btNovaLoja.position.y - nodeGrafico.size.height - 50)
+        nodeLatBotoes.addChild(nodeGrafico)
+    }
+    
+    
+    private func gerarBotao(imagem:String, name:String) -> SKSpriteNode{
+        var botao = SKSpriteNode(imageNamed: imagem)
+        botao.size = CGSizeMake(nodeLatBotoes.size.width, 125)
+        botao.zPosition = 1
+        botao.name = name
+        
+        return botao
+    }
     
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
@@ -95,20 +93,10 @@ class MundoScene : AbstractScene, MundoDelegate{
         singleton.delegate = self
         
         setDinheiro(singleton.dinheiro)
-        
-        
+        //nodeGrafico.setValoresGrafico(singleton.porcSocial, valorAmbiental: singleton.porcAmbiental, valorEconomico: singleton.porcEconomia)
         geraValores()
     }
     
-    
-    
-    
-//    private func adicionarPosicaoLivre(position:CGPoint){
-//        var emptyPlace = EmptyPlace()
-//        emptyPlace.position = position
-//        nodeTerra.addChild(emptyPlace)
-//        vtPosicoesLivres.addObject(emptyPlace)
-//    }
     
     
     private func gerarFabrica() -> SKSpriteNode{
@@ -116,10 +104,6 @@ class MundoScene : AbstractScene, MundoDelegate{
         fabrica.delegate = myDelegate
         fabrica.startSwingAnimation()
         return fabrica
-        
-//        var fabrica = ArvoreNode(size: CGSizeMake(67, 97))
-//        fabrica.startSwingAnimation()
-//        return fabrica
     }
     
     
@@ -141,21 +125,9 @@ class MundoScene : AbstractScene, MundoDelegate{
         self.nodeSuperior.runAction(actionFade)
         self.nodeInferior.runAction(actionFade)
         self.nodePrincipal.runAction(actionFade)
-        
-        //self.setMensagem("Mensagem ao usuário")
-        //self.inicializarPosicoesLivres()
-        //self.geraValores()
     
     }
 
-    
-    //INSERE POSIÇÕES NA TERRA ONDE PODERÁ SER INSERIDO NOVAS LOJAS OU FÁBRICAS
-//    private func inicializarPosicoesLivres(){
-//        adicionarPosicaoLivre(CGPointMake(0, nodeTerra.size.height / 2.3))
-//        adicionarPosicaoLivre(CGPointMake(-nodeTerra.size.width / 3, nodeTerra.size.height / 4.2))
-//        adicionarPosicaoLivre(CGPointMake(nodeTerra.size.width / 3.5, nodeTerra.size.height / 6))
-//    }
-   
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
@@ -169,12 +141,10 @@ class MundoScene : AbstractScene, MundoDelegate{
 
             if nodeName == "nova fabrica"{
                 itemEscolhido = gerarFabrica()
-                vtFabricas.addObject(itemEscolhido)
                 nodeTerra.showEmptyPlace()
                 
             }else if nodeName == "nova loja"{
                 itemEscolhido = gerarLoja()
-                vtLojas.addObject(itemEscolhido)
                 nodeTerra.showEmptyPlace()
                 
             }else if nodeName == "empty place"{
@@ -194,15 +164,6 @@ class MundoScene : AbstractScene, MundoDelegate{
         
         }
         
-    }
-    
-    
-    private func mostrarPosicoesLivres(){
-        for i in 0 ... vtPosicoesLivres.count - 1{
-            
-            var node = vtPosicoesLivres[i] as! EmptyPlace
-            node.showEmptyPlace()
-        }
     }
     
 }

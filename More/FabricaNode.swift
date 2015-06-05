@@ -25,7 +25,7 @@ class FabricaNode : SKSpriteNode{
         
         inicializarDadosFabrica()
         self.anchorPoint = CGPointMake(0.5, 0.1)
-        //self.zPosition = 1
+        self.zPosition = 1
         self.name = "fabrica"
         self.userInteractionEnabled = true
         inicializarActionSwing()

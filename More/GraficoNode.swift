@@ -10,9 +10,9 @@ import SpriteKit
 
 class GraficoNode: SKSpriteNode {
     
-    private var social:CGFloat!
-    private var ambiental:CGFloat!
-    private var economico:CGFloat!
+    private var social:Float!
+    private var ambiental:Float!
+    private var economico:Float!
     
     var nodeSocial:SKSpriteNode!
     var nodeAmbiental:SKSpriteNode!
@@ -24,7 +24,7 @@ class GraficoNode: SKSpriteNode {
     
     var timer:NSTimer!
     
-    init(size:CGSize, valorSocial:CGFloat, valorAmbiental:CGFloat, valorEconomico:CGFloat){
+    init(size:CGSize, valorSocial:Float, valorAmbiental:Float, valorEconomico:Float){
         super.init(texture: nil, color: nil, size: size)
         self.zPosition = 1
         
@@ -42,17 +42,17 @@ class GraficoNode: SKSpriteNode {
     
     
     private func inicializarNodes(){
-        nodeSocial = SKSpriteNode(color: UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1), size: CGSizeMake(60.0, (social/100) * self.size.height))
+        nodeSocial = SKSpriteNode(color: nil, size: CGSizeMake(60.0, (CGFloat(social)/100) * self.size.height))
         nodeSocial.position = CGPointMake(-self.size.width / 2 + nodeSocial.size.width / 2, -self.size.height / 2)
         nodeSocial.anchorPoint = CGPointMake(0.5, 0)
         self.addChild(nodeSocial)
         
-        nodeAmbiental = SKSpriteNode(color: UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1), size: CGSizeMake(60.0, (ambiental/100) * self.size.height))
+        nodeAmbiental = SKSpriteNode(color: nil, size: CGSizeMake(60.0, (CGFloat(ambiental)/100) * self.size.height))
         nodeAmbiental.position = CGPointMake(nodeSocial.position.x + nodeAmbiental.size.width + 5, -self.size.height / 2)
         nodeAmbiental.anchorPoint = CGPointMake(0.5, 0)
         self.addChild(nodeAmbiental)
         
-        nodeEconomico = SKSpriteNode(color: UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1), size: CGSizeMake(60.0, (economico/100) * self.size.height))
+        nodeEconomico = SKSpriteNode(color: nil, size: CGSizeMake(60.0, (CGFloat(economico)/100) * self.size.height))
         nodeEconomico.position = CGPointMake(nodeAmbiental.position.x + nodeEconomico.size.width + 5, -self.size.height / 2)
         nodeEconomico.anchorPoint = CGPointMake(0.5, 0)
         self.addChild(nodeEconomico)
@@ -115,7 +115,7 @@ class GraficoNode: SKSpriteNode {
     }
     
     
-    func setValoresGrafico(valorSocial:CGFloat, valorAmbiental:CGFloat, valorEconomico:CGFloat){
+    func setValoresGrafico(valorSocial:Float, valorAmbiental:Float, valorEconomico:Float){
         var actionSocial = gerarAction(social, valorNovo: valorSocial)
         var actionAmbiental = gerarAction(ambiental, valorNovo: valorAmbiental)
         var actionEconomico = gerarAction(economico, valorNovo: valorEconomico)
@@ -134,7 +134,7 @@ class GraficoNode: SKSpriteNode {
     }
     
     
-    private func gerarAction(valorAntigo:CGFloat, valorNovo:CGFloat) -> SKAction{
+    private func gerarAction(valorAntigo:Float, valorNovo:Float) -> SKAction{
         if(valorAntigo < valorNovo){
             var distanciaDescida:CGFloat = -5
             if(valorAntigo < 5){
@@ -142,12 +142,12 @@ class GraficoNode: SKSpriteNode {
             }
             var actionDown = SKAction.resizeByWidth(0, height: distanciaDescida, duration: 0.3)
             actionDown.timingMode = SKActionTimingMode.EaseOut
-            var actionUp = SKAction.resizeToHeight((valorNovo/100) * self.size.height, duration: 0.5)
+            var actionUp = SKAction.resizeToHeight((CGFloat(valorNovo)/100) * self.size.height, duration: 0.5)
             actionUp.timingMode = SKActionTimingMode.EaseIn
             return SKAction.sequence([actionDown, actionUp])
             
         }else{
-            return SKAction.resizeToHeight((valorNovo/100) * self.size.height, duration: 0.5)
+            return SKAction.resizeToHeight((CGFloat(valorNovo)/100) * self.size.height, duration: 0.5)
         }
     }
 }
