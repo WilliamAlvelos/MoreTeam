@@ -9,7 +9,7 @@
 import SpriteKit
 
 
-class MundoScene : AbstractScene, MundoDelegate{
+class MundoScene : AbstractScene{
     
     //NODES UTILIZADOS NA COMPOSIÇÃO DA CENA
     var nodeGrafico: GraficoNode!
@@ -18,13 +18,13 @@ class MundoScene : AbstractScene, MundoDelegate{
     //SINGLETON QUE É USADO PARA CONSUMIR AS VARIÁVEIS GLOBAIS
     var singleton:Singleton!
     
-    var itemEscolhido:SKSpriteNode!
+    var itemEscolhido:AbstractConstruction!
     
     override init(size: CGSize) {
         super.init(size: size)
         
         inicializarClasse()
-        nodeTerra.startAnimacaoDeIntroducao(nodePrincipal.size.width / 2)
+        //nodeTerra.startAnimacaoDeIntroducao(nodePrincipal.size.width / 2)
         
     }
     
@@ -41,50 +41,55 @@ class MundoScene : AbstractScene, MundoDelegate{
     
     private func inicializarClasse(){
         //DEFINO AS CORES DE FUNDO DA TELA
-        self.backgroundColor = UIColor.whiteColor()
         nodePrincipal.color = UIColor(red: 96/255, green: 216/255, blue: 244/255, alpha: 1)
-        nodeInferior.color = nodePrincipal.color
-        
-        //ZERO O ALPHA DOS NODES PARA FAZER POSTERIORMENTE A ANIMAÇÃO DE FADE IN
-        nodeLateral.alpha = 0
-        nodeSuperior.alpha = 0
-        nodeInferior.alpha = 0
-        nodePrincipal.alpha = 0
+        esconderNodeInferior()
         
         //INICIALIZA O NODE QUE REPRESENTA A TERRA
         nodeTerra = MundoNode(size: CGSizeMake(631, 491))
-        nodeTerra.position = CGPointMake(self.size.width / 2, self.size.height / 2)
-        nodeTerra.delegate = self
-        self.addChild(nodeTerra)
+        //nodeTerra.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+        nodePrincipal.addChild(nodeTerra)
         
         inicializarComponentes()
     }
     
     private func inicializarComponentes(){
         //CRIA O BOTÃO DE INSERIR NOVAS FÁBRICAS
-        var btNovaFabrica = gerarBotao("new-factory01", name: "nova fabrica")
+        var btNovaFabrica = ButtonNode(startImageName: "new-factory01", touchImageName: "new-factory02", buttonName: "newFactory")
         btNovaFabrica.position = CGPointMake(0, nodeLateral.size.height / 2 - btNovaFabrica.size.height / 2 - 47.5)
+        btNovaFabrica.delegate = self
         nodeLatBotoes.addChild(btNovaFabrica)
         
         //CRIA O BOTÃO DE INSERIR NOVAS LOJAS
-        var btNovaLoja = gerarBotao("new-store01", name: "nova loja")
+        var btNovaLoja = ButtonNode(startImageName: "new-store01", touchImageName: "new-store02", buttonName: "newStore")
         btNovaLoja.position = CGPointMake(0, btNovaFabrica.position.y - btNovaLoja.size.height - 25)
+        btNovaLoja.delegate = self
         nodeLatBotoes.addChild(btNovaLoja)
         
         //CRIA O GRÁFICO QUE EXIBE AS 3 VARIÁVEIS GLOBAIS
-        nodeGrafico = GraficoNode(size: CGSizeMake(nodeLatBotoes.size.width, 250), valorSocial: 30, valorAmbiental: 100, valorEconomico: 30)
+        nodeGrafico = GraficoNode(size: CGSizeMake(nodeLatBotoes.size.width, 250), valorSocial: 0, valorAmbiental: 0, valorEconomico: 0)
         nodeGrafico.position = CGPointMake(0, btNovaLoja.position.y - nodeGrafico.size.height - 50)
         nodeLatBotoes.addChild(nodeGrafico)
     }
     
     
-    private func gerarBotao(imagem:String, name:String) -> SKSpriteNode{
-        var botao = SKSpriteNode(imageNamed: imagem)
-        botao.size = CGSizeMake(nodeLatBotoes.size.width, 125)
-        botao.zPosition = 1
-        botao.name = name
+    override func touchedButtonWithName(buttonName: String) {
         
-        return botao
+        switch(buttonName){
+        case "newFactory":
+            itemEscolhido = gerarFabrica()
+            break
+            
+        case "newStore":
+            itemEscolhido = gerarLoja()
+            break
+            
+        default:
+            break
+        }
+        
+        nodeTerra.showEmptyPlaces()
+        
+        println(buttonName)
     }
     
     override func didMoveToView(view: SKView) {
@@ -99,32 +104,18 @@ class MundoScene : AbstractScene, MundoDelegate{
     
     
     
-    private func gerarFabrica() -> SKSpriteNode{
+    private func gerarFabrica() -> AbstractConstruction{
         var fabrica = FabricaNode(size: CGSizeMake(52, 95))
         fabrica.delegate = myDelegate
         return fabrica
     }
     
     
-    private func gerarLoja() -> SKSpriteNode{
+    private func gerarLoja() -> AbstractConstruction{
         var loja = LojaNode(size: CGSizeMake(53, 66))
         loja.delegate = myDelegate
         loja.startSwingAnimation()
         return loja
-    }
-    
-    
-    func animacaoDeIntroducaoTerminou() {
-        var actionFade = SKAction.fadeInWithDuration(1)
-        
-        //EXECUTA AS ACTIONS
-        
-        self.nodeTerra.removeAllActions()
-        self.nodeLateral.runAction(actionFade)
-        self.nodeSuperior.runAction(actionFade)
-        self.nodeInferior.runAction(actionFade)
-        self.nodePrincipal.runAction(actionFade)
-    
     }
 
     
@@ -138,15 +129,7 @@ class MundoScene : AbstractScene, MundoDelegate{
             let nodeName: String? = touchedNode.name
             
 
-            if nodeName == "nova fabrica"{
-                itemEscolhido = gerarFabrica()
-                nodeTerra.showEmptyPlaces()
-                
-            }else if nodeName == "nova loja"{
-                itemEscolhido = gerarLoja()
-                nodeTerra.showEmptyPlaces()
-                
-            }else if nodeName == "empty place"{
+            if nodeName == "empty place"{
                 touchedNode.addChild(itemEscolhido)
                 itemEscolhido = nil
 

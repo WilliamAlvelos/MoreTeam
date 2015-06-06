@@ -22,7 +22,7 @@ class GraficoNode: SKSpriteNode {
     var lblAmbiental:SKLabelNode!
     var lblEconomico:SKLabelNode!
     
-    var timer:NSTimer!
+    var timer:NSTimer?
     
     init(size:CGSize, valorSocial:Float, valorAmbiental:Float, valorEconomico:Float){
         super.init(texture: nil, color: nil, size: size)
@@ -82,7 +82,7 @@ class GraficoNode: SKSpriteNode {
     
     func alterarValoresDoGrafico(){
         if(!nodeSocial.hasActions() && !nodeAmbiental.hasActions() && !nodeEconomico.hasActions()){
-            timer.invalidate()
+            timer?.invalidate()
             timer = nil
             
             lblSocial.text = "\(Int(social))%"

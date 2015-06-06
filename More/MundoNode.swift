@@ -9,15 +9,15 @@
 import SpriteKit
 
 
-protocol MundoDelegate{
-    func animacaoDeIntroducaoTerminou()
-}
+//protocol MundoDelegate{
+//    func animacaoDeIntroducaoTerminou()
+//}
 
 
 class MundoNode: SKSpriteNode {
     
     var dadosMundo:Mundo!
-    var delegate:MundoDelegate?
+    //var delegate:MundoDelegate?
     var vtEmptyPlace:Array<IlhaNode> = Array()
     
     
@@ -34,17 +34,17 @@ class MundoNode: SKSpriteNode {
     }
     
     
-    func startAnimacaoDeIntroducao(posX:CGFloat){
-        
-        //CRIA AS ANIMAÇÕES DE MOVIMENTO DA TERRA, APARECIMENTO DOS NODES E REDIMENSIONAMENTO DA TERRA(CASO NECESSÁRIO)
-        var actionMove = SKAction.moveToX(posX, duration: 0.8)
-        actionMove.timingMode = SKActionTimingMode.EaseInEaseOut
-        
-        //EXECUTA AS ACTIONS
-        self.runAction(actionMove, completion: { () -> Void in
-            delegate?.animacaoDeIntroducaoTerminou()
-        })
-    }
+//    func startAnimacaoDeIntroducao(posX:CGFloat){
+//        
+//        //CRIA AS ANIMAÇÕES DE MOVIMENTO DA TERRA, APARECIMENTO DOS NODES E REDIMENSIONAMENTO DA TERRA(CASO NECESSÁRIO)
+//        var actionMove = SKAction.moveToX(posX, duration: 0.8)
+//        actionMove.timingMode = SKActionTimingMode.EaseInEaseOut
+//        
+//        //EXECUTA AS ACTIONS
+//        self.runAction(actionMove, completion: { () -> Void in
+//            delegate?.animacaoDeIntroducaoTerminou()
+//        })
+//    }
     
     
     private func inicializarIlhas(){

@@ -39,7 +39,10 @@ class AbstractConstruction : SKSpriteNode{
         var qtdFuncionario = constructionData.valueForKey("qtdFuncionario") as! Int
         
         if(qtdFuncionario > 0){
-            startSwingAnimation()
+            if(!self.hasActions()){
+                startSwingAnimation()
+            }
+            
         
         }else{
             self.removeAllActions()

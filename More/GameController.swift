@@ -42,8 +42,9 @@ class GameController:AbstractSceneDelegate{
     
     
     func startGame(){
-        gameView.presentScene(mundo)
-        mundo.myDelegate = self
+        var transition = SKTransition.doorsOpenHorizontalWithDuration(1)
+        
+        gameView.presentScene(mundo, transition: transition)
     }
     
 }
