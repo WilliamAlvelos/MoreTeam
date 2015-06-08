@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Fabrica" representedClassName="Fabrica" syncable="YES">
+        <attribute name="indexPosicao" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="qtdFuncionario" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="tipo" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Loja" representedClassName="Loja" syncable="YES">
+        <attribute name="indexPosicao" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="qtdFuncionario" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
     <entity name="Trabalhadores" representedClassName="Trabalhadores" syncable="YES">
         <attribute name="tipo" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Trabalhadores" positionX="-1566" positionY="-297" width="128" height="58"/>
+        <element name="Fabrica" positionX="-1494" positionY="-171" width="128" height="88"/>
+        <element name="Loja" positionX="-1217" positionY="-237" width="128" height="73"/>
     </elements>
 </model>

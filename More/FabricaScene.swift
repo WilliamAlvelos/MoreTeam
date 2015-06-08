@@ -7,43 +7,27 @@
 //
 
 
-import UIKit
 import SpriteKit
 import CoreData
 
 
-class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate{
+class FabricaScene: AbstractScene, EsteiraNodeDelegate{
     
     var novoEsteira:Int = 0
     var novoEsteira1:Int = 0
     var novoEsteira2:Int = 0
     
     var frequencia:CGFloat = 0.0;
-
-    
-    let myLabel = SKLabelNode(fontNamed:"Heveltica")
-    
-    var trabalhador:Trabalhadores? = nil
     
     var trabalhadores = 0;
-    
-    var trabalhadoresLabel = 0;
-    
+
     var yVar : CGFloat!
     
     var valorEsteira1 = 0
     
     var valorEsteira2 = 0
     
-    var esteira: SKNode!
-    
     var ultimoFuncionario:[SKNode] = []
-    
-    var demitirFuncionarios:[SKNode] = []
-    
-    var trabalhadoresEsteira1:UInt32 = 0
-    
-    var trabalhadoresEsteira2:UInt32 = 0
     
     var flagEsteira1 = 1
     
@@ -55,12 +39,14 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
     
     var singleton = Singleton.sharedInstance
     
+    var fabricaData:NSManagedObject!
     
-    init(y:Int, size: CGSize){
+    
+    init(fabrica:NSManagedObject, size: CGSize){
         
         super.init(size: size)
         
-        
+        fabricaData = fabrica
         esteira1.delegate = self
         
         esteira2.delegate = self
@@ -81,13 +67,14 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
         
         esteira2.moveEsteira()
         
-        trabalhadoresLabel = y + 1
+        
+        var y = fabrica.valueForKey("qtdFuncionario") as! Int
+        println("quantidade funcionários: \(y)")
+        
         
         trabalhadores = y
         
         
-        
-        myLabel.text = NSString(format: "%d", trabalhadoresLabel) as String
         
         var x = y
         
@@ -185,7 +172,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
                 funcionario.xScale = 0.5
                 funcionario.yScale = 0.5
                 funcionario.zPosition = 2.0
-                funcionario.physicsBody?.allowsRotation = false
                 funcionario.name = "funcionario"
 
                 
@@ -521,15 +507,15 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
             NSLog("%d", valorEsteira2)
             
             if(node.name == "voltar"){
+                fabricaData.setValue(trabalhadores, forKey: "qtdFuncionario")
                 myDelegate!.backToWorld()
+                
+                println("quantidade atual funcionários: \(trabalhadores)")
             }
             
             
             if (node.name == "mais") {
-                
-                for demitir in demitirFuncionarios{
-                    demitir.removeFromParent()
-                }
+
                     
                 if(singleton.dinheiro > NSInteger(singleton.precoFuncionario)){
                 
@@ -550,7 +536,6 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
                         }
                         
                         trabalhadores++;
-                        trabalhadoresLabel++;
                         
                     
                         var workerTexture1 = SKTexture(imageNamed: "worker-61")
@@ -627,12 +612,8 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
                         funcionario.zPosition = 2.0
                         funcionario.xScale = 0.5
                         funcionario.yScale = 0.5
-                        funcionario.physicsBody?.allowsRotation = false
                         funcionario.name = "funcionario"
                     
-
-                        
-                        myLabel.text = NSString(format: "%d", trabalhadoresLabel) as String
                         
                         
                         if(trabalhadores <= 5){
@@ -692,9 +673,7 @@ class FabricaScene: AbstractScene, SKPhysicsContactDelegate, EsteiraNodeDelegate
                 
                 if(trabalhadores >= 0){
                     trabalhadores--
-                    trabalhadoresLabel--
                     
-                    myLabel.text = NSString(format: "%d", trabalhadoresLabel) as String
                     
                     excluirFuncionario(node as! SKSpriteNode)
                     

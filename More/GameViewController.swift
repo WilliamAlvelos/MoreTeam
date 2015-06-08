@@ -16,9 +16,17 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let scene = TelaPrincipal(size: self.view.frame.size, view: self.view as! SKView)
+        let scene = TelaPrincipal(size: self.view.frame.size, view: self.view as! SKView)
         
-        let scene = LojaScene(size: self.view.frame.size)
+<<<<<<< HEAD
+<<<<<<< HEAD
+//        let scene = LojaScene(size: self.view.frame.size)
+=======
+        //let scene = LojaScene(size: self.view.frame.size)
+>>>>>>> origin/master
+=======
+        //let scene = LojaScene(size: self.view.frame.size)
+>>>>>>> origin/master
         
         //let scene = FabricaScene(size: self.view.frame.size)
 

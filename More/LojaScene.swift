@@ -37,6 +37,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var balcaoNode2 : SKSpriteNode!
     var balcaoNode3 : SKSpriteNode!
     
+<<<<<<< HEAD
     var abrirPortaArray = Array<SKTexture>()
     var fecharPortaArray = Array<SKTexture>()
     var balcaoArray = Array<SKTexture>()
@@ -46,6 +47,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     
     
+=======
+>>>>>>> origin/master
     var animacaoPortaAbrir : SKAction!
     var animacaoPortaFechar : SKAction!
     var balcaoAnimacao : SKAction!
@@ -88,6 +91,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     override init(size: CGSize) {
         super.init(size: size)
         
+        var balcaoArray = Array<SKTexture>()
         balcaoArray.append(SKTexture(imageNamed: "cashier-02"))
         balcaoArray.append(SKTexture(imageNamed: "cashier-03"))
         balcaoArray.append(SKTexture(imageNamed: "cashier-04"))
@@ -114,6 +118,9 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         
         balcaoAnimacao = SKAction.animateWithTextures(balcaoArray, timePerFrame: 0.2)
+        
+        var abrirPortaArray = Array<SKTexture>()
+        var fecharPortaArray = Array<SKTexture>()
         
         for i in 16 ... 20
         {
@@ -160,12 +167,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         balcaoNode3!.position = CGPoint(x: 150, y: 100)
         balcaoNode3!.zPosition = 1
         nodePrincipal.addChild(balcaoNode3)
-        
-        //244 235 198
-        
-        //F4EBC6
-        
-        
+   
         
         //Add Porta
         porta1 = SKSpriteNode(imageNamed: "door-C-15.png")
@@ -374,11 +376,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
     }
     
-    
-    
-    override func update(currentTime: CFTimeInterval) {
-        
-    }
     
     
 }

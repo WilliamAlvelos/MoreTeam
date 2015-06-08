@@ -7,27 +7,33 @@
 //
 
 import SpriteKit
+import CoreData
 
 
-class FabricaNode : SKSpriteNode{
-    
-    var dadosFabrica:Fabrica!
-    
-    var delegate:AbstractSceneDelegate?
-    let IMAGE_NAME = "swing_factory-"
+class FabricaNode : AbstractConstruction{
+
     let NUM_TEXTURES = 5
-    var actionSwing:SKAction!
     
     
     init(size:CGSize){
-        super.init(texture: SKTexture(imageNamed: "\(IMAGE_NAME)06.png"), color: nil, size: size)
+        super.init(imageNamed: "swing_factory-01.png", size: size)
         
-        dadosFabrica = Fabrica()
-        self.anchorPoint = CGPointMake(0.5, 0.2)
-        //self.zPosition = 1
+        inicializarDadosFabrica()
+        self.IMAGE_NAME = "swing_factory-"
+        self.anchorPoint = CGPointMake(0.5, 0.1)
+        self.zPosition = 1
         self.name = "fabrica"
         self.userInteractionEnabled = true
         inicializarActionSwing()
+    }
+    
+    private func inicializarDadosFabrica(){
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        let entity =  NSEntityDescription.entityForName("Fabrica", inManagedObjectContext: managedContext)
+        constructionData = Fabrica(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        constructionData.setValue(1, forKey: "tipo")
+        constructionData.setValue(0, forKey: "qtdFuncionario")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,15 +42,18 @@ class FabricaNode : SKSpriteNode{
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         println("tocou na fabrica")
-        delegate?.goToFabrica(self)
+        delegate?.goToFabrica(constructionData)
     }
     
     
     private func inicializarActionSwing(){
         var arrayTextures:Array<SKTexture> = Array()
         
-        for i in 1 ... NUM_TEXTURES{
+        var i = NUM_TEXTURES
+        
+        while(i >= 1){
             arrayTextures.append(SKTexture(imageNamed: "\(IMAGE_NAME)0\(i).png"))
+            i--
         }
         
         
@@ -52,9 +61,5 @@ class FabricaNode : SKSpriteNode{
         
     }
     
-    
-    func startSwingAnimation(){
-        self.runAction(actionSwing)
-    }
     
 }
