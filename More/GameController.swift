@@ -35,7 +35,7 @@ class GameController:AbstractSceneDelegate{
     
     
     func goToLoja(loja:NSManagedObject){
-        let lojaScene = LojaScene(size: gameView.frame.size)
+        let lojaScene = LojaScene(loja: loja,size: gameView.frame.size)
         lojaScene.myDelegate = self
         gameView.presentScene(lojaScene)
     }

@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import CoreData
 
 class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
@@ -65,11 +66,10 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var porta2 : SKSpriteNode!
     var porta3 : SKSpriteNode!
     
+    var lojaData:NSManagedObject!
+    
     var singleton:Singleton!
     
-    override func didMoveToView(view: SKView) {
-        
-    }
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -88,8 +88,11 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     }
     
     
-    override init(size: CGSize) {
+    init(loja:NSManagedObject ,size: CGSize) {
         super.init(size: size)
+        
+        lojaData = loja
+        var numFuncionarios = loja.valueForKey("qtdFuncionario") as! Int
         
         var balcaoArray = Array<SKTexture>()
         balcaoArray.append(SKTexture(imageNamed: "cashier-02"))
@@ -331,6 +334,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                     
                 }
                 
+                
+                lojaData.setValue(contadorFila, forKey: "qtdFuncionario")
                 myDelegate?.backToWorld()
                 
                 
