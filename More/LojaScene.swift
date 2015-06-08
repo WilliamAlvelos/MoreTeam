@@ -38,7 +38,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var balcaoNode2 : SKSpriteNode!
     var balcaoNode3 : SKSpriteNode!
     
-<<<<<<< HEAD
     var abrirPortaArray = Array<SKTexture>()
     var fecharPortaArray = Array<SKTexture>()
     var balcaoArray = Array<SKTexture>()
@@ -47,9 +46,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var andarArray2 = Array<SKTexture>()
     
     
-    
-=======
->>>>>>> origin/master
     var animacaoPortaAbrir : SKAction!
     var animacaoPortaFechar : SKAction!
     var balcaoAnimacao : SKAction!
