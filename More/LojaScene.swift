@@ -10,12 +10,12 @@ import SpriteKit
 
 class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
-    var actionWait = SKAction.waitForDuration(5)
+    var actionWait = SKAction.waitForDuration(4)
     var actionWaitPorta = SKAction.waitForDuration(2)
     
     
     var actionMove = SKAction.moveByX(0, y: 120, duration: 1.2)
-    var actionMoveUp = SKAction.moveByX(0, y: 150, duration: 1.5)
+    var actionMoveUp = SKAction.moveByX(0, y: 400, duration: 4)
     var actionMoveSair = SKAction.moveByX(0, y: 100, duration: 1)
     
     var arrayDeFila : NSMutableArray = NSMutableArray()
@@ -31,7 +31,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var contadorFila : Int = 0
     var posicaoFila : CGPoint!
     
-    var totalClientes : NSInteger = 4
+    var totalClientes : NSInteger = 8
     
     var balcaoNode1 : SKSpriteNode!
     var balcaoNode2 : SKSpriteNode!
@@ -40,10 +40,23 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var abrirPortaArray = Array<SKTexture>()
     var fecharPortaArray = Array<SKTexture>()
     var balcaoArray = Array<SKTexture>()
+    var andarArray = Array<SKTexture>()
+    var trabalhadorArray = Array<SKTexture>()
+    var andarArray2 = Array<SKTexture>()
+    
+    
     
     var animacaoPortaAbrir : SKAction!
     var animacaoPortaFechar : SKAction!
     var balcaoAnimacao : SKAction!
+    var andarAnimacao : SKAction!
+    var trabalhadorAnimacao : SKAction!
+    
+    var andarAnimacao2 : SKAction!
+    var andarAnimacaoGroup : SKAction!
+    var andarAnimacaoGroup2 : SKAction!
+    var sairAnimacaoGroup : SKAction!
+    var andarUmPoucoAnimacaGroup: SKAction!
     
     var porta1 : SKSpriteNode!
     var porta2 : SKSpriteNode!
@@ -72,19 +85,35 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     }
     
     
-    func gerarPorta1() {
-        
-    }
-    
-    
     override init(size: CGSize) {
         super.init(size: size)
         
         balcaoArray.append(SKTexture(imageNamed: "cashier-02"))
         balcaoArray.append(SKTexture(imageNamed: "cashier-03"))
         balcaoArray.append(SKTexture(imageNamed: "cashier-04"))
+        balcaoArray.append(SKTexture(imageNamed: "cashier-01"))
         
-        balcaoAnimacao = SKAction.animateWithTextures(balcaoArray, timePerFrame: 1)
+        
+        for i in 2 ... 22
+        {
+            andarArray.append(SKTexture(imageNamed: "consumer-\(i)"))
+        }
+        
+        for i in 2 ... 8
+        {
+            andarArray2.append(SKTexture(imageNamed: "consumer-\(i)"))
+        }
+        
+        
+        andarAnimacao = SKAction.repeatAction(SKAction.animateWithTextures(andarArray, timePerFrame: 0.1), count: 3)
+        andarAnimacao2 = SKAction.animateWithTextures(andarArray2, timePerFrame: 0.1)
+        //
+        andarAnimacaoGroup = SKAction.group([andarAnimacao, actionMoveUp])
+        sairAnimacaoGroup = SKAction.group([andarAnimacao2, actionMoveSair])
+        andarUmPoucoAnimacaGroup = SKAction.group([andarAnimacao2, actionMove])
+        
+        
+        balcaoAnimacao = SKAction.animateWithTextures(balcaoArray, timePerFrame: 0.2)
         
         for i in 16 ... 20
         {
@@ -95,6 +124,13 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         {
             fecharPortaArray.append(SKTexture(imageNamed: "door-C-\(i)"))
         }
+        
+        for i in 61 ... 90 {
+            trabalhadorArray.append(SKTexture(imageNamed: "worker_store-\(i)"))
+        }
+        
+        trabalhadorAnimacao = SKAction.repeatAction(SKAction.animateWithTextures(trabalhadorArray, timePerFrame: 0.025), count: 2)
+        
         
         animacaoPortaAbrir = SKAction.animateWithTextures(abrirPortaArray, timePerFrame: 0.1)
         animacaoPortaFechar = SKAction.animateWithTextures(fecharPortaArray, timePerFrame: 0.1)
@@ -180,18 +216,15 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         var bodyA = contact.bodyA.node!
         var bodyB = contact.bodyB.node!
         
-        
         if(bodyA.name == "cliente" && bodyB.name == "cliente"){
-            bodyA.runAction(actionMove, withKey: "move")
-            bodyB.runAction(actionMove, withKey: "move")
-            
-            
-        }else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente"){
-            bodyB.runAction(actionMove, withKey: "move")
-            
-            
-        }else if(bodyB.name == "clienteBalcao" && bodyA.name == "cliente"){
-            bodyA.runAction(actionMove, withKey: "move")
+            bodyA.runAction(andarUmPoucoAnimacaGroup, withKey: "move")
+            bodyB.runAction(andarUmPoucoAnimacaGroup, withKey: "move")
+        }
+        else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente"){
+            bodyB.runAction(andarUmPoucoAnimacaGroup, withKey: "move")
+        }
+        else if(bodyB.name == "clienteBalcao" && bodyA.name == "cliente"){
+            bodyA.runAction(andarUmPoucoAnimacaGroup, withKey: "move")
         }
         
     }
@@ -200,10 +233,12 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         var bodyA = contact.bodyA.node!
         var bodyB = contact.bodyB.node!
         
-        if(bodyA.name == "quadrado" && bodyB.name == "cliente"){
+        if(bodyA.name == "trabalhadorNode" && bodyB.name == "cliente") {
             
             var teste = bodyB as! ClienteNode
             var a = teste.fila
+            
+            bodyA.runAction(trabalhadorAnimacao)
             
             bodyB.removeAllActions()
             bodyB.name = "clienteBalcao"
@@ -211,8 +246,22 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             bodyB.runAction(actionWait, completion: { () -> Void in
                 bodyB.physicsBody?.dynamic = false
                 
-                bodyB.runAction(self.actionMoveSair, completion: { () -> Void in
-                    //
+                
+                if(a == 0)
+                {
+                    self.balcaoNode1.runAction(self.balcaoAnimacao)
+                }
+                if(a == 1)
+                {
+                    self.balcaoNode2.runAction(self.balcaoAnimacao)
+                }
+                if(a == 2)
+                {
+                    self.balcaoNode3.runAction(self.balcaoAnimacao)
+                }
+                
+                
+                bodyB.runAction(self.sairAnimacaoGroup, completion: { () -> Void in
                     
                     if(a == 0)
                     {
@@ -225,7 +274,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                     
                     
                     
-                    bodyB.runAction(self.actionMoveUp, completion: { () -> Void in
+                    bodyB.runAction(self.andarAnimacaoGroup, completion: { () -> Void in
                         bodyB.removeAllActions()
                         bodyB.removeFromParent()
                         
@@ -236,64 +285,29 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                 
             })
             
+        }
             
-        }else if(bodyB.name == "quadrado" && bodyA.name == "cliente"){
+        else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente")
+        {
+            bodyB.removeAllActions()
+        }
+        else if(bodyB.name == "clienteBalcao" && bodyA.name == "cliente")
+        {
+            bodyA.removeAllActions()
+        }
             
-            var bodyA = contact.bodyA.node!
-            var bodyB = contact.bodyB.node!
-            
-            if(bodyB.name == "quadrado" && bodyA.name == "cliente"){
-                
-                var teste = bodyA as! ClienteNode
-                var a = teste.fila
-                
-                println(a)
-                
-                bodyA.removeAllActions()
-                bodyA.name = "clienteBalcao"
-                
-                bodyA.runAction(actionWait, completion: { () -> Void in
-                    bodyA.physicsBody?.dynamic = false
-                    
-                    bodyA.runAction(self.actionMoveSair, completion: { () -> Void in
-                        //
-                        
-                        if(a == 0)
-                        {
-                            self.porta1.runAction(SKAction.sequence([self.animacaoPortaAbrir, self.actionWaitPorta, self.animacaoPortaFechar]))
-                        } else if(a == 1) {
-                            self.porta2.runAction(SKAction.sequence([self.animacaoPortaAbrir, self.actionWaitPorta, self.animacaoPortaFechar]))
-                        } else if(a == 2) {
-                            self.porta3.runAction(SKAction.sequence([self.animacaoPortaAbrir, self.actionWaitPorta, self.animacaoPortaFechar]))
-                        }
-                        
-                        bodyA.runAction(self.actionMoveUp, completion: { () -> Void in
-                            
-                            bodyA.removeAllActions()
-                            bodyA.removeFromParent()
-                            
-                        })
-                        
-                    })
-                    
-                    
-                })
-                
-                
+        else
+        {
+            if(bodyB.actionForKey("move") == nil)
+            {
+                if(bodyB.name == "clienteBalcao") { println("Body A: \(bodyA.name)") }
+                bodyB.removeAllActions()
             }
-            else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente"){
-                bodyB.removeAllActions()
-                
-                
-            }else if(bodyB.name == "clienteBalcao" && bodyA.name == "cliente"){
-                bodyA.removeAllActions()
-                
-            }else if((bodyB.actionForKey("move")) == nil && bodyB.name != "clienteBalcao"){
-                bodyB.removeAllActions()
-            } else if((bodyA.actionForKey("move")) == nil && bodyA.name != "clienteBalcao"){
+            if(bodyA.actionForKey("move") == nil)
+            {
+                //                println(bodyA.name)
                 bodyA.removeAllActions()
             }
-            
         }
         
     }
