@@ -7,16 +7,16 @@
 //
 
 import SpriteKit
-
+import CoreData
 
 protocol AbstractSceneDelegate{
     func backToWorld()
-    func goToFabrica(fabrica:SKSpriteNode)
-    func goToLoja(loja:SKSpriteNode)
+    func goToFabrica(fabrica:NSManagedObject)
+    func goToLoja(loja:NSManagedObject)
 }
 
 
-class AbstractScene: SKScene, SingletonDelegate {
+class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
     
     var myDelegate:AbstractSceneDelegate?
     
@@ -71,7 +71,7 @@ class AbstractScene: SKScene, SingletonDelegate {
         nodeInferior.position = CGPointMake(nodeInferior.size.width / 2, (nodeInferior.size.height / 2))
         self.addChild(nodeInferior)
         
-        //ADICIONA O PAINEL PRINCI PAL DA CENA
+        //ADICIONA O PAINEL PRINCIPAL DA CENA
         nodePrincipal = SKSpriteNode(color: UIColor.whiteColor(), size: CGSizeMake(size.width - nodeLateral.size.width, size.height - nodeSuperior.size.height - nodeInferior.size.height))
         nodePrincipal.position = CGPointMake(nodePrincipal.size.width / 2, (nodePrincipal.size.height / 2) + nodeInferior.size.height)
         self.addChild(nodePrincipal)
@@ -135,7 +135,7 @@ class AbstractScene: SKScene, SingletonDelegate {
         nodeSupLabelValor.addChild(lblValor)
         
         //ADICIONA A LABEL QUE MOSTRA ALGO
-        lblProducao = gerarLabel("000000 product per second", pos: CGPointMake(0, 0))
+        lblProducao = gerarLabel("0 product per second", pos: CGPointMake(0, 0))
         lblProducao.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         nodeSupLabelProducao.addChild(lblProducao)
     }
@@ -154,6 +154,9 @@ class AbstractScene: SKScene, SingletonDelegate {
     
     
     override func didMoveToView(view: SKView) {
+        if(nodeInferior == nil){
+            return
+        }
         //ADICIONAR UMA UILABEL QUE EXIBIRÁ MENSAGENS PARA O USUÁRIO
         var newFrame:CGRect = nodeInferior.frame
         newFrame.size.width -= 20
@@ -187,9 +190,22 @@ class AbstractScene: SKScene, SingletonDelegate {
     }
 
     
+    func touchedButtonWithName(buttonName: String) {
+        //SOBREESCREVER NAS SUBCLASSES
+    }
+    
     
     func removerReferencias(){
         myDelegate = nil        
+    }
+    
+    
+    func esconderNodeInferior(){
+        nodePrincipal.size.height += nodeInferior.size.height
+        nodePrincipal.position.y = nodePrincipal.size.height / 2
+        
+        nodeInferior.removeFromParent()
+        nodeInferior = nil
     }
 
     

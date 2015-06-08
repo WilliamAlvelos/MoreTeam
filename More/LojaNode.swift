@@ -7,33 +7,34 @@
 //
 
 import SpriteKit
+import CoreData
 
 
 
-
-class LojaNode : SKSpriteNode{
+class LojaNode : AbstractConstruction{
     
-    
-    var dadosLoja:Loja!
-    
-    var delegate:AbstractSceneDelegate?
-    let IMAGE_NAME = "swing_store-"
     let NUM_TEXTURES = 4
-    var actionSwing:SKAction!
     
     
     init(size:CGSize){
-        super.init(texture: SKTexture(imageNamed: "\(IMAGE_NAME)01.png"), color: nil, size: size)
+        super.init(imageNamed: "swing_store-01.png", size: size)
         
-        dadosLoja = Loja()
-        
-        //self.zPosition = 1
-        self.anchorPoint = CGPointMake(0.5, 0.2)
+        inicializarDadosFabrica()
+        self.IMAGE_NAME = "swing_store-"
+        self.zPosition = 1
+        self.anchorPoint = CGPointMake(0.5, 0.1)
         self.name = "loja"
         self.userInteractionEnabled = true
-        inicializarActionSwing()
     }
     
+    
+    private func inicializarDadosFabrica(){
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        let entity =  NSEntityDescription.entityForName("Loja", inManagedObjectContext: managedContext)
+        constructionData = Loja(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        constructionData.setValue(0, forKey: "qtdFuncionario")
+    }
     
 
     required init?(coder aDecoder: NSCoder) {
@@ -42,7 +43,7 @@ class LojaNode : SKSpriteNode{
     
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        delegate?.goToLoja(self)
+        delegate?.goToLoja(constructionData)
     }
     
     
@@ -60,8 +61,5 @@ class LojaNode : SKSpriteNode{
     }
     
     
-    func startSwingAnimation(){
-        self.runAction(actionSwing)
-    }
     
 }

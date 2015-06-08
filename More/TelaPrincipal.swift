@@ -19,54 +19,39 @@ class TelaPrincipal: SKScene{
         gameController = GameController(view: view)
         self.backgroundColor = UIColor.whiteColor()
         
-        var nodeTerra = SKSpriteNode(imageNamed: "w1")
-        nodeTerra.position = CGPointMake(self.size.width / 2, self.size.height / 2)
-        self.addChild(nodeTerra)
+        var nodeSplash = SKSpriteNode(imageNamed: "splash")
+        nodeSplash.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+        self.addChild(nodeSplash)
+        
+        var nodeButton = SKSpriteNode(imageNamed: "splash-button")
+        nodeButton.position = CGPointMake(self.size.width / 2, self.size.height / 2 - nodeButton.size.height)
+        nodeButton.name = "start"
+        self.addChild(nodeButton)
     }
 
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-//        let myLabel = SKLabelNode(fontNamed:"Heveltica")
-//        myLabel.text = "Play!";
-//        myLabel.fontSize = 65;
-//        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
-//        
-//        let play = SKSpriteNode(imageNamed: "Play")
-//        play.xScale = 0.5
-//        play.yScale = 0.5
-//        play.position = CGPointMake(frame.size.width/2 ,frame.size.height/2)
-//        play.name = "play"
-        
-        
-        
-        
-//        self.addChild(play)
-//        self.addChild(myLabel)
-    }
     
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         /* Called when a touch begins */
 
         
-        gameController.startGame()
-//        for touch in (touches as! Set<UITouch>) {
-//            let location = touch.locationInNode(self)
-//            var node = self.nodeAtPoint(location)
-//            
-//            if (node.name == "play") {
-//                node.removeFromParent()
-//                
-//                
-//                
-//            }
-//            
-//        }
+        
+        for touch in (touches as! Set<UITouch>) {
+            let location = touch.locationInNode(self)
+            var node = self.nodeAtPoint(location)
+            
+            if (node.name == "start") {
+                //node.removeFromParent()
+                gameController.startGame()
+                
+            }
+            
+        }
     }
     
     
