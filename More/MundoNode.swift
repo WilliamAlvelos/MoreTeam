@@ -25,7 +25,6 @@ class MundoNode: SKSpriteNode {
         super.init(texture: SKTexture(imageNamed: "w1"), color: nil, size: size)
 
         dadosMundo = Mundo()
-        self.zPosition = 1
         inicializarIlhas()
     }
     
