@@ -71,11 +71,12 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         
         var y = fabrica.valueForKey("qtdFuncionario") as! Int
         println("quantidade funcionários: \(y)")
+        if y < -1{
+            y = -1
+        }
         
         
         trabalhadores = y - 1
-        
-        
         
         var x = y - 1
         
@@ -177,27 +178,9 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         let fabrica = SKSpriteNode(imageNamed: "Factory")
         fabrica.position = CGPointMake(0,0)
         fabrica.zPosition = 0.00000001
+        fabrica.yScale = 1.15
         fabrica.name = "fabrica"
-        
 
-        
-//        let play = SKSpriteNode(imageNamed: "wireframe-07")
-//        play.size = CGSizeMake(190, 125)
-//        play.position = CGPointMake(0,+250)
-//        play.name = "mais"
-//        
-//        let menos = SKSpriteNode(imageNamed: "wireframe-06")
-//        menos.size = CGSizeMake(190, 125)
-//        menos.position = CGPointMake(0 ,70)
-//        menos.name = "menos"
-
-        
-        let materia = SKSpriteNode(imageNamed: "wireframe-08")
-        materia.size = CGSizeMake(190, 125)
-        materia.position = CGPointMake(0 , -90)
-        materia.name = "materia"
-        
-        
         var arrayTextures = Array<SKTexture>()
         
         for i in 2 ... 17{
@@ -216,34 +199,29 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         let maquinaNode = gerarMaquinaNode("maquina2")
         maquinaNode.runAction(animacao)
         maquinaNode.position = CGPointMake(esteira1.position.x, -45)
-        
-        
-        
-        
-        
-        //        let play = SKSpriteNode(imageNamed: "wireframe-07")
-        //        play.size = CGSizeMake(190, 125)
-        //        play.position = CGPointMake(0,+250)
-        //        play.name = "mais"
-        //
-        //        let menos = SKSpriteNode(imageNamed: "wireframe-06")
-        //        menos.size = CGSizeMake(190, 125)
-        //        menos.position = CGPointMake(0 ,70)
-        //        menos.name = "menos"
 
         
-        
-        
-        var play = ButtonNode(startImageName: "new-store01", touchImageName: "new-store02", buttonName: "newStore")
+        var play = ButtonNode(startImageName: "wireframe-07", touchImageName: "wireframe-12", buttonName: "mais")
         play.position =  CGPointMake(0,+250)
         play.delegate = self
+        play.size = CGSizeMake(190, 125)
+        play.position = CGPointMake(0,+250)
         nodeLatBotoes.addChild(play)
         
         
-        var menos = ButtonNode(startImageName: "new-store01", touchImageName: "new-store02", buttonName: "newStore")
+        var menos = ButtonNode(startImageName: "wireframe-06", touchImageName: "wireframe-11", buttonName: "menos")
         menos.position =  CGPointMake(0,+250)
         menos.delegate = self
+        menos.size = CGSizeMake(190, 125)
+        menos.position = CGPointMake(0 ,70)
         nodeLatBotoes.addChild(menos)
+        
+        
+        var materia = ButtonNode(startImageName: "wireframe-08", touchImageName: "wireframe-13", buttonName: "materia")
+        materia.position =  CGPointMake(0,+250)
+        materia.delegate = self
+        materia.size = CGSizeMake(190, 125)
+        materia.position = CGPointMake(0 , -110)
         
         
         nodeLatBotoes.addChild(materia)
@@ -415,19 +393,143 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         
     }
     
+    override func touchedButtonWithName(buttonName: String) {
+        
+        if(buttonName == "materia"){
+            var pop = PopUpNode(size: self.size)
+            pop.zPosition = 10.0
+            pop.position = CGPointMake(self.size.width/2, self.size.height/2)
+            pop.showPopUp()
+            addChild(pop)
+            
+        }
+        
+        
+        
+        if (buttonName == "mais") {
+            
+            
+            if(singleton.dinheiro > NSInteger(singleton.precoFuncionario)){
+                
+                singleton.addFuncionarios()
+                
+                if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
+                    trabalhadores++
+                }
+                
+                if(trabalhadores < 23){
+                    if(trabalhadores == -1 && flagEsteira1 == 1){
+                        runAction(SKAction.runBlock(caixaProducao))
+                        flagEsteira1 = 0;
+                    }
+                    if(trabalhadores == 11 && flagEsteira2 == 1){
+                        runAction(SKAction.runBlock(caixaProducaoEsteira2))
+                        flagEsteira2 = 0
+                    }
+                    
+                    trabalhadores++;
+                    
+                    
+                    let funcionario = SKSpriteNode(imageNamed: "worker-61")
+                    funcionario.setScale(2.0)
+                    funcionario.runAction(gerarActionFuncionario())
+                    funcionario.zPosition = 2.0
+                    funcionario.xScale = 0.5
+                    funcionario.yScale = 0.5
+                    funcionario.name = "funcionario"
+                    
+                    
+                    
+                    if(trabalhadores <= 5){
+                        var aux = trabalhadores;
+                        var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                        funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 375, y-(nodePrincipal.size.width/2))
+                    }
+                    else if(trabalhadores >= 6 && trabalhadores < 12){
+                        
+                        funcionario.xScale = -0.5
+                        var aux = trabalhadores - 6;
+                        var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                        funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 225, y-(nodePrincipal.size.width/2))
+                    }
+                        
+                    else if(trabalhadores >= 12 && trabalhadores < 18){
+                        var aux = trabalhadores - 12;
+                        var y:CGFloat = (CGFloat(aux)*100.0)+125.0
+                        funcionario.position = CGPointMake(nodePrincipal.size.width/6 , y-(nodePrincipal.size.width/2))
+                    }
+                        
+                    else{
+                        funcionario.xScale = -0.5
+                        var y:CGFloat = (CGFloat(trabalhadores-18)*100)+125.0
+                        funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 150, y-(nodePrincipal.size.width/2))
+                        
+                    }
+                    
+                    if(funcionario.position.x < nodePrincipal.size.height/2 - 300){
+                        novoEsteira++;
+                        
+                        nodePrincipal.addChild(funcionario);
+                        
+                        ultimoFuncionario.append(funcionario)
+                    }
+                        
+                    else{
+                        novoEsteira1++;
+                        
+                        nodePrincipal.addChild(funcionario);
+                        
+                        ultimoFuncionario.append(funcionario)
+                    }
+                    
+                    
+                }
+                
+            }
+        }
+        
+        if(buttonName == "menos"){
+            
+            
+            if(trabalhadores == 3 || trabalhadores == 9 || trabalhadores == 15 || trabalhadores == 21){
+                trabalhadores--
+            }
+            
+            if(trabalhadores >= 0){
+                trabalhadores--
+                
+                
+                if(ultimoFuncionario.last!.position.x < nodePrincipal.size.height/2 - 300){
+                    novoEsteira--;
+                }
+                    
+                else{
+                    novoEsteira1--;
+                }
+                
+                ultimoFuncionario.removeLast().removeFromParent()
+                
+                singleton.demitirFuncionario()
+            }
+            
+        }
+
+    }
     
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         /* Called when a touch begins */
         
+        
+        
         for touch in (touches as! Set<UITouch>) {
             let location = touch.locationInNode(self)
             var node = self.nodeAtPoint(location)
             
-            
-            NSLog("%d", valorEsteira1)
-            
-            NSLog("%d", valorEsteira2)
+//            
+//            NSLog("%d", valorEsteira1)
+//            
+//            NSLog("%d", valorEsteira2)
             
             if(node.name == "voltar"){
                 trabalhadores++
@@ -437,106 +539,6 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
                 println("quantidade atual funcionários: \(trabalhadores)")
             }
             
-            
-            if (node.name == "mais") {
-
-                    
-                if(singleton.dinheiro > NSInteger(singleton.precoFuncionario)){
-                
-                    singleton.addFuncionarios()
-                    
-                    if(trabalhadores == 1 || trabalhadores == 7 || trabalhadores == 13 || trabalhadores == 19){
-                        trabalhadores++
-                    }
-                    
-                    if(trabalhadores < 23){
-                        if(trabalhadores == -1 && flagEsteira1 == 1){
-                            runAction(SKAction.runBlock(caixaProducao))
-                            flagEsteira1 = 0;
-                        }
-                        if(trabalhadores == 11 && flagEsteira2 == 1){
-                            runAction(SKAction.runBlock(caixaProducaoEsteira2))
-                            flagEsteira2 = 0
-                        }
-                        
-                        trabalhadores++;
-
-                        
-                        let funcionario = SKSpriteNode(imageNamed: "worker-61")
-                        funcionario.setScale(2.0)
-                        funcionario.runAction(gerarActionFuncionario())
-                        funcionario.zPosition = 2.0
-                        funcionario.xScale = 0.5
-                        funcionario.yScale = 0.5
-                        funcionario.name = "funcionario"
-                    
-                        
-                        
-                        if(trabalhadores <= 5){
-                                var aux = trabalhadores;
-                                var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 375, y-(nodePrincipal.size.width/2))
-                        }
-                        else if(trabalhadores >= 6 && trabalhadores < 12){
-                            
-                                funcionario.xScale = -0.5
-                                var aux = trabalhadores - 6;
-                                var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 - 225, y-(nodePrincipal.size.width/2))
-                        }
-                            
-                        else if(trabalhadores >= 12 && trabalhadores < 18){
-                                var aux = trabalhadores - 12;
-                                var y:CGFloat = (CGFloat(aux)*100.0)+125.0
-                                funcionario.position = CGPointMake(nodePrincipal.size.width/6 , y-(nodePrincipal.size.width/2))
-                        }
-
-                        else{
-                            funcionario.xScale = -0.5
-                            var y:CGFloat = (CGFloat(trabalhadores-18)*100)+125.0
-                            funcionario.position = CGPointMake(nodePrincipal.size.width/6 + 150, y-(nodePrincipal.size.width/2))
-                    
-                        }
-                        
-                        if(funcionario.position.x < nodePrincipal.size.height/2 - 300){
-                            novoEsteira++;
-                            
-                            nodePrincipal.addChild(funcionario);
-                            
-                            ultimoFuncionario.append(funcionario)
-                        }
-                            
-                        else{
-                            novoEsteira1++;
-                            
-                            nodePrincipal.addChild(funcionario);
-                            
-                            ultimoFuncionario.append(funcionario)
-                        }
-
-                        
-                    }
-                    
-                }
-            }
-            
-            if(node.name == "menos"){
-                
-                
-                if(trabalhadores == 3 || trabalhadores == 9 || trabalhadores == 15 || trabalhadores == 21){
-                    trabalhadores--
-                }
-                
-                if(trabalhadores >= 0){
-                    trabalhadores--
-                    
-                    
-                    excluirFuncionario(node as! SKSpriteNode)
-                    
-                    singleton.demitirFuncionario()
-                }
-                
-            }
             
             if(node.name == "funcionario"){
                 
