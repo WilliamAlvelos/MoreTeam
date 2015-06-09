@@ -72,11 +72,11 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         println("quantidade funcionários: \(y)")
         
         
-        trabalhadores = y
+        trabalhadores = y - 1
         
         
         
-        var x = y
+        var x = y - 1
         
         var i = -1;
         
@@ -221,7 +221,8 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
             }
         }
         
-        trabalhadores++;
+        //trabalhadores++;
+
 
     }
 
