@@ -343,7 +343,8 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                     posicaoFila.x = posicaoFila.x + 200
                     contadorFila++
                     arrayDeFila.addObject(gerarFila(posicaoFila, qtdClientesVar:  totalClientes))
-                    singleton.nVendedores++
+                    singleton.addMaoDeObra()
+
                     
                     for fila in arrayDeFila {
                         
@@ -361,7 +362,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                     arrayDeFila.lastObject?.removeFromParent()
                     arrayDeFila.removeObjectAtIndex(contadorFila)
                     contadorFila--
-                    singleton.nVendedores--
+                    singleton.demitirVendedor()
                 }
                 
                 for fila in arrayDeFila {

@@ -99,6 +99,7 @@ class MundoScene : AbstractScene{
         
         setDinheiro(singleton.dinheiro)
         //nodeGrafico.setValoresGrafico(singleton.porcSocial, valorAmbiental: singleton.porcAmbiental, valorEconomico: singleton.porcEconomia)
+        
         geraValores()
     }
     
@@ -137,11 +138,11 @@ class MundoScene : AbstractScene{
                 
             }else{
                 nodeTerra.hiddeEmptyPlaces()
-                var pop = PopUpNode(size: self.size)
-                pop.zPosition = 3
-                pop.position = CGPointMake(self.size.width / 2, self.size.height / 2)
-                pop.showPopUp()
-                self.addChild(pop)
+//                var pop = PopUpNode(size: self.size)
+//                pop.zPosition = 3
+//                pop.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+//                pop.showPopUp()
+//                self.addChild(pop)
             }
         
         }
@@ -150,7 +151,8 @@ class MundoScene : AbstractScene{
     
     
     func atualizarCena(){
-        nodeTerra.atualizarSprites()
+        //nodeTerra.atualizarSprites(singleton.porcAmbiental)
+        nodeTerra.atualizarSprites(Float(arc4random() % 100))
     }
     
 }
