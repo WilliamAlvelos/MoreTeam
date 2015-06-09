@@ -11,6 +11,7 @@ import SpriteKit
 import CoreData
 
 
+
 class FabricaScene: AbstractScene, EsteiraNodeDelegate{
     
     var novoEsteira:Int = 0
@@ -97,78 +98,10 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
                     flagEsteira2 = 0
                 }
                 
-                
-                var workerTexture1 = SKTexture(imageNamed: "worker-61")
-                workerTexture1.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture2 = SKTexture(imageNamed: "worker-62")
-                workerTexture2.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture3 = SKTexture(imageNamed: "worker-63")
-                workerTexture3.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture4 = SKTexture(imageNamed: "worker-64")
-                workerTexture4.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture5 = SKTexture(imageNamed: "worker-65")
-                workerTexture5.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture6 = SKTexture(imageNamed: "worker-66")
-                workerTexture6.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture7 = SKTexture(imageNamed: "worker-67")
-                workerTexture7.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture8 = SKTexture(imageNamed: "worker-68")
-                workerTexture8.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture9 = SKTexture(imageNamed: "worker-69")
-                workerTexture9.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture10 = SKTexture(imageNamed: "worker-70")
-                workerTexture10.filteringMode = SKTextureFilteringMode.Nearest
-                
-                var workerTexture11 = SKTexture(imageNamed: "worker-71")
-                workerTexture11.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture12 = SKTexture(imageNamed: "worker-72")
-                workerTexture12.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture13 = SKTexture(imageNamed: "worker-73")
-                workerTexture13.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture14 = SKTexture(imageNamed: "worker-74")
-                workerTexture14.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture15 = SKTexture(imageNamed: "worker-75")
-                workerTexture15.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture16 = SKTexture(imageNamed: "worker-76")
-                workerTexture16.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture17 = SKTexture(imageNamed: "worker-77")
-                workerTexture17.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture18 = SKTexture(imageNamed: "worker-78")
-                workerTexture18.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture19 = SKTexture(imageNamed: "worker-79")
-                workerTexture19.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture20 = SKTexture(imageNamed: "worker-80")
-                workerTexture20.filteringMode = SKTextureFilteringMode.Nearest
-                
-                
-                var workerTexture21 = SKTexture(imageNamed: "worker-81")
-                workerTexture21.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture22 = SKTexture(imageNamed: "worker-82")
-                workerTexture22.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture23 = SKTexture(imageNamed: "worker-83")
-                workerTexture23.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture24 = SKTexture(imageNamed: "worker-84")
-                workerTexture24.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture25 = SKTexture(imageNamed: "worker-85")
-                workerTexture25.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture26 = SKTexture(imageNamed: "worker-86")
-                workerTexture26.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture27 = SKTexture(imageNamed: "worker-87")
-                workerTexture27.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture28 = SKTexture(imageNamed: "worker-88")
-                workerTexture28.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture29 = SKTexture(imageNamed: "worker-89")
-                workerTexture29.filteringMode = SKTextureFilteringMode.Nearest
-                var workerTexture30 = SKTexture(imageNamed: "worker-90")
-                workerTexture30.filteringMode = SKTextureFilteringMode.Nearest
-                
-                
-                var anim = SKAction.animateWithTextures([workerTexture1, workerTexture2, workerTexture3, workerTexture4, workerTexture5, workerTexture6, workerTexture7, workerTexture8, workerTexture9, workerTexture10, workerTexture11, workerTexture12, workerTexture13, workerTexture14, workerTexture15, workerTexture16, workerTexture17, workerTexture18, workerTexture19, workerTexture20, workerTexture21, workerTexture22, workerTexture23, workerTexture24, workerTexture25, workerTexture26, workerTexture27, workerTexture28, workerTexture29, workerTexture30], timePerFrame: 0.02)
-                var animacao = SKAction.repeatActionForever(anim)
-                
-                let funcionario = SKSpriteNode(texture: workerTexture1)
+
+                let funcionario = SKSpriteNode(imageNamed: "worker-61")
                 funcionario.setScale(2.0)
-                funcionario.runAction(animacao)
+                funcionario.runAction(gerarActionFuncionario())
                 funcionario.xScale = 0.5
                 funcionario.yScale = 0.5
                 funcionario.zPosition = 2.0
@@ -264,63 +197,23 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         materia.name = "materia"
         
         
-        var maquina1 = SKTexture(imageNamed: "machine-02")
-        maquina1.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina2 = SKTexture(imageNamed: "machine-03")
-        maquina2.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina3 = SKTexture(imageNamed: "machine-04")
-        maquina3.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina4 = SKTexture(imageNamed: "machine-05")
-        maquina4.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina5 = SKTexture(imageNamed: "machine-06")
-        maquina5.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina6 = SKTexture(imageNamed: "machine-07")
-        maquina6.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina7 = SKTexture(imageNamed: "machine-08")
-        maquina7.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina8 = SKTexture(imageNamed: "machine-09")
-        maquina8.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina9 = SKTexture(imageNamed: "machine-10")
-        maquina9.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina10 = SKTexture(imageNamed: "machine-11")
-        maquina10.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina11 = SKTexture(imageNamed: "machine-12")
-        maquina11.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina12 = SKTexture(imageNamed: "machine-13")
-        maquina12.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina13 = SKTexture(imageNamed: "machine-14")
-        maquina13.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina14 = SKTexture(imageNamed: "machine-15")
-        maquina14.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina15 = SKTexture(imageNamed: "machine-16")
-        maquina15.filteringMode = SKTextureFilteringMode.Nearest
-        var maquina16 = SKTexture(imageNamed: "machine-17")
-        maquina16.filteringMode = SKTextureFilteringMode.Nearest
-
+        var arrayTextures = Array<SKTexture>()
         
+        for i in 2 ... 17{
+            var maquina = SKTexture(imageNamed: String(format: "machine-%02d", i))
+            maquina.filteringMode = SKTextureFilteringMode.Nearest
+            arrayTextures.append(maquina)
+        }
         
-        var anim = SKAction.animateWithTextures([maquina1,maquina2,maquina3, maquina4, maquina5, maquina6, maquina7, maquina8, maquina9, maquina10, maquina11, maquina12, maquina13, maquina15, maquina16], timePerFrame: 0.1)
-        var animacao = SKAction.repeatActionForever(anim)
+        var animacao = SKAction.repeatActionForever(SKAction.animateWithTextures(arrayTextures, timePerFrame: 0.1))
         
-        let maquina = SKSpriteNode(texture: maquina1)
-        maquina.setScale(2.0)
+        let maquina = gerarMaquinaNode("maquina1")
         maquina.runAction(animacao)
-        maquina.xScale = 1.0
-        maquina.yScale = 0.8
-        maquina.name = "maquina"
-        maquina.zPosition = 10.0
         maquina.position = CGPointMake(-175, -45)
         
-
         
-        
-        let maquinaNode = SKSpriteNode(texture: maquina1)
-        maquinaNode.setScale(2.0)
+        let maquinaNode = gerarMaquinaNode("maquina2")
         maquinaNode.runAction(animacao)
-        maquinaNode.xScale = 1.0
-        maquinaNode.yScale = 0.8
-        maquinaNode.name = "maquina2"
-        maquinaNode.zPosition = 10.0
         maquinaNode.position = CGPointMake(esteira1.position.x, -45)
         
         nodeLatBotoes.addChild(play)
@@ -330,6 +223,7 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         nodeLatBotoes.addChild(menos)
         nodePrincipal.addChild(fabrica)
     }
+    
     
     
     func caixaProducao(){
@@ -537,79 +431,11 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
                         }
                         
                         trabalhadores++;
-                        
-                    
-                        var workerTexture1 = SKTexture(imageNamed: "worker-61")
-                        workerTexture1.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture2 = SKTexture(imageNamed: "worker-62")
-                        workerTexture2.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture3 = SKTexture(imageNamed: "worker-63")
-                        workerTexture3.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture4 = SKTexture(imageNamed: "worker-64")
-                        workerTexture4.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture5 = SKTexture(imageNamed: "worker-65")
-                        workerTexture5.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture6 = SKTexture(imageNamed: "worker-66")
-                        workerTexture6.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture7 = SKTexture(imageNamed: "worker-67")
-                        workerTexture7.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture8 = SKTexture(imageNamed: "worker-68")
-                        workerTexture8.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture9 = SKTexture(imageNamed: "worker-69")
-                        workerTexture9.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture10 = SKTexture(imageNamed: "worker-70")
-                        workerTexture10.filteringMode = SKTextureFilteringMode.Nearest
-                        
-                        var workerTexture11 = SKTexture(imageNamed: "worker-71")
-                        workerTexture11.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture12 = SKTexture(imageNamed: "worker-72")
-                        workerTexture12.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture13 = SKTexture(imageNamed: "worker-73")
-                        workerTexture13.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture14 = SKTexture(imageNamed: "worker-74")
-                        workerTexture14.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture15 = SKTexture(imageNamed: "worker-75")
-                        workerTexture15.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture16 = SKTexture(imageNamed: "worker-76")
-                        workerTexture16.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture17 = SKTexture(imageNamed: "worker-77")
-                        workerTexture17.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture18 = SKTexture(imageNamed: "worker-78")
-                        workerTexture18.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture19 = SKTexture(imageNamed: "worker-79")
-                        workerTexture19.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture20 = SKTexture(imageNamed: "worker-80")
-                        workerTexture20.filteringMode = SKTextureFilteringMode.Nearest
 
                         
-                        var workerTexture21 = SKTexture(imageNamed: "worker-81")
-                        workerTexture21.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture22 = SKTexture(imageNamed: "worker-82")
-                        workerTexture22.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture23 = SKTexture(imageNamed: "worker-83")
-                        workerTexture23.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture24 = SKTexture(imageNamed: "worker-84")
-                        workerTexture24.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture25 = SKTexture(imageNamed: "worker-85")
-                        workerTexture25.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture26 = SKTexture(imageNamed: "worker-86")
-                        workerTexture26.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture27 = SKTexture(imageNamed: "worker-87")
-                        workerTexture27.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture28 = SKTexture(imageNamed: "worker-88")
-                        workerTexture28.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture29 = SKTexture(imageNamed: "worker-89")
-                        workerTexture29.filteringMode = SKTextureFilteringMode.Nearest
-                        var workerTexture30 = SKTexture(imageNamed: "worker-90")
-                        workerTexture30.filteringMode = SKTextureFilteringMode.Nearest
-                        
-                        
-                        var anim = SKAction.animateWithTextures([workerTexture1, workerTexture2, workerTexture3, workerTexture4, workerTexture5, workerTexture6, workerTexture7, workerTexture8, workerTexture9, workerTexture10, workerTexture11, workerTexture12, workerTexture13, workerTexture14, workerTexture15, workerTexture16, workerTexture17, workerTexture18, workerTexture19, workerTexture20, workerTexture21, workerTexture22, workerTexture23, workerTexture24, workerTexture25, workerTexture26, workerTexture27, workerTexture28, workerTexture29, workerTexture30], timePerFrame: 0.02)
-                        var animacao = SKAction.repeatActionForever(anim)
-                        
-                        let funcionario = SKSpriteNode(texture: workerTexture1)
+                        let funcionario = SKSpriteNode(imageNamed: "worker-61")
                         funcionario.setScale(2.0)
-                        funcionario.runAction(animacao)
+                        funcionario.runAction(gerarActionFuncionario())
                         funcionario.zPosition = 2.0
                         funcionario.xScale = 0.5
                         funcionario.yScale = 0.5
@@ -691,7 +517,37 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
             
         }
     }
+    
+    
+    
+    //FUNÇÃO QUE RETORNA UMA MÁQUINA NODE
+    private func gerarMaquinaNode(nome:String) -> SKSpriteNode{
+        let maquina = SKSpriteNode(imageNamed: "machine-02")
+        maquina.setScale(2.0)
+        maquina.xScale = 1.0
+        maquina.yScale = 0.8
+        maquina.name = nome
+        maquina.zPosition = 10.0
+        
+        return maquina
+    }
+    
+    
+    //FUNÇÃO QUE RETORNA O ACTION DO FUNCIONÁRIO
+    private func gerarActionFuncionario() -> SKAction{
+        var arrayTextures = Array<SKTexture>()
+        
+        for i in 61 ... 90 {
+            var workerTexture = SKTexture(imageNamed: "worker-\(i)")
+            workerTexture.filteringMode = SKTextureFilteringMode.Nearest
+            
+            arrayTextures.append(workerTexture)
+        }
+        
+        return SKAction.repeatActionForever(SKAction.animateWithTextures(arrayTextures, timePerFrame: 0.02))
+    }
 
+    
     
     func excluirFuncionario(funcionario:SKSpriteNode) {
             
@@ -714,8 +570,3 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
     }
     
 }
-    
-
-    
-
-
