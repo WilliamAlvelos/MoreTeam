@@ -79,7 +79,7 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         
         var x = y - 1
         
-        var i = -1;
+        var i = -1
         
         while(i < x){
         
@@ -172,6 +172,7 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         
         setDinheiro(singleton.dinheiro)
         
+        esconderNodeInferior()
         
         let fabrica = SKSpriteNode(imageNamed: "Factory")
         fabrica.position = CGPointMake(0,0)
@@ -180,15 +181,15 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         
 
         
-        let play = SKSpriteNode(imageNamed: "wireframe-07")
-        play.size = CGSizeMake(190, 125)
-        play.position = CGPointMake(0,+250)
-        play.name = "mais"
-        
-        let menos = SKSpriteNode(imageNamed: "wireframe-06")
-        menos.size = CGSizeMake(190, 125)
-        menos.position = CGPointMake(0 ,70)
-        menos.name = "menos"
+//        let play = SKSpriteNode(imageNamed: "wireframe-07")
+//        play.size = CGSizeMake(190, 125)
+//        play.position = CGPointMake(0,+250)
+//        play.name = "mais"
+//        
+//        let menos = SKSpriteNode(imageNamed: "wireframe-06")
+//        menos.size = CGSizeMake(190, 125)
+//        menos.position = CGPointMake(0 ,70)
+//        menos.name = "menos"
 
         
         let materia = SKSpriteNode(imageNamed: "wireframe-08")
@@ -216,11 +217,38 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         maquinaNode.runAction(animacao)
         maquinaNode.position = CGPointMake(esteira1.position.x, -45)
         
+        
+        
+        
+        
+        //        let play = SKSpriteNode(imageNamed: "wireframe-07")
+        //        play.size = CGSizeMake(190, 125)
+        //        play.position = CGPointMake(0,+250)
+        //        play.name = "mais"
+        //
+        //        let menos = SKSpriteNode(imageNamed: "wireframe-06")
+        //        menos.size = CGSizeMake(190, 125)
+        //        menos.position = CGPointMake(0 ,70)
+        //        menos.name = "menos"
+
+        
+        
+        
+        var play = ButtonNode(startImageName: "new-store01", touchImageName: "new-store02", buttonName: "newStore")
+        play.position =  CGPointMake(0,+250)
+        play.delegate = self
         nodeLatBotoes.addChild(play)
+        
+        
+        var menos = ButtonNode(startImageName: "new-store01", touchImageName: "new-store02", buttonName: "newStore")
+        menos.position =  CGPointMake(0,+250)
+        menos.delegate = self
+        nodeLatBotoes.addChild(menos)
+        
+        
         nodeLatBotoes.addChild(materia)
         nodePrincipal.addChild(maquinaNode)
         nodePrincipal.addChild(maquina)
-        nodeLatBotoes.addChild(menos)
         nodePrincipal.addChild(fabrica)
     }
     
@@ -402,6 +430,7 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
             NSLog("%d", valorEsteira2)
             
             if(node.name == "voltar"){
+                trabalhadores++
                 fabricaData.setValue(trabalhadores, forKey: "qtdFuncionario")
                 myDelegate!.backToWorld()
                 
