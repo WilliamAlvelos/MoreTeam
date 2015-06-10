@@ -17,12 +17,10 @@ class ClienteNode: SKSpriteNode {
     
     init(size : CGSize, varFila : Int)
     {
-        super.init(texture: SKTexture(imageNamed:"consumer-01"), color: nil, size: size)
+        super.init(texture: SKTexture(imageNamed:"consumer-1"), color: nil, size: size)
         
         self.fila = varFila
         self.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 30, height: 115))
-        //        clienteNode.
-        //            clienteNode.position = CGPoint(x: -50, y: -size.height - 400)
         self.physicsBody?.dynamic = true
         self.physicsBody!.categoryBitMask = CollisionNodeCliente
         self.physicsBody!.contactTestBitMask =
