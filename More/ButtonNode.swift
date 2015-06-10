@@ -38,11 +38,11 @@ class ButtonNode: SKSpriteNode {
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.texture = touchImage
-        delegate?.touchedButtonWithName(self.name!)
     }
     
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.texture = startImage
+        delegate?.touchedButtonWithName(self.name!)
     }
 }

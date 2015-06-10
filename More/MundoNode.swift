@@ -25,7 +25,6 @@ class MundoNode: SKSpriteNode {
         super.init(texture: SKTexture(imageNamed: "w1"), color: nil, size: size)
 
         dadosMundo = Mundo()
-        self.zPosition = 1
         inicializarIlhas()
     }
     
@@ -33,19 +32,7 @@ class MundoNode: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-//    func startAnimacaoDeIntroducao(posX:CGFloat){
-//        
-//        //CRIA AS ANIMAÇÕES DE MOVIMENTO DA TERRA, APARECIMENTO DOS NODES E REDIMENSIONAMENTO DA TERRA(CASO NECESSÁRIO)
-//        var actionMove = SKAction.moveToX(posX, duration: 0.8)
-//        actionMove.timingMode = SKActionTimingMode.EaseInEaseOut
-//        
-//        //EXECUTA AS ACTIONS
-//        self.runAction(actionMove, completion: { () -> Void in
-//            delegate?.animacaoDeIntroducaoTerminou()
-//        })
-//    }
-    
+
     
     private func inicializarIlhas(){
         var ilha1 = IlhaNode(size: CGSizeMake(296, 105), tipoIlha: IlhaNode.TIPO_ILHA1)
@@ -94,7 +81,20 @@ class MundoNode: SKSpriteNode {
     }
     
     
-    func atualizarSprites(){
+    func atualizarSprites(porcentagemAmbiental:Float){
+        
+        println(porcentagemAmbiental)
+        
+        if(porcentagemAmbiental > 66){
+            self.texture = SKTexture(imageNamed: "w1")
+        
+        }else if(porcentagemAmbiental > 33){
+            self.texture = SKTexture(imageNamed: "w2")
+        
+        }else{
+            self.texture = SKTexture(imageNamed: "w3")
+        }
+        
         for ilha in vtEmptyPlace{
             ilha.atualizarSprites()
         }

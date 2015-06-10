@@ -316,9 +316,39 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         bodyB.runAction(actionWait, completion: { () -> Void in
             bodyB.physicsBody?.dynamic = false
             
+<<<<<<< HEAD
             self.arrayBalcao[fila].iniciarAnimacao()
             
             bodyB.runAction(self.sairAnimacaoGroup, completion: { () -> Void in
+=======
+            if nodeName == "addFuncionario" {
+                if contadorFila < 2  {
+                    println("addFuncionario")
+                    posicaoFila.x = posicaoFila.x + 200
+                    contadorFila++
+                    arrayDeFila.addObject(gerarFila(posicaoFila, qtdClientesVar:  totalClientes))
+                    singleton.addMaoDeObra()
+
+                    
+                    for fila in arrayDeFila {
+                        
+                        var filaA = fila as! FilaLoja
+                        filaA.varQtdClientes = totalClientes / arrayDeFila.count
+                    }
+                    
+                }
+                
+            }else if nodeName == "removerFuncionario" {
+                if contadorFila > 0  {
+                    println("removerFuncionario")
+                    posicaoFila.x = posicaoFila.x - 200
+                    println(arrayDeFila.count)
+                    arrayDeFila.lastObject?.removeFromParent()
+                    arrayDeFila.removeObjectAtIndex(contadorFila)
+                    contadorFila--
+                    singleton.demitirVendedor()
+                }
+>>>>>>> origin/master
                 
                 self.arrayPortas[fila].abrirPorta()
 

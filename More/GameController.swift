@@ -22,8 +22,9 @@ class GameController:AbstractSceneDelegate{
     
     
     func backToWorld(){
-        mundo.atualizarCena()
+        
         gameView.presentScene(mundo)
+        mundo.atualizarCena()
     }
     
     
