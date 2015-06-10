@@ -115,7 +115,6 @@ class MundoScene : AbstractScene{
     private func gerarLoja() -> AbstractConstruction{
         var loja = LojaNode(size: CGSizeMake(53, 66))
         loja.delegate = myDelegate
-        loja.startSwingAnimation()
         return loja
     }
 

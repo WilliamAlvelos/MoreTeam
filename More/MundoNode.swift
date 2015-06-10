@@ -24,8 +24,10 @@ class MundoNode: SKSpriteNode {
     init(size:CGSize){
         super.init(texture: SKTexture(imageNamed: "w1"), color: nil, size: size)
 
+        self.zPosition = 1
         dadosMundo = Mundo()
         inicializarIlhas()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

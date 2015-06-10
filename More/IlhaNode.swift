@@ -26,6 +26,8 @@ class IlhaNode: SKSpriteNode {
         
         tipoEscolhido = tipoIlha
         inicializarEmptyPlace()
+        self.zPosition = 1
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -70,8 +72,8 @@ class IlhaNode: SKSpriteNode {
                 break
             
             case IlhaNode.TIPO_ILHA6:
-                adicionarEmptyPlace(CGPointMake(40, 40), index: 15)
-                adicionarEmptyPlace(CGPointMake(5, -35), index: 16)
+                adicionarEmptyPlace(CGPointMake(42, 45), index: 15)
+                adicionarEmptyPlace(CGPointMake(-2, -35), index: 16)
             
             default:
             break

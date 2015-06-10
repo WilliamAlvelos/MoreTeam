@@ -25,6 +25,7 @@ class LojaNode : AbstractConstruction{
         self.anchorPoint = CGPointMake(0.5, 0.1)
         self.name = "loja"
         self.userInteractionEnabled = true
+        inicializarActionSwing()
     }
     
     
