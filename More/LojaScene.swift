@@ -24,7 +24,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var contadorFila : Int = 0
     var posicaoFila = CGPointMake(-100, 0)
     var totalClientes : NSInteger = 6
-
+    
     //------------- Actions ----------------------
     var andarArray = Array<SKTexture>()
     var andarArray2 = Array<SKTexture>()
@@ -32,7 +32,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var arrayPosicoes : Array<Int> = [-100, 100, 300]
     
     var actionWait = SKAction.waitForDuration(4)
-
+    
     var andarAnimacao : SKAction!
     
     var andarAnimacao2 : SKAction!
@@ -84,7 +84,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         //BackGround NodePrincipal
         nodePrincipal.texture = SKTexture(imageNamed: "Store-57")
-
+        
         lojaData = loja
         var numFuncionarios = loja.valueForKey("qtdFuncionario") as! Int
         
@@ -108,7 +108,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             arrayBalcao.append(balcao)
             
         }
-
+        
         //Add Porta
         var doorPosition = -200
         
@@ -126,23 +126,23 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     //---------------------------------------------------------------
     func funcaoAnimacaoCliente() {
-    
-    for i in 2 ... 22
-    {
-        andarArray.append(SKTexture(imageNamed: "consumer-\(i)"))
-    }
-    
-    for i in 2 ... 8
-    {
-        andarArray2.append(SKTexture(imageNamed: "consumer-\(i)"))
-    }
-    
-    andarAnimacao = SKAction.repeatAction(SKAction.animateWithTextures(andarArray, timePerFrame: 0.1), count: 3)
-    andarAnimacao2 = SKAction.animateWithTextures(andarArray2, timePerFrame: 0.1)
-    //
-    andarAnimacaoGroup = SKAction.group([andarAnimacao, actionMoveUp])
-    sairAnimacaoGroup = SKAction.group([andarAnimacao2, actionMoveSair])
-    andarUmPoucoAnimacaGroup = SKAction.group([andarAnimacao2, actionMove])
+        
+        for i in 2 ... 22
+        {
+            andarArray.append(SKTexture(imageNamed: "consumer-\(i)"))
+        }
+        
+        for i in 2 ... 8
+        {
+            andarArray2.append(SKTexture(imageNamed: "consumer-\(i)"))
+        }
+        
+        andarAnimacao = SKAction.repeatAction(SKAction.animateWithTextures(andarArray, timePerFrame: 0.1), count: 3)
+        andarAnimacao2 = SKAction.animateWithTextures(andarArray2, timePerFrame: 0.1)
+        //
+        andarAnimacaoGroup = SKAction.group([andarAnimacao, actionMoveUp])
+        sairAnimacaoGroup = SKAction.group([andarAnimacao2, actionMoveSair])
+        andarUmPoucoAnimacaGroup = SKAction.group([andarAnimacao2, actionMove])
     }
     //---------------------------------------------------------------
     
@@ -166,7 +166,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                 contadorFila--
                 singleton.nVendedores--
             }
-
+            
             break
             
         default:
@@ -196,18 +196,18 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     }
     
     //---------------------------------------------------------------
-  
+    
     func didBeginContact(contact: SKPhysicsContact) {
         var bodyA = contact.bodyA.node!
         var bodyB = contact.bodyB.node!
-
+        
         if(bodyA.name == "trabalhadorNode" && bodyB.name == "cliente") {
             contatoBalcaoComCliente(bodyA, bodyB: bodyB)
         }
         else if(bodyA.name == "cliente" && bodyB.name == "trabalhadorNode") {
             contatoBalcaoComCliente(bodyB, bodyB: bodyA)
         }
-
+            
         else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente")
         {
             setarClienteTexture(bodyB)
@@ -230,7 +230,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             {
                 setarClienteTexture(bodyA)
                 bodyA.removeAllActions()
-
+                
             }
         }
         
@@ -287,16 +287,16 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     //---------------------------------------------------------------
     
     func modificarClientesPorFila() {
-    
+        
         for fila in arrayDeFila {
             var filaA = fila as! FilaLoja
             filaA.varQtdClientes = totalClientes / arrayDeFila.count
         }
-
+        
     }
     
     //---------------------------------------------------------------
-
+    
     func contatoBalcaoComCliente(bodyA : SKNode, bodyB : SKNode) {
         
         var cliente = bodyB as! ClienteNode
@@ -305,9 +305,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         var trabalhadorFila = bodyA as! TrabalhadorNode
         
         cliente.texture = SKTexture(imageNamed: "consumer-1")
-        
-//        bodyA.runAction(trabalhadorAnimacao)
-
+                
         trabalhadorFila.iniciarAnimacao()
         
         bodyB.removeAllActions()
@@ -316,42 +314,12 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         bodyB.runAction(actionWait, completion: { () -> Void in
             bodyB.physicsBody?.dynamic = false
             
-<<<<<<< HEAD
             self.arrayBalcao[fila].iniciarAnimacao()
             
             bodyB.runAction(self.sairAnimacaoGroup, completion: { () -> Void in
-=======
-            if nodeName == "addFuncionario" {
-                if contadorFila < 2  {
-                    println("addFuncionario")
-                    posicaoFila.x = posicaoFila.x + 200
-                    contadorFila++
-                    arrayDeFila.addObject(gerarFila(posicaoFila, qtdClientesVar:  totalClientes))
-                    singleton.addMaoDeObra()
-
-                    
-                    for fila in arrayDeFila {
-                        
-                        var filaA = fila as! FilaLoja
-                        filaA.varQtdClientes = totalClientes / arrayDeFila.count
-                    }
-                    
-                }
-                
-            }else if nodeName == "removerFuncionario" {
-                if contadorFila > 0  {
-                    println("removerFuncionario")
-                    posicaoFila.x = posicaoFila.x - 200
-                    println(arrayDeFila.count)
-                    arrayDeFila.lastObject?.removeFromParent()
-                    arrayDeFila.removeObjectAtIndex(contadorFila)
-                    contadorFila--
-                    singleton.demitirVendedor()
-                }
->>>>>>> origin/master
                 
                 self.arrayPortas[fila].abrirPorta()
-
+                
                 bodyB.runAction(self.andarAnimacaoGroup, completion: { () -> Void in
                     bodyB.removeAllActions()
                     bodyB.removeFromParent()

@@ -61,14 +61,14 @@ class FilaLoja: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    
     func iniciarFila() {
         
         
         timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: Selector("addCliente"), userInfo: nil, repeats: true)
         
     }
-
+    
     
     func addCliente() {
         
@@ -83,8 +83,8 @@ class FilaLoja: SKSpriteNode {
         var groupAnimacao = SKAction.group([acaoAndar, animacaoAndar])
         
         if(self.children.count - 2 < varQtdClientes) {
-                self.addChild(clienteNode)
-                clienteNode.runAction(groupAnimacao)
+            self.addChild(clienteNode)
+            clienteNode.runAction(groupAnimacao)
         }
         
         

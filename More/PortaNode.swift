@@ -26,7 +26,7 @@ class PortaNode: SKSpriteNode {
     
     private func criarActionPorta ()
     {
-
+        
         var abrirPortaArray = Array<SKTexture>()
         
         for i in 15 ... 20
@@ -34,7 +34,7 @@ class PortaNode: SKSpriteNode {
             abrirPortaArray.append(SKTexture(imageNamed: "door-C-\(i)"))
         }
         
-       var animacaoPortaAbrir = SKAction.animateWithTextures(abrirPortaArray, timePerFrame: 0.1)
+        var animacaoPortaAbrir = SKAction.animateWithTextures(abrirPortaArray, timePerFrame: 0.1)
         var waitPorta = SKAction.waitForDuration(2)
         var animacaoPortaFechar = animacaoPortaAbrir.reversedAction()
         

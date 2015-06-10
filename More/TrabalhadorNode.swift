@@ -15,7 +15,7 @@ class TrabalhadorNode: SKSpriteNode {
     
     var trabalhadorAnimacao : SKAction!
     var trabalhadorNode : SKSpriteNode!
-
+    
     
     init()
     {
@@ -27,7 +27,7 @@ class TrabalhadorNode: SKSpriteNode {
         self.name = "trabalhadorNode"
         self.zPosition = 3
         self.physicsBody?.dynamic = false
-//        self.physicsBody?.allowsRotation = false
+        //        self.physicsBody?.allowsRotation = false
         self.physicsBody!.categoryBitMask = CollisionNodeBalcao
         self.physicsBody?.contactTestBitMask = CollisionNodeCliente
         
