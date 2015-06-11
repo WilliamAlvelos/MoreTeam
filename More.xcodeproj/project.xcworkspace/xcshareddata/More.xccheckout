@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>15DFECD8-0C3B-403A-A678-086C6FB3520A</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>More</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>9EAD9602E11035788CCEECA66F7EC1A4E4DBB1E0</key>
 		<string>https://github.com/WilliamAlvelos/MoreTeam.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>More.xcodeproj/project.xcworkspace</string>
+	<string>More.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>9EAD9602E11035788CCEECA66F7EC1A4E4DBB1E0</key>

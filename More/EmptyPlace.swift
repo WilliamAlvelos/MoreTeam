@@ -8,7 +8,15 @@
 
 import SpriteKit
 
+
+protocol EmptyPlaceDelegate{
+    func constructionAddedOnEmptyPlace()
+}
+
+
 class EmptyPlace: SKSpriteNode {
+    
+    var delegate:EmptyPlaceDelegate?
     
     var nodeInserido:AbstractConstruction? = nil
     
@@ -94,6 +102,8 @@ class EmptyPlace: SKSpriteNode {
             loja.constructionData.setValue(indexPosicao, forKey: "indexPosicao")
             nodeInserido = node as! LojaNode
         }
+        
+        delegate?.constructionAddedOnEmptyPlace()
     }
     
     

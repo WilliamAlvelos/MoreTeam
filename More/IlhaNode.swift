@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class IlhaNode: SKSpriteNode {
+class IlhaNode: SKSpriteNode, EmptyPlaceDelegate{
     
     static let TIPO_ILHA1 = 1
     static let TIPO_ILHA2 = 2
@@ -83,6 +83,7 @@ class IlhaNode: SKSpriteNode {
     
     private func adicionarEmptyPlace(posicao:CGPoint, index:Int){
         var emptyPlace = EmptyPlace(indexPosicao: index)
+        emptyPlace.delegate = self
         emptyPlace.position = posicao
         vtEmptyPlace.append(emptyPlace)
         self.addChild(emptyPlace)
@@ -107,6 +108,11 @@ class IlhaNode: SKSpriteNode {
         for place in vtEmptyPlace{
             place.atualizarSprite()
         }
+    }
+    
+    
+    func constructionAddedOnEmptyPlace() {
+        self.texture = SKTexture(imageNamed: "c\(tipoEscolhido)")
     }
     
 }

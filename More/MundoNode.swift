@@ -16,7 +16,7 @@ import SpriteKit
 
 class MundoNode: SKSpriteNode {
     
-    var dadosMundo:Mundo!
+    //var dadosMundo:Mundo!
     //var delegate:MundoDelegate?
     var vtEmptyPlace:Array<IlhaNode> = Array()
     
@@ -25,7 +25,7 @@ class MundoNode: SKSpriteNode {
         super.init(texture: SKTexture(imageNamed: "w1"), color: nil, size: size)
 
         self.zPosition = 1
-        dadosMundo = Mundo()
+        //dadosMundo = Mundo()
         inicializarIlhas()
         
     }
@@ -38,7 +38,7 @@ class MundoNode: SKSpriteNode {
     
     private func inicializarIlhas(){
         var ilha1 = IlhaNode(size: CGSizeMake(296, 105), tipoIlha: IlhaNode.TIPO_ILHA1)
-        ilha1.position = CGPointMake(-122, 192)
+        ilha1.position = CGPointMake(-122, 193)
         vtEmptyPlace.append(ilha1)
         self.addChild(ilha1)
         
@@ -48,12 +48,12 @@ class MundoNode: SKSpriteNode {
         self.addChild(ilha2)
         
         var ilha3 = IlhaNode(size: CGSizeMake(205, 98), tipoIlha: IlhaNode.TIPO_ILHA3)
-        ilha3.position = CGPointMake(-49, 52)
+        ilha3.position = CGPointMake(-46, 52)
         vtEmptyPlace.append(ilha3)
         self.addChild(ilha3)
         
         var ilha4 = IlhaNode(size: CGSizeMake(124, 54), tipoIlha: IlhaNode.TIPO_ILHA4)
-        ilha4.position = CGPointMake(136, 85)
+        ilha4.position = CGPointMake(138, 85)
         vtEmptyPlace.append(ilha4)
         self.addChild(ilha4)
         
