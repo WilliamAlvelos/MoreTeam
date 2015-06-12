@@ -47,6 +47,8 @@ class MundoScene : AbstractScene{
         nodePrincipal.addChild(nodeTerra)
         
         inicializarComponentes()
+        var actionSong = SKAction.playSoundFileNamed("ambiente.mp3", waitForCompletion: true)
+        self.runAction(SKAction.repeatActionForever(actionSong))
     }
     
     private func inicializarComponentes(){
@@ -127,6 +129,7 @@ class MundoScene : AbstractScene{
 
             if nodeName == "empty place"{
                 touchedNode.addChild(itemEscolhido)
+                self.runAction(SKAction.playSoundFileNamed("put_item.mp3", waitForCompletion: true))
                 itemEscolhido = nil
 
                 nodeTerra.hiddeEmptyPlaces()

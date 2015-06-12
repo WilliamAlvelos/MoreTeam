@@ -87,7 +87,7 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
                 i++
             }
             
-            if(i < 23){
+            if(i < 24){
                 if(i == 0 && flagEsteira1 == 1){
                     runAction(SKAction.runBlock(caixaProducao))
                     flagEsteira1 = 0;
@@ -407,7 +407,7 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         if (buttonName == "mais") {
             
             
-            if(singleton.dinheiro > NSInteger(singleton.precoFuncionario)){
+            if(singleton.dinheiro > NSInteger(singleton.precoFuncionario) && trabalhadores <= 22){
                 
                 singleton.addFuncionarios()
                 
