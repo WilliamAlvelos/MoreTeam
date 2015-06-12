@@ -44,7 +44,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     
     var lojaData:NSManagedObject!
     
-    var singleton:Singleton!
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,7 +78,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         funcaoAnimacaoCliente()
         
         //Singleton
-        singleton = Singleton.sharedInstance
         singleton.delegate = self
         
         //BackGround NodePrincipal

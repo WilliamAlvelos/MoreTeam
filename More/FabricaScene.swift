@@ -38,8 +38,6 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
     
     var esteira1:EsteiraNode = EsteiraNode()
     
-    var singleton = Singleton.sharedInstance
-    
     var fabricaData:NSManagedObject!
     
     

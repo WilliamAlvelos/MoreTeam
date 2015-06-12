@@ -20,8 +20,11 @@ class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
     
     var myDelegate:AbstractSceneDelegate?
     
+    //SINGLETON QUE É USADO PARA CONSUMIR AS VARIÁVEIS GLOBAIS
+    var singleton:Singleton = Singleton.sharedInstance
+    
     //VARIÁVEIS QUE CONTROLAM AS LABELS
-    private var producao:Float!
+    private var volProducao:Int!
     private var dinheiro:NSInteger!
     private var mensagem:String!
     
@@ -53,7 +56,11 @@ class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
         super.init(size: size)
         
         
-
+        
+        
+        dinheiro = singleton.dinheiro
+        volProducao = singleton.volProd
+        
         inicializarNodes()
         inicializarLabels()
     }
@@ -215,7 +222,6 @@ class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
             return
         }
         
-        
         lblMensagem?.text = novaMensagem
     }
     
@@ -227,6 +233,40 @@ class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
     
     
     func setDinheiro(novoDinheiro: NSInteger) {
+        startChangeMoneyAnimation(novoDinheiro)
+        dinheiro = novoDinheiro
         lblValor.text = "$ \(novoDinheiro)"
+    }
+    
+    private func startChangeMoneyAnimation(novoDinheiro:NSInteger){
+        
+        var label:SKLabelNode = SKLabelNode()
+        label.zPosition = 10
+        label.fontName = "Saniretro"
+        label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        
+        if(dinheiro > novoDinheiro){
+            label.text = "-$ \(dinheiro-novoDinheiro)"
+            label.fontColor = UIColor(red: 216/255, green: 63/255, blue: 63/255, alpha: 1)
+        
+        }else if(dinheiro < novoDinheiro){
+            label.text = "+$ \(novoDinheiro-dinheiro)"
+            label.fontColor = UIColor(red: 75/255, green: 104/255, blue: 2/255, alpha: 1)
+        
+        }else{
+            return
+        }
+        
+        
+        label.position = CGPointMake(0, -20)
+        nodeSupLabelValor.addChild(label)
+        
+        var actionMove = SKAction.moveByX(0, y: -130, duration: 1)
+        var actionFade = SKAction.fadeAlphaTo(0, duration: 1)
+        
+        label.runAction(SKAction.group([actionMove, actionFade]), completion: { () -> Void in
+            label.removeAllActions()
+            label.removeFromParent()
+        })
     }
 }

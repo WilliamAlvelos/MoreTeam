@@ -15,9 +15,6 @@ class MundoScene : AbstractScene{
     var nodeGrafico: GraficoNode!
     var nodeTerra:MundoNode!
     
-    //SINGLETON QUE É USADO PARA CONSUMIR AS VARIÁVEIS GLOBAIS
-    var singleton:Singleton!
-    
     var itemEscolhido:AbstractConstruction!
     
     override init(size: CGSize) {
@@ -94,7 +91,6 @@ class MundoScene : AbstractScene{
     
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
-        singleton = Singleton.sharedInstance
         singleton.delegate = self
         
         setDinheiro(singleton.dinheiro)
