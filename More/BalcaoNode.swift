@@ -34,7 +34,7 @@ class BalcaoNode: SKSpriteNode {
         balcaoArray.append(SKTexture(imageNamed: "cashier-04"))
         balcaoArray.append(SKTexture(imageNamed: "cashier-01"))
         
-        balcaoAnimacao = SKAction.animateWithTextures(balcaoArray, timePerFrame: 0.2)
+        balcaoAnimacao = SKAction.animateWithTextures(balcaoArray, timePerFrame: 0.1)
     }
     
     func iniciarAnimacao()
