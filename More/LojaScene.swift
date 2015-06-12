@@ -17,7 +17,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
     var arrayBalcao : Array<BalcaoNode> = Array()
     var arrayDeFila : NSMutableArray = NSMutableArray()
     
-    var actionMove = SKAction.moveByX(0, y: 120, duration: 1.2)
     var actionMoveUp = SKAction.moveByX(0, y: 400, duration: 4)
     var actionMoveSair = SKAction.moveByX(0, y: 100, duration: 1)
     
@@ -140,7 +139,6 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         //
         andarAnimacaoGroup = SKAction.group([andarAnimacao, actionMoveUp])
         sairAnimacaoGroup = SKAction.group([andarAnimacao2, actionMoveSair])
-        andarUmPoucoAnimacaGroup = SKAction.group([andarAnimacao2, actionMove])
     }
     //---------------------------------------------------------------
     
@@ -150,9 +148,10 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
             
         case "addFuncionario":
             if contadorFila < 3  {
-                arrayDeFila.addObject(gerarFila(arrayPosicoes[contadorFila], qtdClientesVar:  totalClientes, fila: contadorFila))
-                singleton.nVendedores++
-                contadorFila++
+                if(singleton.addNumeroLojas()) {
+                    arrayDeFila.addObject(gerarFila(arrayPosicoes[contadorFila], qtdClientesVar:  totalClientes, fila: contadorFila))
+                    contadorFila++
+                    }
             }
             
             break
@@ -162,7 +161,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                 arrayDeFila.lastObject?.removeFromParent()
                 arrayDeFila.removeObjectAtIndex(contadorFila - 1)
                 contadorFila--
-                singleton.nVendedores--
+                singleton.demitirVendedor()
             }
             
             break
@@ -180,15 +179,18 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         var bodyA = contact.bodyA.node!
         var bodyB = contact.bodyB.node!
         
+        var clienteA = bodyA as! ClienteNode
+        var clienteB = bodyB as! ClienteNode
+        
         if(bodyA.name == "cliente" && bodyB.name == "cliente"){
-            bodyA.runAction(andarUmPoucoAnimacaGroup, withKey: "move")
-            bodyB.runAction(andarUmPoucoAnimacaGroup, withKey: "move")
+            clienteA.andarUmPouco()
+            clienteB.andarUmPouco()
         }
         else if(bodyA.name == "clienteBalcao" && bodyB.name == "cliente"){
-            bodyB.runAction(andarUmPoucoAnimacaGroup, withKey: "move")
+            clienteB.andarUmPouco()
         }
         else if(bodyB.name == "clienteBalcao" && bodyA.name == "cliente"){
-            bodyA.runAction(andarUmPoucoAnimacaGroup, withKey: "move")
+            clienteA.andarUmPouco()
         }
         
     }

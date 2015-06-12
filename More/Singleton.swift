@@ -153,12 +153,14 @@ class Singleton:NSObject{
         calcPorcentagem()
     }
     
-    func addNumeroLojas(){
+    func addNumeroLojas() -> Bool{
         if(dinheiro >= Int(precoVendedor)){
             nVendedores++
             dinheiro -= Int(precoVendedor)
             precoVendedor += precoVendedor * 0.15
+            return true
         }
+        return false
     }
     
     func marketing() {
