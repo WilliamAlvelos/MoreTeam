@@ -71,6 +71,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVectorMake(0.0, 0.0)
         
+
         //Buttons
         showBackButton()
         addBotoesDespedirContratar()
@@ -78,6 +79,10 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
         
         //Singleton
         singleton.delegate = self
+        
+        //MEXE NA TEXTURE DO SOUND
+        btSound.changeToSoundOff(singleton.soundOff)
+        
         
         //BackGround NodePrincipal
         nodePrincipal.texture = SKTexture(imageNamed: "Store-57")
@@ -151,6 +156,7 @@ class LojaScene: AbstractScene, SKPhysicsContactDelegate {
                 if(singleton.addNumeroLojas()) {
                     arrayDeFila.addObject(gerarFila(arrayPosicoes[contadorFila], qtdClientesVar:  totalClientes, fila: contadorFila))
                     contadorFila++
+
                     }
             }
             

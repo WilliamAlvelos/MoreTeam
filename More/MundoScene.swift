@@ -15,6 +15,8 @@ class MundoScene : AbstractScene{
     var nodeGrafico: GraficoNode!
     var nodeTerra:MundoNode!
     
+    let sound = SKAction.playSoundFileNamed("put_item.mp3", waitForCompletion: true)
+    
     var itemEscolhido:AbstractConstruction!
     
     override init(size: CGSize) {
@@ -47,8 +49,7 @@ class MundoScene : AbstractScene{
         nodePrincipal.addChild(nodeTerra)
         
         inicializarComponentes()
-        var actionSong = SKAction.playSoundFileNamed("ambiente.mp3", waitForCompletion: true)
-        self.runAction(SKAction.repeatActionForever(actionSong))
+        
     }
     
     private func inicializarComponentes(){
@@ -129,7 +130,7 @@ class MundoScene : AbstractScene{
 
             if nodeName == "empty place"{
                 touchedNode.addChild(itemEscolhido)
-                self.runAction(SKAction.playSoundFileNamed("put_item.mp3", waitForCompletion: true))
+                self.runAction(sound)
                 itemEscolhido = nil
 
                 nodeTerra.hiddeEmptyPlaces()
@@ -149,6 +150,7 @@ class MundoScene : AbstractScene{
     
     
     func atualizarCena(){
+        btSound.changeToSoundOff(singleton.soundOff)
         //nodeTerra.atualizarSprites(singleton.porcAmbiental)
         nodeTerra.atualizarSprites(Float(arc4random() % 100))
     }

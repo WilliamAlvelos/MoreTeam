@@ -7,17 +7,20 @@
 //
 
 import SpriteKit
+import AVFoundation
 import CoreData
 
 class GameController:AbstractSceneDelegate{
     
     var gameView:SKView!
     var mundo:MundoScene!
+    var soundGame:AVAudioPlayer!
     
     init(view:SKView){
         gameView = view
         mundo = MundoScene(size: gameView.frame.size)
         mundo.myDelegate = self
+        soundGame = inicializarSong("ambiente", type: "mp3", infinito: true)
     }
     
     
@@ -42,10 +45,39 @@ class GameController:AbstractSceneDelegate{
     }
     
     
+    func changeSomAmbiente(play:Bool){
+        if(play){
+            if(!soundGame.playing){
+                soundGame.play()
+            }
+        
+        }else{
+            soundGame.stop()
+        }
+    }
+    
+    
     func startGame(){
         var transition = SKTransition.doorsOpenHorizontalWithDuration(1)
         
         gameView.presentScene(mundo, transition: transition)
+        soundGame.play()
+    }
+    
+    
+    private func inicializarSong(path:String, type:String, infinito:Bool) -> AVAudioPlayer{
+        var soundFilePath = NSBundle.mainBundle().pathForResource(path, ofType: type)
+        
+        var soundFileURL = NSURL.fileURLWithPath(soundFilePath!)
+        
+        var song = AVAudioPlayer(contentsOfURL: soundFileURL, error: nil)
+        
+        if(infinito){
+            song.numberOfLoops = -1
+        }
+        song.prepareToPlay()
+        
+        return song;
     }
     
 }

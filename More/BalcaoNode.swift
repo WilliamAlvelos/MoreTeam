@@ -41,6 +41,7 @@ class BalcaoNode: SKSpriteNode {
     {
         println("entrou na animacao")
         balcao.runAction(balcaoAnimacao)
+        self.runAction(SKAction.playSoundFileNamed("cash.mp3", waitForCompletion: false))
     }
     
     

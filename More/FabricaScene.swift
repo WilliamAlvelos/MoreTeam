@@ -169,6 +169,8 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
         
         singleton.delegate = self
         
+        btSound.changeToSoundOff(singleton.soundOff)
+        
         setDinheiro(singleton.dinheiro)
         
         esconderNodeInferior()

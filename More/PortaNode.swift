@@ -12,6 +12,7 @@ class PortaNode: SKSpriteNode {
     
     var porta : SKSpriteNode!
     var animacaoPorta : SKAction!
+    var somPorta : SKAction!
     
     init()
     {
@@ -39,11 +40,19 @@ class PortaNode: SKSpriteNode {
         var animacaoPortaFechar = animacaoPortaAbrir.reversedAction()
         
         animacaoPorta = SKAction.sequence([animacaoPortaAbrir, waitPorta, animacaoPortaFechar])
+       
+        var portaSom = SKAction.playSoundFileNamed("door.mp3", waitForCompletion: true)
+        
+        var waitSom = SKAction.waitForDuration(1)
+
+        somPorta = SKAction.sequence([portaSom, waitSom, portaSom])
+
     }
     
     func abrirPorta() {
         
         porta.runAction(animacaoPorta)
+        porta.runAction(somPorta)
         
     }
     

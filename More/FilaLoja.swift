@@ -72,11 +72,11 @@ class FilaLoja: SKSpriteNode {
     
     func addCliente() {
         
-        var acaoAndar = SKAction.moveByX(0, y: 1800 + size.height, duration: 10)
+        var acaoAndar = SKAction.moveByX(0, y: 100 + size.height, duration: 2.5)
         
         var clienteNode = ClienteNode(size: CGSize(width: 60, height: 117), varFila: varFila)
         
-        clienteNode.position = CGPoint(x: -50, y: -size.height - 1500)
+        clienteNode.position = CGPoint(x: -50, y: -size.height)
         
         var animacaoAndar = SKAction.repeatActionForever(SKAction.animateWithTextures(andarArray, timePerFrame: 0.05))
         

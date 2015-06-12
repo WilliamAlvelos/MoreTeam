@@ -13,10 +13,11 @@ protocol AbstractSceneDelegate{
     func backToWorld()
     func goToFabrica(fabrica:NSManagedObject)
     func goToLoja(loja:NSManagedObject)
+    func changeSomAmbiente(play:Bool)
 }
 
 
-class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
+class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate, ButtonSoundDelegate {
     
     var myDelegate:AbstractSceneDelegate?
     
@@ -35,6 +36,7 @@ class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
     
     //BOTOES
     var btVoltar:SKLabelNode!
+    var btSound:ButtonSound!
     
     //NODES QUE SERVEM COMO BASE DE TODA A SCENE
     var nodeLateral:SKSpriteNode!
@@ -45,6 +47,8 @@ class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
     var nodeSupLabelValor:SKSpriteNode!
     var nodeSupLabelProducao:SKSpriteNode!
     var nodeLatBotoes:SKSpriteNode!
+    
+
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -119,6 +123,12 @@ class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
         nodePosition.x += nodeSupLabelProducao.size.width / 2 + nodeSupLabelValor.size.width / 2 + 15
         nodeSupLabelProducao.position = nodePosition
         nodeSuperior.addChild(nodeSupLabelProducao)
+        
+        
+        btSound = ButtonSound(size: CGSizeMake(50, nodeSuperior.size.height))
+        btSound.delegate = self
+        btSound.position.x = nodeSuperior.size.width / 2 - btSound.size.width
+        nodeSuperior.addChild(btSound)
     }
     
     
@@ -269,4 +279,14 @@ class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate {
             label.removeFromParent()
         })
     }
+    
+    
+    func touchedSound(soundOff: Bool) {
+        singleton.soundOff = soundOff
+        
+        myDelegate?.changeSomAmbiente(!soundOff)
+        
+        println(singleton.soundOff)
+    }
+    
 }

@@ -24,6 +24,8 @@ import UIKit
 
 class Singleton:NSObject{
     
+    var soundOff:Bool = false
+    
     var startTime = NSTimeInterval()
     var timer = NSTimer()
     var gameTime:Double = 0
@@ -158,6 +160,7 @@ class Singleton:NSObject{
             nVendedores++
             dinheiro -= Int(precoVendedor)
             precoVendedor += precoVendedor * 0.15
+            delegate?.setDinheiro!(dinheiro)
             return true
         }
         return false
