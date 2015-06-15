@@ -147,7 +147,7 @@ class AbstractScene: SKScene, SingletonDelegate, ButtonNodeDelegate, ButtonSound
     private func inicializarLabels(){
         
         //ADICIONA A LABEL QUE MOSTRA DETERMINADO VALOR
-        lblValor = gerarLabel("R$ 000,00", pos: CGPointMake(0, 0))
+        lblValor = gerarLabel("$ 000,00", pos: CGPointMake(0, 0))
         lblValor.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         nodeSupLabelValor.addChild(lblValor)
         

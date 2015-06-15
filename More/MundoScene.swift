@@ -67,7 +67,7 @@ class MundoScene : AbstractScene{
         
         //CRIA O GRÁFICO QUE EXIBE AS 3 VARIÁVEIS GLOBAIS
         nodeGrafico = GraficoNode(size: CGSizeMake(nodeLatBotoes.size.width, 250), valorSocial: 0, valorAmbiental: 0, valorEconomico: 0)
-        nodeGrafico.position = CGPointMake(0, btNovaLoja.position.y - nodeGrafico.size.height - 50)
+        nodeGrafico.position = CGPointMake(0, btNovaLoja.position.y - nodeGrafico.size.height - 30)
         nodeLatBotoes.addChild(nodeGrafico)
     }
     

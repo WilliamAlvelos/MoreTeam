@@ -42,20 +42,39 @@ class GraficoNode: SKSpriteNode {
     
     
     private func inicializarNodes(){
-        nodeSocial = SKSpriteNode(color: nil, size: CGSizeMake(60.0, (CGFloat(social)/100) * self.size.height))
-        nodeSocial.position = CGPointMake(-self.size.width / 2 + nodeSocial.size.width / 2, -self.size.height / 2)
-        nodeSocial.anchorPoint = CGPointMake(0.5, 0)
-        self.addChild(nodeSocial)
         
         nodeAmbiental = SKSpriteNode(color: nil, size: CGSizeMake(60.0, (CGFloat(ambiental)/100) * self.size.height))
-        nodeAmbiental.position = CGPointMake(nodeSocial.position.x + nodeAmbiental.size.width + 5, -self.size.height / 2)
+        nodeAmbiental.position = CGPointMake(-self.size.width / 2 + nodeAmbiental.size.width / 2, -self.size.height / 2)
         nodeAmbiental.anchorPoint = CGPointMake(0.5, 0)
         self.addChild(nodeAmbiental)
         
+        nodeSocial = SKSpriteNode(color: nil, size: CGSizeMake(60.0, (CGFloat(social)/100) * self.size.height))
+        nodeSocial.position = CGPointMake(nodeAmbiental.position.x + nodeAmbiental.size.width + 5, -self.size.height / 2)
+        nodeSocial.anchorPoint = CGPointMake(0.5, 0)
+        self.addChild(nodeSocial)
+        
         nodeEconomico = SKSpriteNode(color: nil, size: CGSizeMake(60.0, (CGFloat(economico)/100) * self.size.height))
-        nodeEconomico.position = CGPointMake(nodeAmbiental.position.x + nodeEconomico.size.width + 5, -self.size.height / 2)
+        nodeEconomico.position = CGPointMake(nodeSocial.position.x + nodeEconomico.size.width + 5, -self.size.height / 2)
         nodeEconomico.anchorPoint = CGPointMake(0.5, 0)
         self.addChild(nodeEconomico)
+        
+        var iconeSocial = SKSpriteNode(imageNamed: "icon-social")
+        iconeSocial.position = CGPointMake(nodeSocial.position.x, -150)
+        iconeSocial.xScale = 0.4
+        iconeSocial.yScale = 0.4
+        self.addChild(iconeSocial)
+        
+        var iconeAmbiental = SKSpriteNode(imageNamed: "icon-ambiental")
+        iconeAmbiental.position = CGPointMake(nodeAmbiental.position.x, -150)
+        iconeAmbiental.xScale = 0.4
+        iconeAmbiental.yScale = 0.4
+        self.addChild(iconeAmbiental)
+        
+        var iconeEconomico = SKSpriteNode(imageNamed: "icon-economico")
+        iconeEconomico.position = CGPointMake(nodeEconomico.position.x, -150)
+        iconeEconomico.xScale = 0.4
+        iconeEconomico.yScale = 0.4
+        self.addChild(iconeEconomico)
     }
     
     
