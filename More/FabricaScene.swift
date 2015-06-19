@@ -135,15 +135,15 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
                 }
                 
                 if(funcionario.position.x < nodePrincipal.size.height/2 - 300){
-                    novoEsteira++;
-                    
+                    novoEsteira++
+                    valorEsteira1++
                     nodePrincipal.addChild(funcionario);
                     
                 }
                     
                 else{
-                    novoEsteira1++;
-                    
+                    novoEsteira1++
+                    valorEsteira2++
                     nodePrincipal.addChild(funcionario);
                 }
                 
@@ -152,8 +152,10 @@ class FabricaScene: AbstractScene, EsteiraNodeDelegate{
 
             }
         }
+      
+        esteira1.trabalhadores = valorEsteira1
         
-        //trabalhadores++;
+        esteira2.trabalhadores = valorEsteira2
 
 
     }

@@ -21,15 +21,16 @@ class EsteiraNode: SKSpriteNode{
     
     var delegate:EsteiraNodeDelegate!
     var velocidade:NSTimeInterval!
-
+    var trabalhadores = 0
     
     init(){
         super.init(texture: nil, color: UIColor.grayColor(), size: CGSizeMake(106, 1192))
-
     }
     
     
     func moveEsteira(){
+        
+        
         
         var esteira = SKSpriteNode(imageNamed: "conveyor_belt-23")
         var esteira2 = SKSpriteNode(imageNamed: "conveyor_belt-23")
